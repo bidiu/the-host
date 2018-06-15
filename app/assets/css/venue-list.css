@@ -1,0 +1,120 @@
+:root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+/* above is example from bootstrap */
+/* below is what is added by us */
+
+.venue-thumb-img {
+  height: 220px;
+  width: 100%;
+}
+
+.venue-thumb-description {
+  box-sizing: border-box;
+  height: 72px;
+  overflow: hidden;
+}
+
+.jumbotron {
+  background-image: url("/img/venue-list-jumbotron.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.navbar_sign {
+
+  list-style-type: none;
+  position: relative;
+  left: 30%;
+  
+}
+.search_form {
+     
+  position: relative;
+  left: 22%;  
+  margin-top: 12%;
+           
+}
+
+.search_button {
+
+   border-color:rgb(255, 255, 255);
+  
+   
+}
+.font_color{
+
+  color: rgb(94, 139, 223);
+}
+
+.email_item {
+
+  right: 50%;
+
+}
+
+.bg_pic1 {
+
+
+  background-image: url("/img/event6.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+}
+
+.bg_pic2 {
+
+  background-image: url("/img/event55.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+}
+
+.bg_pic3 {
+
+  background-image: url("/img/event7.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+}
