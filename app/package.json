@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/serve/bin/serve.js -l 3010 ./assets",
+    "start": "serve -l 3010 ./assets",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
