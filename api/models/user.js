@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/** user schema */
 const userSchema = new Schema({
   username: {
     type: String,
     required: true,
     unique: true,
-    minlength: 4,
+    minlength: 3,
     maxlength: 32
   },
   name: {
@@ -19,9 +20,19 @@ const userSchema = new Schema({
     type: Number,
     required: true,
     min: 1,
+  },
+  sex: {
+    type: String,
+    required: true,
+    match: /^(m|f)$/
+  },
+  avatarUrl: {
+    type: String,
+    minlength: 1
   }
 });
 
+/** user model */
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

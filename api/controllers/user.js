@@ -7,8 +7,8 @@ const Res = require('../common/models/responses');
  * Create a user (sign up).
  */
 async function create(req, res) {
-  let { username, name, age } = req.body;
-  let user = { username, name, age };
+  let { username, name, age, sex } = req.body;
+  let user = { username, name, age, sex };
 
   let data = await userService.create(user);
   let payload = new Res.Ok({ data });
