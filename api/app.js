@@ -5,7 +5,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const queryParser = require('./middleware/queries/query-parser');
 const notFoundHandler = require('./middleware/errors/not-found');
-const validationErrors = require('./middleware/errors/validation-errors');
+const validationErrorHandler = require('./middleware/errors/validation-errors');
+const mongoErrorHandler = require('./middleware/errors/mongo-errors');
 const apiErrorHandler = require('./middleware/errors/api-errors');
 const errorHandler = require('./middleware/errors/errors');
 const apiV1 = require('./routes/api-v1');
@@ -27,7 +28,8 @@ app.use('/api/v1', apiV1);
 
 // error handlers
 app.use(notFoundHandler);
-app.use(validationErrors);
+app.use(validationErrorHandler);
+app.use(mongoErrorHandler);
 app.use(apiErrorHandler);
 app.use(errorHandler);
 

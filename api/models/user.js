@@ -9,6 +9,12 @@ const userSchema = new Schema({
     minlength: 4,
     maxlength: 32
   },
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,
+    maxlength: 32
+  },
   age: {
     type: Number,
     required: true,
