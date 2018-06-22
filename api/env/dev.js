@@ -1,4 +1,5 @@
 const env = Object.freeze({
+  env: "dev",
   // mongoUri: 'mongodb://root:123qwe@the_host_mongo_dev:27017/admin'
   mongoUri: 'mongodb://the_host_mongo_dev:27017/thehost'
 });
