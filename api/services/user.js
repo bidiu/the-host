@@ -1,8 +1,10 @@
 const User = require('../models/user');
 
-function create() {
-  // TODO
-  return { created: true };
+/**
+ * @param {*} user 
+ */
+async function create(user) {
+  return User.create(user);
 }
 
 exports.create = create;

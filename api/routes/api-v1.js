@@ -22,7 +22,7 @@ router.get('/hello/:who', asyncWrapper(helloController.echo));
 /*
  * user related routes start
  */
-router.get('/users', asyncWrapper(userController.create));
+router.post('/users', asyncWrapper(userController.create));
 
 
 module.exports = router;
