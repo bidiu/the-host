@@ -55,3 +55,7 @@ body {
   text-align: center;
 
 }
+
+.signin-email {
+  margin-bottom: 8px !important;
+}
