@@ -10,6 +10,16 @@ async function retrieve(userId, projection = fields) {
   throw new ApiError.NotFound();
 }
 
+/**
+ * TODO support email also
+ */
+async function retrieveByUsername(username, projection = fields) {
+  let user = await User.findOne({ username }, projection);
+
+  if (user) { return user; }
+  throw new ApiError.NotFound();
+}
+
 async function create(doc) {
   return User.create(doc);
 }
@@ -22,5 +32,6 @@ async function update(doc) {
 }
 
 exports.retrieve = retrieve;
+exports.retrieveByUsername = retrieveByUsername;
 exports.create = create;
 exports.update = update;
