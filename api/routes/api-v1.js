@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const helloController = require('../controllers/hello');
 const userController = require('../controllers/user');
 
 const asyncWrapper = func =>
@@ -14,15 +13,12 @@ const asyncWrapper = func =>
 const router = Router();
 
 /*
- * this is an example
- */
-router.get('/hello/:who', asyncWrapper(helloController.echo));
-
-
-/*
  * user related routes start
  */
+router.get('/users/:userId', asyncWrapper(userController.retrieve));
+
 router.post('/users', asyncWrapper(userController.create));
 
+router.patch('/users/:userId', asyncWrapper(userController.update));
 
 module.exports = router;

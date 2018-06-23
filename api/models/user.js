@@ -29,6 +29,12 @@ const userSchema = new Schema({
   avatarUrl: {
     type: String,
     minlength: 1
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 8,
+    maxlength: 32
   }
 });
 
