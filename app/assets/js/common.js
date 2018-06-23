@@ -9,8 +9,17 @@ const developmentEnv = Object.freeze({
 const theHostEnv = developmentEnv;
 
 
-/**
- * axios related
- */
+/******************** axios related ********************/
 axios.defaults.baseURL = theHostEnv.apiBase;
 axios.defaults.withCredentials = true;
+
+
+/******************** some utils ********************/
+
+/**
+ * Get current signed-in user info.
+ * If user currently is not logged in, `undefined` will be returned.
+ */
+function getCurUser() {
+  return Cookies.getJSON('user');
+}

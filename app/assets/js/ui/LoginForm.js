@@ -1,3 +1,6 @@
+/**
+ * Login form
+ */
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +21,9 @@ class LoginForm extends React.Component {
     let { username, password } = this.state;
 
     axios.get(`/auth/signin?username=${username}&password=${password}`)
-      .then(console.log)
+      .then(() => {
+        window.location = '/html/home.html';
+      })
       .catch(console.error);
   }
 
