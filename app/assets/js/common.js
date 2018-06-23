@@ -7,3 +7,10 @@ const developmentEnv = Object.freeze({
 });
 
 const theHostEnv = developmentEnv;
+
+
+/**
+ * axios related
+ */
+axios.defaults.baseURL = theHostEnv.apiBase;
+axios.defaults.withCredentials = true;

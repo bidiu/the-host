@@ -38,19 +38,8 @@
     </div>
   </header>
 
-  <form class="form-signin">
-    <h1 class="h3 mb-3 font-weight-normal h1_form">Sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control signin-email" placeholder="Email address or username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <!-- <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div> -->
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  </form>
+  <!-- here render the login form -->
+  <div id="signin-form-container"></div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; Event Planning Inc, 2018</p>
@@ -70,10 +59,13 @@
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script type="text/babel" src="/js/common.js"></script>
 
-  <script>
-    "use strict";
+  <script type="text/babel" src="/js/ui/LoginForm.js"></script>
 
-    //  js goes here
+  <script type="text/babel">
+    // babel (js for React) goes here
+
+    ReactDOM.render(<LoginForm />, document.getElementById('signin-form-container'));
+
   </script>
 </body>
 

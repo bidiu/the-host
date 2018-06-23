@@ -1,9 +1,9 @@
 const http = require('http');
 const express = require('express');
 const logger = require('morgan');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-// const queryParser = require('./middleware/queries/query-parser');
 const session = require('express-session');
 const notFoundHandler = require('./middleware/errors/not-found');
 const validationErrorHandler = require('./middleware/errors/validation-errors');
@@ -18,13 +18,19 @@ require('./db/mongo');
 
 const app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:3010',
+  // passing cookies, auth headers
+  credentials: true
+}
+
 // global middleware
 app.use(logger('dev'));
+if (env.env === 'dev') { app.use(cors(corsOptions)); }
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(queryParser);
-app.use(session({ secret: env.secret }));
+app.use(session({ secret: env.secret, cookie: { maxAge: env.maxAge } }));
 
 // api v1 route
 app.use('/api/v1', apiV1);
