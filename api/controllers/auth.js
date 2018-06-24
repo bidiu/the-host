@@ -30,7 +30,13 @@ async function signin(req, res) {
 }
 
 async function signout(req, res) {
-  // TODO
+  // remove session data
+  req.session.user = null;
+  // remove cookie
+  res.cookie('user', '', { maxAge: 0 });
+
+  let payload = new Res.Ok();
+  res.status(payload.status).json(payload);
 }
 
 exports.signin = signin;

@@ -1,6 +1,7 @@
 const userService = require('../services/user');
 const Res = require('../common/models/responses');
 const { compressDoc } = require('../utils/common');
+const env = require('../env/env');
 
 /**
  * GET /api/v1/users/:userId
@@ -23,9 +24,23 @@ async function retrieve(req, res) {
 async function create(req, res) {
   let { username, name, age, sex, password } = req.body;
   let doc = compressDoc({ username, name, age, sex, password });
+  let payload = null;
 
-  let data = await userService.create(doc);
-  let payload = new Res.Ok({ data });
+  if (req.session.user) {
+    // already logged in
+    payload = new Res.BadReq({ details: 'You cannot create user while login.' });
+
+  } else {
+    let user = await userService.create(doc);
+
+    // update session data
+    req.session.user = user;
+    // set cookie
+    res.cookie('user', JSON.stringify(user), { maxAge: env.maxAge });
+
+    payload = new Res.Ok({ data: user });
+  }
+
   res.status(payload.status).json(payload);
 }
 

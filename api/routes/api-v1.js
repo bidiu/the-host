@@ -19,6 +19,8 @@ const router = Router();
  */
 router.get('/auth/signin', asyncWrapper(authController.signin));
 
+router.get('/auth/signout', asyncWrapper(authController.signout));
+
 /*
  * user related routes start
  */

@@ -19,7 +19,9 @@ class SignupForm extends React.Component {
     event.preventDefault();
     
     axios.post(`/users`, { ...this.state })
-      .then(console.log)
+      .then(() => {
+        window.location = '/html/home.html';
+      })
       .catch(console.error);
   }
 

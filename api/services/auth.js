@@ -10,9 +10,4 @@ async function signin(username, password) {
   throw new ApiError.BadReq({ details: 'Invalid credentials.' });
 }
 
-async function signout() {
-  // TODO
-}
-
 exports.signin = signin;
-exports.signout = signout;
