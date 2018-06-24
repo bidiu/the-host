@@ -1,4 +1,17 @@
 class NavBarUser extends React.Component {
+  constructor(props) {
+    super(props);
+    this.signoutHandler = this.signoutHandler.bind(this);
+  }
+
+  signoutHandler(event) {
+    axios.get('/auth/signout')
+      .then(() => {
+        window.location = '/html/home.html';
+      })
+      .catch(console.err);
+  }
+
   render() {
     let { user } = this.props;
 
@@ -21,8 +34,10 @@ class NavBarUser extends React.Component {
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {user.name}
           </div>
-          <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a className="dropdown-item" href="#">Sign out</a>
+          <div className="dropdown-menu dropdown-menu-right"
+            aria-labelledby="dropdownMenuButton"
+            onClick={this.signoutHandler}>
+            <div className="dropdown-item">Sign out</div>
           </div>
         </span>
       </div>
