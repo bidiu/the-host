@@ -4,7 +4,12 @@ const developmentEnv = Object.freeze({
   apiBase: 'http://localhost:4010/api/v1'
 });
 
-const theHostEnv = developmentEnv;
+const rcEnv = Object.freeze({
+  env: 'rc',
+  apiBase: '/api/v1'
+});
+
+const theHostEnv = rcEnv;
 
 
 /******************** axios related ********************/
