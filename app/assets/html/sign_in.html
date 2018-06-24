@@ -8,6 +8,7 @@
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
+  <link href="/css/the-host.css" rel="stylesheet">
   <link href="/css/components.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
@@ -17,40 +18,10 @@
 </head>
 
 <body class="bg-light">
+  <div id="nav-bar-container"></div>
 
-  <header>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-      <div class="container d-flex justify-content-between">
-        <a href="/html/sign_in.html" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-            <circle cx="12" cy="13" r="4"></circle>
-          </svg>
-          <strong>Sign in</strong>
-        </a>
-        <div class="navbar">
-          <a href="/html/home.html" class="text-white">
-            <strong>Return</strong>
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <form class="form-signin">
-    <h1 class="h3 mb-3 font-weight-normal h1_form">Sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control signin-email" placeholder="Email address or username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <!-- <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div> -->
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  </form>
+  <!-- here render the login form -->
+  <div id="signin-form-container"></div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; Event Planning Inc, 2018</p>
@@ -65,15 +36,30 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script type="text/babel" src="/js/common.js"></script>
+  <script type="text/babel" src="/js/ui/Avatar.js"></script>
+  <script type="text/babel" src="/js/ui/NavBar.js"></script>
+  <script type="text/babel" src="/js/ui/LoginForm.js"></script>
 
-  <script>
-    "use strict";
+  <script type="text/babel">
+    // babel (js for React) goes here
 
-    //  js goes here
+    ReactDOM.render(
+      <NavBar curPath="/html/sign_in.html" />,
+      document.getElementById('nav-bar-container')
+    );
+
+    if (getCurUser()) {
+      // already logged in
+      window.location = '/html/home.html';
+    }
+
+    ReactDOM.render(<LoginForm />, document.getElementById('signin-form-container'));
+
   </script>
 </body>
 

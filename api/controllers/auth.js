@@ -1,7 +1,13 @@
 const authService = require('../services/auth');
 const userService = require('../services/user');
 const Res = require('../common/models/responses');
+const env = require('../env/env');
 
+/**
+ * GET /api/v1/auth/signin
+ * 
+ * Sign in.
+ */
 async function signin(req, res) {
   let { username, password } = req.query;
   let user = null;
@@ -15,6 +21,9 @@ async function signin(req, res) {
 
   // update session data
   req.session.user = user;
+
+  // set cookie
+  res.cookie('user', JSON.stringify(user), { maxAge: env.maxAge });
 
   let payload = new Res.Ok({ data: user });
   res.status(payload.status).json(payload);

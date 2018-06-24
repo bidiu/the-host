@@ -1,7 +1,10 @@
 const env = Object.freeze({
   env: "dev",
   mongoUri: 'mongodb://the_host_mongo_dev:27017/thehost',
-  secret: 'secret123'
+  // session cookie secret
+  secret: 'secret123',
+  // session cookie maxage (30 days)
+  maxAge: 30 * 86400 * 1000
 });
 
 module.exports = env;

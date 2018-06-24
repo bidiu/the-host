@@ -2,4 +2,44 @@
  * all react components' css is here
  */
 
+/*
+ * NavBar component
+ */
+.NavBar {
+  z-index: 500;
+}
 
+/*
+ * Avatar compoent
+ */
+.Avatar {
+ display: inline-block;
+}
+
+/*
+ * DefaultAvatar component
+ */
+.DefaultAvatar {
+  border-radius: 50%;
+  background-color: #c7c7c7;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+/*
+ * SignupForm component
+ */
+ .SingupForm {
+   margin: 10% auto 5% auto;
+   max-width: 300px;
+ }
+
+ .SingupForm .h1_form {
+   text-align: center;
+ }
+
+ .SingupForm .form-control {
+   margin-bottom: 12px;
+ }

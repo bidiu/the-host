@@ -18,12 +18,10 @@ const userSchema = new Schema({
   },
   age: {
     type: Number,
-    required: true,
     min: 1,
   },
   sex: {
     type: String,
-    required: true,
     match: /^(m|f)$/
   },
   avatarUrl: {
