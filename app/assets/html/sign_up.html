@@ -19,37 +19,7 @@
 </head>
 
 <body class="bg-light">
-
-
-  <header>
-
-    <div class="navbar navbar-dark bg-dark box-shadow">
-      <div class="container d-flex justify-content-between">
-        <a href="/html/sign_up.html" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-            <circle cx="12" cy="13" r="4"></circle>
-          </svg>
-          <strong>Join Event Planning</strong>
-        </a>
-
-
-
-
-        <div class="navbar">
-
-          <a href="/html/home.html" class="text-white">
-            <strong>Return</strong>
-          </a>
-
-        </div>
-
-      </div>
-    </div>
-  </header>
-
-
+  <div id="nav-bar-container"></div>
 
   <div class="container">
     <div class="py-5 text-center">
@@ -259,6 +229,8 @@
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script type="text/babel" src="/js/common.js"></script>
+  <script type="text/babel" src="/js/ui/Avatar.js"></script>
+  <script type="text/babel" src="/js/ui/NavBar.js"></script>
   <script>
     "use strict";
 
@@ -279,6 +251,15 @@
         });
       }, false);
     })();
+  </script>
+  <script type="text/babel">
+    // render the navigation bar
+    ReactDOM.render(
+      <NavBar curPath="/html/sign_up.html" />,
+      document.getElementById('nav-bar-container')
+    );
+
+    // babel (js for React) goes here
   </script>
 </body>
 
