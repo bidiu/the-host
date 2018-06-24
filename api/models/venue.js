@@ -3,61 +3,64 @@ const Schema = mongoose.Schema;
 
 /** venue schema */
 const venueSchema = new Schema({
-  venueName: {
+  // a title (name)
+  name: {
     type: String,
     required: true,
     unique: true,
     minlength: 1,
     maxlength: 32
   },
-
-  venueType: {
+  // venue's type
+  type: {
     type: String,
     required: true,
     minlength: 1,
     maxlength: 32
   },
-
+  // main thumbnal's url
   imgUrl: {
     type: String,
     minlength: 1  
   },
-  
-  holder: {
+  // about this place
+  about: {
     type: String,
     required: true,
     minlength: 1,
+    maxlength: 1024
+  },
+  // contact info
+  phone: {
+    type: String,
+    required: true,
+    minlength: 4,
+    maxlength: 16
+  },
+  // contact info
+  email: {
+    type: String,
+    minlength: 4,
     maxlength: 32
   },
-
-  date: {
-    type: String,
-    required: true,
-    minlength: 4  
+  // min num of customers
+  minCustomers: {
+    type: Number,
+    min: 1,
   },
-
-  title: {
-    type: String,
-    required: true,
-    minlength: 1,
-    maxlength: 32
+  // max num of customers
+  maxCustomers: {
+    type: Number,
+    min: 1
   },
-
-  description: {
-    type: String,
-    required: true,
-    minlength: 1,
-    maxlength: 500
-  },
-
-  information: {
+  // loction
+  zip: {
     type: String,
     minlength: 1,
-    maxlength: 200
+    maxlength: 16
   }
-
-  
-  
+}, {
+  timestamps: true
 });
 
 /** venue model */
