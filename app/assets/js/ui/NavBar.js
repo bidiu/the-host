@@ -7,12 +7,15 @@ class NavBarUser extends React.Component {
     };
 
     let nameStyle = {
-      'WebkitAppearance': 'initial'
+      'WebkitAppearance': 'initial',
+      'verticalAlign': 'initial'
     };
 
     return (
       <div style={style}>
-        <Avatar user={user} />
+        <a href={`/html/user.html?userId=${user._id}`}>
+          <Avatar user={user} />
+        </a>
         <span className="dropdown">
           <div className="btn" type="button" id="dropdownMenuButton" style={nameStyle}
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

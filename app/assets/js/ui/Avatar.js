@@ -1,8 +1,17 @@
-const DefaultAvatar = ({ letter }) => (
-  <div className="DefaultAvatar">
-    {letter}
-  </div>
-);
+const DefaultAvatar = ({ letter }) => {
+  let style = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#efefef'
+  };
+
+  return (
+    <div className="DefaultAvatar" style={style}>
+      {letter}
+    </div>
+  );
+};
 
 class Avatar extends React.Component {
   render() {
