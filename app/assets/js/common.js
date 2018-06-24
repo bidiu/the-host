@@ -9,7 +9,7 @@ const rcEnv = Object.freeze({
   apiBase: '/api/v1'
 });
 
-const theHostEnv = rcEnv;
+const theHostEnv = developmentEnv;
 
 
 /******************** axios related ********************/
