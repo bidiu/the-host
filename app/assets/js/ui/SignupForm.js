@@ -31,25 +31,25 @@ class SignupForm extends React.Component {
         <h1 className="h3 mb-3 font-weight-normal h1_form">Sign up</h1>
 
         {/* email address */}
-        <label htmlFor="inputEmail" className="sr-only">Email address</label>
+        <label htmlFor="inputEmail">Email address</label>
         <input type="email" id="inputEmail" className="form-control"
           placeholder="Email address" required autoFocus
           name="email" value={email} onChange={this.inputChangeHandler} />
 
         {/* username */}
-        <label htmlFor="inputUsername" className="sr-only">Username</label>
+        <label htmlFor="inputUsername">Username</label>
         <input type="text" id="inputUsername" className="form-control"
           placeholder="Username" required
           name="username" value={username} onChange={this.inputChangeHandler} />
 
         {/* name */}
-        <label htmlFor="inputName" className="sr-only">Name</label>
+        <label htmlFor="inputName">Name</label>
         <input type="text" id="inputName" className="form-control"
           placeholder="Name" required
           name="name" value={name} onChange={this.inputChangeHandler} />
 
         {/* password */}
-        <label htmlFor="inputPassword" className="sr-only">Password</label>
+        <label htmlFor="inputPassword">Password</label>
         <input type="password" id="inputPassword" className="form-control"
           placeholder="Password" required
           name="password" value={password} onChange={this.inputChangeHandler} />

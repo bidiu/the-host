@@ -32,7 +32,7 @@
  * SignupForm component
  */
  .SingupForm {
-   margin: 100px auto;
+   margin: 10% auto 5% auto;
    max-width: 300px;
  }
 
@@ -41,5 +41,5 @@
  }
 
  .SingupForm .form-control {
-   margin-bottom: 8px;
+   margin-bottom: 12px;
  }
