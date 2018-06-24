@@ -27,3 +27,19 @@
   line-height: 40px;
   text-align: center;
 }
+
+/*
+ * SignupForm component
+ */
+ .SingupForm {
+   margin: 100px auto;
+   max-width: 300px;
+ }
+
+ .SingupForm .h1_form {
+   text-align: center;
+ }
+
+ .SingupForm .form-control {
+   margin-bottom: 8px;
+ }

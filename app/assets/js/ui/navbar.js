@@ -19,7 +19,10 @@ class NavBarSignin extends React.Component {
   render() {
     return (
       <div>
-        <button className="btn btn-outline-success px-4">Join</button>
+        <button className="btn btn-outline-success px-4"
+          onClick={() => window.location = '/html/sign_up.html'}>
+          Join
+        </button>
         <a className="nav-link" href="/html/sign_in.html"
           style={{ color: 'rgba(0,0,0,.5)', display: 'inline-block' }}>
           or sign in
