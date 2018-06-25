@@ -1,7 +1,7 @@
 const Venue = require('../models/venue');
 const ApiError = require('../common/models/api-errors');
 
-const fields = `name type imgUrl about phone email minCustomers maxCustomers zip`;
+const fields = `name type imgUrl about phone email minCustomers maxCustomers zip address`;
 
 async function retrieve(venueId, projection = fields) {
   let venue = await Venue.findById(venueId, projection);

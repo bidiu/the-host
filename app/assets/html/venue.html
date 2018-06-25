@@ -22,155 +22,19 @@
   <!-- navigation bar -->
   <div id="nav-bar-container"></div>
 
-
-  <div class="container venueContainer">
-
-    <div class="row">
-      &nbsp;
-
-    </div>
-
-    <div class="row box-shadow p-3 bg-light mb-5 rounded">
-
-      <div class="col-md-8">
-
-        <div class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="d-block w-100" src="/img/event1.jpg" alt="Responsive image">
-            </div>
-          </div>
-        </div>
-
-
-
-      </div>
-
-      <div class="col-md-4 venue-title">
-
-        <div class="row venue-name">
-          <h1>DiVino Wine Studio</h1>
-        </div>
-
-        <div class="row venue-info">
-
-          <div class="card-body">
-            <blockquote class="blockquote mb-0">
-              <p>A modern, yet traditional Italian dining experience. Private dining events are also available!</p>
-              <footer class="blockquote-footer">
-                <cite title="Source Title">Venue Owner</cite>
-              </footer>
-            </blockquote>
-          </div>
-
-        </div>
-
-        <div class="row venue-owner">
-
-          <div class="col">
-            <img class="rounded-circle" src="/img/portrait.jpeg" alt="Responsive image" width="60px" height="60px">
-          </div>
-          <div class="col">
-            <cite>Jerry Lee</cite>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-
-
-
-    <div class="row p-3  bg-write rounded ">
-      <div class="col">
-
-
-        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Venue Category">
-          Type:
-        </button>
-
-        <span class="d-inline-block" tabindex="0" data-toggle="tooltip">
-          <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Restaurant</button>
-        </span>
-
-      </div>
-
-
-    </div>
-
-    <div class="row box-shadow p-3 mb-5 bg-write rounded">
-      <div class="col-md-8">
-        <div class="card border-light mb-3" style="max-width: 48rem;">
-          <div class="card-header">
-            <h3>Details</h3>
-          </div>
-          <div class="card-body ">
-            <h5 class="card-title">Special Events & Promotions</h5>
-            <p class="card-text"> DiVino has a personal touch with a full time event planner that can help you create any style of party or event
-              you may have in mind! Cooperate celebrations, dinner presentations and all party styles Betty will work with
-              you to make your vision to come to life! We have 2 spaces that can accommodate 10 - 60 guests for any style
-              of private function! Email Betty now betty@divinowinestudio.com </p>
-
-            <h5 class="card-title">Parking Details</h5>
-            <p>
-
-              Lots of street parking available and free after 5 pm and on weekends! Small lot in the back of the restaurant on Balsam st.
-              After 5pm check the parking lots around closed businesses such as Preston hardware.
-            </p>
-
-
-
-            <h5 class="card-title">Additional</h5>
-            <p>
-              Banquet, Beer, BYO Wine, Chef's Table, Cocktails, Corkage Fee, Counter Seating, Entertainment, Full Bar, Gluten-free Menu,
-              Late Night, Non-Smoking, Outdoor dining, Private Room, Wheelchair Access, Wine
-            </p>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="col">
-          <div class="card bg-light mb-3 info-css" style="max-width: 32rem;">
-            <div class="card-header">
-              <h3>Information</h3>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Entertainment</h5>
-              <p class="card-text">
-                Full open-concept kitchen, fresh pasta, unique wines for wine pairings Reserve a seat at the long chef's table to be apart
-                of the action!</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-
-          <div class="card bg-light map-css" style="max-width: 32rem;">
-            <img class="card-img-top" src="/img/Googlemap.jpg" alt="Card image cap">
-            <div class="card-body">
-              <p class="card-text">Phone number:
-                <a href="#">(613) 221-9760</a>
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
-
-  </div>
-
-
-
-
-
-
-
   <!-- html template goes here -->
+  <div class="container-fluid venue-container">
+    <!-- first row: the basic info card -->
+    <div class="row" id="venue-basic-info-card"></div>
+
+    <!-- second row: all sections (about...) and extra info (gps) -->
+    <div class="row">
+      <div class="col-md-8" id="main-info-container"></div>
+      <div class="col-md-4">
+
+      </div>
+    </div>
+  </div>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -192,10 +56,6 @@
     "use strict";
     // js goes here
 
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-
   </script>
   <script type="text/babel">
     // render the navigation bar
@@ -204,7 +64,77 @@
       document.getElementById('nav-bar-container')
     );
 
+    /**
+     * the first row on the page
+     */
+    class VenueBasicInfoCard extends React.Component {
+      render() {
+        let { imgUrl, name } = this.props.venue;
+
+        let imgStyle = {
+          height: 360,
+          backgroundImage: `url("${imgUrl}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        };
+
+        let basicInfoStyle = {
+          height: 360
+        };
+
+        return (
+          <React.Fragment>
+            {/* the main image */}
+            <div className="col-md-8">
+              <div className="thost-card main-img-container" style={imgStyle}>
+              </div>
+            </div>
+
+            {/* the basic info */}
+            <div className="col-md-4">
+              <div className="thost-card basic-info-container h2" style={basicInfoStyle}>
+                {name}
+              </div>
+            </div>
+          </React.Fragment>
+        );
+      }
+    }
+
+    class MainInfoContainer extends React.Component {
+      render() {
+        let { about } = this.props.venue;
+
+        return (
+          <div className="MainInfoContainer">
+            {/* about */}
+            <div className="thost-card">
+              <div className="h2">About this place</div>
+              <div>{about}</div>
+            </div>
+
+            {/* faqs */}
+            <div className="thost-card">
+              <div className="h2">FAQ</div>
+              <div>TODO</div>
+            </div>
+          </div>
+        );
+      }
+    }
+
     // babel (js for React) goes here
+    let venue = {
+      name: 'Starbucks - the popular Café you love',
+      imgUrl: '/img/event2.png',
+      about: 'This is a very popular place where people love to relax, chat, and work.'
+    };
+
+    ReactDOM.render(<VenueBasicInfoCard venue={venue} />, 
+      document.getElementById('venue-basic-info-card'));
+    
+    ReactDOM.render(<MainInfoContainer venue={venue} />,
+      document.getElementById('main-info-container'));
 
     </script>
 </body>

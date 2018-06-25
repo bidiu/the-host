@@ -91,3 +91,20 @@ class NavBar extends React.Component {
     );
   }
 }
+
+/** all common components are in this file, since almost all pages will need import this file */
+
+/**
+ * An awesome card
+ */
+// class TheHostCard extends React.Component {
+//   render() {
+//     let { children } = this.props;
+
+//     return (
+//       <div className="thost-card">
+//         {children}
+//       </div>
+//     );
+//   }
+// }

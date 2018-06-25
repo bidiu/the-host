@@ -2,8 +2,6 @@ const venueService = require('../services/venue');
 const Res = require('../common/models/responses');
 const { compressDoc } = require('../utils/common');
 
-//res.end('retrieve venue');
-
 /**
  * GET /api/v1/venues/:venuesId
  * 
@@ -23,8 +21,15 @@ async function retrieve(req, res) {
  * Create a venue.
  */
 async function create(req, res) {
-  let { name, type, imgUrl, about, phone, email, minCustomers, maxCustomers, zip } = req.body;
-  let doc = compressDoc({ name, type, imgUrl, about, phone, email, minCustomers, maxCustomers, zip });
+  let {
+    name, type, imgUrl, about, phone, email, 
+    minCustomers, maxCustomers, zip, address
+  } = req.body;
+
+  let doc = compressDoc({
+    name, type, imgUrl, about, phone, email, 
+    minCustomers, maxCustomers, zip, address
+  });
 
   let data = await venueService.create(doc);
   let payload = new Res.Ok({ data });
@@ -38,8 +43,15 @@ async function create(req, res) {
  */
 async function update(req, res) {
   let _id = req.params.venueId;
-  let { name, type, imgUrl, about, phone, email, minCustomers, maxCustomers, zip } = req.body;
-  let doc = compressDoc({ _id, name, type, imgUrl, about, phone, email, minCustomers, maxCustomers, zip });
+  let {
+    name, type, imgUrl, about, phone, email, 
+    minCustomers, maxCustomers, zip, address 
+  } = req.body;
+
+  let doc = compressDoc({
+    _id, name, type, imgUrl, about, phone, email,
+    minCustomers, maxCustomers, zip, address
+  });
 
   let data = await venueService.update(doc);
   let payload = new Res.Ok({ data });

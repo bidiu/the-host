@@ -1,3 +1,16 @@
 /*
  * Global css (will be loaded by every page)
  */
+
+ .thost-card {
+  box-shadow: 0 1px 1px 0 rgba(10,16,34,.4)!important;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+  transition: .3s;
+ }
+
+ .thost-card:hover {
+  box-shadow: 0 10px 30px -5px rgba(10,16,34,.2)!important;
+ }

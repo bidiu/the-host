@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const {genStaticMapUrl } = require('../utils/geo');
+
 const Schema = mongoose.Schema;
 
 /** venue schema */
@@ -7,7 +9,6 @@ const venueSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
     minlength: 1,
     maxlength: 32
   },
@@ -58,9 +59,22 @@ const venueSchema = new Schema({
     type: String,
     minlength: 1,
     maxlength: 16
+  },
+  // human readabel address
+  address: {
+    type: String,
+    required: true,
+    minlength: 4,
+    maxlength: 32
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
+venueSchema.virtual('staticMapUrl').get(function () {
+  return genStaticMapUrl(this.address || this.zip);
 });
 
 /** venue model */
