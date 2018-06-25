@@ -3,6 +3,10 @@ const ApiError = require('../common/models/api-errors');
 
 const fields = `name type imgUrl about phone email minCustomers maxCustomers zip address`;
 
+async function index(projection = fields) {
+  return Venue.find({}, projection);
+}
+
 async function retrieve(venueId, projection = fields) {
   let venue = await Venue.findById(venueId, projection);
   
@@ -21,6 +25,7 @@ async function update(doc) {
   return retrieve(doc._id);
 }
 
+exports.index = index;
 exports.retrieve = retrieve;
 exports.create = create;
 exports.update = update;

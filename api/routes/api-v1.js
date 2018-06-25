@@ -21,6 +21,7 @@ router.get('/auth/signin', asyncWrapper(authController.signin));
 
 router.get('/auth/signout', asyncWrapper(authController.signout));
 
+
 /*
  * user related routes start
  */
@@ -34,6 +35,8 @@ router.patch('/users/:userId', asyncWrapper(userController.update));
 /*
  * venue related routes start
  */
+router.get('/venues', asyncWrapper(venueController.index));
+
 router.get('/venues/:venueId', asyncWrapper(venueController.retrieve));
 
 router.post('/venues', asyncWrapper(venueController.create));

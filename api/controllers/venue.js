@@ -3,6 +3,17 @@ const Res = require('../common/models/responses');
 const { compressDoc } = require('../utils/common');
 
 /**
+ * GET /api/v1/venues
+ * 
+ * Index venues.
+ */
+async function index(req, res) {
+  let data = await venueService.index();
+  let payload = new Res.Ok({ data });
+  res.status(payload.status).json(payload);
+}
+
+/**
  * GET /api/v1/venues/:venuesId
  * 
  * Retrieve a venue.
@@ -58,6 +69,7 @@ async function update(req, res) {
   res.status(payload.status).json(payload);
 }
 
+exports.index = index;
 exports.retrieve = retrieve;
 exports.create = create;
 exports.update = update;
