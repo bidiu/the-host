@@ -21,3 +21,24 @@ body {
 .MainInfoContainer .thost-card {
   margin-bottom: 32px;
 }
+
+.action-container {
+  background-color: #f04944;
+  height: 57px;
+  color: #fcfcfc;
+  margin: 12px 0;
+  box-sizing: border-box;
+  line-height: 25px;
+}
+
+.InfoSideContainer {
+  margin-top: 16px;
+}
+
+.InfoSideContainer .thost-card {
+  margin-bottom: 32px;
+}
+
+.StaticMapCard.thost-card {
+  padding: 0;
+}

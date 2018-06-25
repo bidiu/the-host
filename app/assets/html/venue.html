@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
   <link href="/css/the-host.css" rel="stylesheet">
@@ -27,12 +28,21 @@
     <!-- first row: the basic info card -->
     <div class="row" id="venue-basic-info-card"></div>
 
-    <!-- second row: all sections (about...) and extra info (gps) -->
+    <!-- second row: actions -->
     <div class="row">
-      <div class="col-md-8" id="main-info-container"></div>
-      <div class="col-md-4">
+      <div class="col-md-12">
+
+        <div class="thost-card action-container">
+          TODO: User actions here in future
+        </div>
 
       </div>
+    </div>
+
+    <!-- third row: all sections (about...) and extra info (gps) -->
+    <div class="row">
+      <div class="col-md-8" id="main-info-container"></div>
+      <div class="col-md-4" id="main-info-side"></div>
     </div>
   </div>
 
@@ -92,8 +102,13 @@
 
             {/* the basic info */}
             <div className="col-md-4">
-              <div className="thost-card basic-info-container h2" style={basicInfoStyle}>
-                {name}
+              <div className="thost-card basic-info-container" style={basicInfoStyle}>
+                <div className="h2">
+                  {name}
+                </div>
+                <div>
+                  Some other info goes here in the future
+                </div>
               </div>
             </div>
           </React.Fragment>
@@ -109,15 +124,72 @@
           <div className="MainInfoContainer">
             {/* about */}
             <div className="thost-card">
-              <div className="h2">About this place</div>
+              <div className="h3">About this place</div>
               <div>{about}</div>
             </div>
 
             {/* faqs */}
             <div className="thost-card">
-              <div className="h2">FAQ</div>
+              <div className="h3">FAQ</div>
               <div>TODO</div>
             </div>
+          </div>
+        );
+      }
+    }
+
+    class StaticMapCard extends React.Component {
+      render() {
+        let { staticMapUrl, address, zip } = this.props;
+        let query = (address || '') + ' ' + (zip || '');
+
+        let searchUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+        searchUrl = encodeURI(searchUrl);
+
+        let headerStyle = {
+          padding: 12,
+          display: 'flex',
+          alignItems: 'center',
+          margin: '8px 0',
+          boxSizing: 'border-box'
+        };
+
+        let imgStyle = {
+          width: '100%'
+        };
+
+        let zipStyle = {
+          opacity: .5,
+          display: 'inline-block',
+          marginLeft: 8
+        };
+
+        return (
+          <div className="StaticMapCard thost-card">
+            <div style={headerStyle}>
+                <i class="material-icons">place</i>
+                {address}
+                <span style={zipStyle}>{zip}</span>
+            </div>
+            <div >
+              <a href={searchUrl} target="_blank">
+                <img src={staticMapUrl} style={imgStyle} />
+              </a>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    class InfoSideContainer extends React.Component {
+      render() {
+        let { staticMapUrl, address, zip } = this.props.venue;
+
+        return (
+          <div className="InfoSideContainer">
+            {/* a goolge map card */}
+            <StaticMapCard staticMapUrl={staticMapUrl} 
+              address={address} zip={zip} />
           </div>
         );
       }
@@ -127,7 +199,10 @@
     let venue = {
       name: 'Starbucks - the popular Café you love',
       imgUrl: '/img/event2.png',
-      about: 'This is a very popular place where people love to relax, chat, and work.'
+      about: 'This is a very popular place where people love to relax, chat, and work.',
+      staticMapUrl: 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyA3amnumsd9ECTmyPgkYRlkfc6F2C9xLwA&markers=k1g0g1&size=800x400&zoom=17',
+      address: '1525 Alta Vista Dr, Ottawa, ON',
+      zip: 'k1g0g1'
     };
 
     ReactDOM.render(<VenueBasicInfoCard venue={venue} />, 
@@ -135,6 +210,9 @@
     
     ReactDOM.render(<MainInfoContainer venue={venue} />,
       document.getElementById('main-info-container'));
+
+    ReactDOM.render(<InfoSideContainer venue={venue} />,
+      document.getElementById('main-info-side'));
 
     </script>
 </body>
