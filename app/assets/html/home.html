@@ -126,52 +126,21 @@
       document.getElementById('nav-bar-container')
     );
 
-    const venueList = [{
-      id: 1,
-      venue_name: "Ottawa Dinner Club",
-      img: '/img/1.jpg',
-      information: "Whether you are a foodie at heart or just want to try new restaurants and meet new people; all are welcome."
-      
-    }, {
-      id: 2,
-      venue_name: "Ottawa Veg*n Meetup Group",
-      img: '/img/2.jpg',
-      information: "The Table Vegetarian Restaurant is located at the corner of Holland and Wellington."
-    }, {
-      id: 3,
-      venue_name: "Ottawa's Fun Group",
-      img: '/img/3.jpg',
-      information: "Activities can be ranging from dinners, drinks, special theme parties, activities such as painting, dancing, wine tastings."
-    }, {
-      id: 4,
-      venue_name: "Bite of Asia",
-      img: '/img/4.jpg',
-      information: "Are you new to Ottawa? Looking to meet people who share the same passion as you in FOOD?"
-    }, {
-      id: 5,
-      venue_name: "Hop Heads: Ottawa Beer Tasting Meetup",
-      img: '/img/5.jpg',
-      information: "This group would meet once every month to taste a flight of choice local and or international beers."
-    }, {
-      id: 6,
-      venue_name: "Ottawa Eat, Dance & Mingle Under 45",
-      img: '/img/6.jpg',
-      information: "In our events, we will encourage everyone who attends to briefly introduce themselves to other members."
-    }];
-
-
+    /**
+     * card component
+     */
     const VenueCard = ({ venue }) => {
       return (
         <div className="col-md-4">
           <div className="card mb-4 box-shadow">
             <div className="card-img-top">
-              <a href={`/html/venue.html?venueId=${venue.id}`}>
-                <img className="venue-thumb-img" src={venue.img} alt="venue thumbnail" />
+              <a href={`/html/venue.html?venueId=${venue._id}`}>
+                <img className="venue-thumb-img" src={venue.imgUrl} alt="venue thumbnail" />
               </a>
             </div>
             <div className="card-body">
               <p className="card-text venue-thumb-description">
-                {venue.information}
+                {venue.about}
               </p>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="btn-group">
@@ -186,14 +155,33 @@
       );
     };
 
-    const VenueCardList = ({ venueList }) => {
-      return venueList.map(venue => <VenueCard venue={venue} key={venue.id} />)
-    };
+    /**
+     * card list component
+     */
+    class VenueCardList extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { venueList: [] };
+      }
 
-    const Root = () => <VenueCardList venueList={venueList} />;
+      componentDidMount() {
+        axios.get('/venues')
+        .then((resp) => {
+          this.setState({ venueList: resp.data.data });
+        })
+        .catch(console.error);
+      }
+
+      render() {
+        let { venueList } = this.state;
+
+        // return a list of cards to render
+        return venueList.map(venue => <VenueCard venue={venue} key={venue._id} />)
+      }
+    }
 
     ReactDOM.render(
-      <Root />,
+      <VenueCardList />,
       document.getElementById('venue-cards-container')
     );
   </script>

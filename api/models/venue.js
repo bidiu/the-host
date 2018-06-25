@@ -10,7 +10,7 @@ const venueSchema = new Schema({
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 32
+    maxlength: 64
   },
   // venue's type
   type: {
@@ -29,7 +29,7 @@ const venueSchema = new Schema({
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 1024
+    maxlength: 2048
   },
   // contact info
   phone: {
@@ -65,7 +65,7 @@ const venueSchema = new Schema({
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 32
+    maxlength: 48
   }
 }, {
   timestamps: true,
