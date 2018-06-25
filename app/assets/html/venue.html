@@ -24,11 +24,11 @@
   <div id="nav-bar-container"></div>
 
   <!-- html template goes here -->
-  <div class="container-fluid venue-container">
-    <!-- first row: the basic info card -->
+  <div id="root"></div>
+
+  <!-- <div class="container-fluid venue-container">
     <div class="row" id="venue-basic-info-card"></div>
 
-    <!-- second row: actions -->
     <div class="row">
       <div class="col-md-12">
 
@@ -39,12 +39,11 @@
       </div>
     </div>
 
-    <!-- third row: all sections (about...) and extra info (gps) -->
     <div class="row">
       <div class="col-md-8" id="main-info-container"></div>
       <div class="col-md-4" id="main-info-side"></div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -73,6 +72,8 @@
       <NavBar curPath="" />,
       document.getElementById('nav-bar-container')
     );
+
+    // babel (js for React) goes here
 
     /**
      * the first row on the page
@@ -103,7 +104,7 @@
             {/* the basic info */}
             <div className="col-md-4">
               <div className="thost-card basic-info-container" style={basicInfoStyle}>
-                <div className="h2">
+                <div className="h3">
                   {name}
                 </div>
                 <div>
@@ -147,10 +148,10 @@
         searchUrl = encodeURI(searchUrl);
 
         let headerStyle = {
+          opacity: .5,
           padding: 12,
           display: 'flex',
           alignItems: 'center',
-          margin: '8px 0',
           boxSizing: 'border-box'
         };
 
@@ -167,9 +168,8 @@
         return (
           <div className="StaticMapCard thost-card">
             <div style={headerStyle}>
-                <i class="material-icons">place</i>
-                {address}
-                <span style={zipStyle}>{zip}</span>
+                <i className="material-icons">place</i>
+                <div>{address}, {zip}</div>
             </div>
             <div >
               <a href={searchUrl} target="_blank">
@@ -195,26 +195,81 @@
       }
     }
 
-    // babel (js for React) goes here
-    let venue = {
-      name: 'Starbucks - the popular Café you love',
-      imgUrl: '/img/event2.png',
-      about: 'This is a very popular place where people love to relax, chat, and work.',
-      staticMapUrl: 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyA3amnumsd9ECTmyPgkYRlkfc6F2C9xLwA&markers=k1g0g1&size=800x400&zoom=17',
-      address: '1525 Alta Vista Dr, Ottawa, ON',
-      zip: 'k1g0g1'
-    };
+    class VenuePage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { venue: undefined };
+      }
 
-    ReactDOM.render(<VenueBasicInfoCard venue={venue} />, 
-      document.getElementById('venue-basic-info-card'));
+      componentDidMount() {
+        let venueId = getQueryParamVal('venueId');
+        // if (!venueId) {
+        //   window.location = '/html/home.html';
+        // }
+
+        axios.get(`/venues/${venueId}`)
+          .then(resp => {
+            this.setState({ venue: resp.data.data });
+          })
+          .catch(console.error);
+      }
+
+      render() {
+        let { venue } = this.state;
+        // later might render a spinner instead
+        if (!venue) { return null; }
+
+        return (
+          <div className="container-fluid venue-container">
+            {/* first row: the basic info card */}
+            <div className="row">
+              <VenueBasicInfoCard venue={venue} />
+            </div>
+
+            {/* second row: actions */}
+            <div className="row">
+              <div className="col-md-12">
+                <div className="thost-card action-container">
+                  TODO: User actions here in future
+                </div>
+              </div>
+            </div>
+
+            {/* third row: all sections (about...) and extra info (gps) */}
+            <div className="row">
+              <div className="col-md-8">
+                <MainInfoContainer venue={venue} />  
+              </div>
+              <div className="col-md-4">
+                <InfoSideContainer venue={venue} />  
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // let venue = {
+    //   name: 'Starbucks - the popular Café you love',
+    //   imgUrl: '/img/event2.png',
+    //   about: 'This is a very popular place where people love to relax, chat, and work.',
+    //   staticMapUrl: 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyA3amnumsd9ECTmyPgkYRlkfc6F2C9xLwA&markers=k1g0g1&size=800x400&zoom=17',
+    //   address: '1525 Alta Vista Dr, Ottawa, ON',
+    //   zip: 'k1g0g1'
+    // };
+
+    // ReactDOM.render(<VenueBasicInfoCard venue={venue} />, 
+    //   document.getElementById('venue-basic-info-card'));
     
-    ReactDOM.render(<MainInfoContainer venue={venue} />,
-      document.getElementById('main-info-container'));
+    // ReactDOM.render(<MainInfoContainer venue={venue} />,
+    //   document.getElementById('main-info-container'));
 
-    ReactDOM.render(<InfoSideContainer venue={venue} />,
-      document.getElementById('main-info-side'));
+    // ReactDOM.render(<InfoSideContainer venue={venue} />,
+    //   document.getElementById('main-info-side'));
 
-    </script>
+    ReactDOM.render(<VenuePage />,
+    document.getElementById('root'));
+  </script>
 </body>
 
 </html>
