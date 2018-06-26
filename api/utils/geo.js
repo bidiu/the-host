@@ -29,8 +29,6 @@ async function geoCodeAddress(address) {
     });
 }
 
-geoCodeAddress('k1g 0g1').then(console.log);
-
 /**
  * Return an image url which can be put in the `src` attribute
  * of an image.
