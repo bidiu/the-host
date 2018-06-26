@@ -5,13 +5,31 @@
 const axios = require('axios').default;
 const env = require('../env/env');
 
+const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?key=${env.mapApiKey}`;
+
 /**
  * Geo-code an address to a coordinate with Google map API. 
  * Resolve the coded coordinate, or reject with any error.
+ * 
+ * Return value format:
+ * 
+ *    { lat: 65.4117967302915, lng: -95.6546153197085 }
  */
 async function geoCodeAddress(address) {
-  // TODO
+  let url = encodeURI(`${geocodingUrl}&address=${address}`);
+
+  return axios.get(url)
+    .then((resp) => {
+      let payload = resp.data;
+
+      if (payload.status !== 'OK') {
+        throw new Error('Can\'t geocode the given address. Status: ', payload.status);
+      }
+      return payload.results[0].geometry.location;
+    });
 }
+
+geoCodeAddress('k1g 0g1').then(console.log);
 
 /**
  * Return an image url which can be put in the `src` attribute
