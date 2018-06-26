@@ -66,6 +66,12 @@ const venueSchema = new Schema({
     required: true,
     minlength: 4,
     maxlength: 48
+  },
+  lat: {
+    type: Number
+  },
+  lng: {
+    type: Number
   }
 }, {
   timestamps: true,

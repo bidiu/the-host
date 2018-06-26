@@ -8,14 +8,19 @@ const env = require('../env/env');
 const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?key=${env.mapApiKey}`;
 
 /**
- * Geo-code an address to a coordinate with Google map API. 
+ * Geocode an address to a coordinate with Google map API. 
  * Resolve the coded coordinate, or reject with any error.
  * 
- * Return value format:
+ * Note that this is an async function, because it needs to
+ * communicate with Google Map API.
+ * 
+ * Resovled value format:
  * 
  *    { lat: 65.4117967302915, lng: -95.6546153197085 }
  */
-async function geoCodeAddress(address) {
+async function geocodeAddress(address, zip) {
+  address = combineAddresses(address, zip);
+
   let url = encodeURI(`${geocodingUrl}&address=${address}`);
 
   return axios.get(url)
@@ -50,5 +55,25 @@ function genStaticMapUrl(address, { size = '500x500' } = {}) {
   return encodeURI(url);
 }
 
-exports.geoCodeAddress = geoCodeAddress;
+/**
+ * Combine human readable address and zipcode. It will take care of either
+ * being undefined/null or empty string.
+ * 
+ * If both adress and zipcode are undefined/null, an error will be thrown.
+ */
+function combineAddresses(address, zipcode) {
+  address = typeof address === 'string' ? address.trim() : undefined;
+  zipcode = typeof address === 'string' ? zipcode.trim() : undefined;
+
+  address = address || undefined;
+  zipcode = zipcode || undefined;
+
+  if (!address && !zipcode) { throw new Error('Invalid parameters.'); }
+
+  let joint = address && zipcode ? ', ' : '';
+  return (address || '') + joint + (zipcode || '');
+}
+
+exports.geocodeAddress = geocodeAddress;
 exports.genStaticMapUrl = genStaticMapUrl;
+exports.combineAddresses = combineAddresses;
