@@ -21,6 +21,8 @@
 <body>
   <div id="nav-bar-container"></div>
 
+  <div id="search-box-container"></div>
+
   <main role="main">
 
     <!--
@@ -88,8 +90,6 @@
 
   </main>
 
-  <div id="root"></div>
-
   <footer class="text-muted">
     <div class="container">
 
@@ -119,6 +119,7 @@
   <script type="text/babel" src="/js/common.js"></script>
   <script type="text/babel" src="/js/ui/Avatar.js"></script>
   <script type="text/babel" src="/js/ui/NavBar.js"></script>
+  <script type="text/babel" src="/js/ui/SimpleSearchBox.js"></script>
 
   <script type="text/babel">
     ReactDOM.render(
@@ -183,6 +184,11 @@
     ReactDOM.render(
       <VenueCardList />,
       document.getElementById('venue-cards-container')
+    );
+
+    ReactDOM.render(
+      <SimpleSearchBox />,
+      document.getElementById('search-box-container')
     );
   </script>
 </body>
