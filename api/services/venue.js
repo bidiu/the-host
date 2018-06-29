@@ -4,8 +4,28 @@ const { geocodeAddress } = require('../utils/geo');
 
 const fields = `name type imgUrl about phone email minCustomers maxCustomers zip address lat lng`;
 
-async function index(projection = fields) {
-  return Venue.find({}, projection);
+const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
+
+async function index(filters, projection = fields) {
+  let conditions = {};
+  let { type } = filters;
+
+  // type filter
+  if (type) {
+    if (!venueTypes.includes(type)) {
+      throw new ApiError.BadReq({ details: 'Invalid venue type.' });
+    }
+
+    conditions.type = type;
+  }
+
+  // TODO geo
+
+  // TODO title
+
+  // TODO tag
+
+  return Venue.find(conditions, projection);
 }
 
 async function retrieve(venueId, projection = fields) {
