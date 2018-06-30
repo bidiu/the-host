@@ -53,10 +53,11 @@ footer p {
 }
 
 .jumbotron {
-  background-image: url("/img/venue-list-jumbotron.jpg");
+  background-image: url("/img/event_new_1.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  color: #fff;
 }
 
 .navbar_sign {

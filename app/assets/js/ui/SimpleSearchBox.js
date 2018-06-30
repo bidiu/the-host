@@ -20,22 +20,26 @@ class SimpleSearchBox extends React.Component {
     venueType = venueType.trim();
     if (venueType) {
       window.location = `/html/search.html?type=${venueType}`;
-    }
+    } 
   }
   
   render() {
     let { venueType } = this.state;
 
     let btnStyle = {
-      backgroundColor: 'salmon',
-      width: '100px'
+      backgroundColor: '#aaa',
+      width: '100px',
+      height: '46px'
     };
 
     return (
+      
       <form className="SimpleSearchBox" onSubmit={this.submitHandler}>
-        <input type="text" value={venueType} onChange={this.inputChangeHandler} />
-        <button style={{ backgroundColor: 'red' }} type="submit">Search</button>
+        <input type="text" placeholder="Search an venue here !" value={venueType} onChange={this.inputChangeHandler}/>
+        <input type="submit" value="Search" />
+        <i className="fa fa-search fa-lg fa-fw" aria-hidden="true"></i>
       </form>
+    
     );
   }
 }

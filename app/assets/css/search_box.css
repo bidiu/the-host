@@ -1,0 +1,81 @@
+
+.SimpleSearchBox{
+
+  margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type=text]{
+
+  width: 30%;
+  border: 1px solid #aaa;
+  border-radius: 5px 0 0 5px;
+  margin: 8px 0;
+  outline: none;
+  padding: 12px;
+  box-sizing:border-box;
+  transition:.3s;
+
+  font-family: arial;
+  font-size: 16px;
+  border-right: 0;
+  font-style: italic;
+
+}
+
+input[type=submit]{
+
+  width:8%;
+  border: 1px solid #0076a3;
+  border-radius: 0 5px 5px 0;
+  padding: 12px;
+ 
+  font-family:arial;
+  font-size: 16px;
+  text-shadow:0 0 1px #000;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  border-right: 0;
+  background: linear-gradient(#00adee,#0078a5);
+  
+}
+
+input[type=text]:focus{
+
+  border-color:#00adee;
+  box-shadow:0 0 6px 0 #0078a5;
+
+}
+
+.SimpleSearchBox input[type=text]{
+
+  padding-left: 40px;
+  
+}
+.SimpleSearchBox{
+
+  position: relative;
+}
+
+.SimpleSearchBox i{
+
+  position: absolute;
+  left: 0;
+  top: 14px;
+  padding: 9px 8px;
+  color: #aaa;
+  transition: .3s;
+}
+
+.SimpleSearchBox i + input[type=text]:focus{
+
+  color: dodgerblue;
+
+}
+
+
+
+
+

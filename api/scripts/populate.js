@@ -8,10 +8,10 @@ const venueService = require('../services/venue');
  * Populate `venues` collection in database.
  */
 async function populateVenues() {
-  let venues = await venueService.index();
+  //let venues = await venueService.index();
 
   // if already have data, don't populate more
-  if (venues.length > 0) { return; }
+  //if (venues.length > 0) { return; }
   console.log('No document in `venues` collection, start populating.');
 
   await venueService.create({
@@ -92,7 +92,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     maxCumsomers: 8,
     zip: 'K1N 5S6',
     address: '10 York St, Ottawa, ON',
-    imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipM9T5hznpQgpBP-1TCI2CCDn7SjMAyHfNHyy1kM=s0'
+    imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipPXe6R0Xgjvvzost6HADNKr2CfSFc-O5J3smKGx=s0'
   });
 
   await venueService.create({

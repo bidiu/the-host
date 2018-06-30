@@ -17,7 +17,8 @@ const venueSchema = new Schema({
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 32
+    maxlength: 32,
+    text: true
   },
   // main thumbnal's url
   imgUrl: {
@@ -78,6 +79,12 @@ const venueSchema = new Schema({
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 });
+
+
+
+//venueSchema.index({type: 'text'});
+//Schema.path('type').index({text : true});
+//venueSchema.index({type: 'text'});
 
 venueSchema.virtual('staticMapUrl').get(function () {
   return genStaticMapUrl(this.address || this.zip);

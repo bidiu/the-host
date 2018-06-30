@@ -6,9 +6,11 @@ const fields = `name type imgUrl about phone email minCustomers maxCustomers zip
 
 const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
 
+
 async function index(filters, projection = fields) {
   let conditions = {};
   let { type } = filters;
+  
 
   // type filter
   if (type) {
@@ -20,8 +22,11 @@ async function index(filters, projection = fields) {
   }
 
   // TODO geo
+  
 
   // TODO title
+
+  
 
   // TODO tag
 
