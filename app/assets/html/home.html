@@ -15,13 +15,25 @@
   <link rel="stylesheet" href="/css/venue-list.css">
   <link rel="stylesheet" href="/css/screen_change.css">
 
+  <link rel="stylesheet" href="/css/search_box.css">
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  
+
   <title>The Host</title>
 </head>
 
 <body>
   <div id="nav-bar-container"></div>
 
-  <div id="search-box-container"></div>
+  <div class="jumbotron">
+      <h1 class="display-4 ">Find a venue for you</h1>
+      <p class="lead">Search the type and name now and get venues you would like to choose!</p>
+      <hr class="my-4">
+      <p></p>
+      <!--Search box render here -->
+      <div id="search-box-container" ></div>
+  </div>
 
   <main role="main">
 
@@ -33,7 +45,7 @@
     </section>
     -->
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -41,7 +53,7 @@
       </ol>
       <div class="carousel-inner ">
         <div class="carousel-item active bg_pic1">
-          <!-- <img class="first-slide" src="/img/event6.jpg" alt="First slide"> -->
+         
           <div class="container">
             <div class="carousel-caption text-left">
               <h1>Main service</h1>
@@ -51,7 +63,7 @@
           </div>
         </div>
         <div class="carousel-item bg_pic2">
-          <!-- <img class="second-slide" src="/img/event55.jpg" alt="Second slide"> -->
+         
           <div class="container">
             <div class="carousel-caption item1">
               <h1>Real life events online</h1>
@@ -61,7 +73,7 @@
           </div>
         </div>
         <div class="carousel-item bg_pic3">
-          <!-- <img class="third-slide" src="/img/event7.png" alt="Third slide"> -->
+         
           <div class="container">
             <div class="carousel-caption text-right item2">
               <h1>Local businesses or exclusive events</h1>
@@ -79,7 +91,8 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div>
+    </div> -->
+   
     <div class="album py-5 bg-light">
       <div class="container">
         <div class="row" id="venue-cards-container">
@@ -190,6 +203,7 @@
       <SimpleSearchBox />,
       document.getElementById('search-box-container')
     );
+
   </script>
 </body>
 

@@ -35,7 +35,7 @@ class SimpleSearchBox extends React.Component {
     return (
       
       <form className="SimpleSearchBox" onSubmit={this.submitHandler}>
-        <input type="text" placeholder="Search an venue here !" value={venueType} onChange={this.inputChangeHandler}/>
+        <input type="text" placeholder="Search a venue here !" value={venueType} onChange={this.inputChangeHandler}/>
         <input type="submit" value="Search" />
         <i className="fa fa-search fa-lg fa-fw" aria-hidden="true"></i>
       </form>

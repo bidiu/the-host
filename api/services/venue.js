@@ -5,29 +5,37 @@ const { geocodeAddress } = require('../utils/geo');
 const fields = `name type imgUrl about phone email minCustomers maxCustomers zip address lat lng`;
 
 const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
-
+const venueTitles = ['Starbucks - The popular Cafe you love', 'Sugar Marmalade - Delicious food and deserts', 'Walmart','Oz Kafe, ByWard Market - Intimate space for dinner','Metro','KTV','Concert'];
 
 async function index(filters, projection = fields) {
   let conditions = {};
   let { type } = filters;
   
 
-  // type filter
+  // type and title(name) filter
   if (type) {
-    if (!venueTypes.includes(type)) {
-      throw new ApiError.BadReq({ details: 'Invalid venue type.' });
-    }
 
-    conditions.type = type;
+    if (!venueTypes.includes(type)) {
+      
+      if(!venueTitles.includes(type)){
+
+        throw new ApiError.BadReq({ details: 'Invalid venue type and title.' });
+      
+      }else{
+        
+        conditions.name = type;
+
+      }
+    }
+    else if (venueTypes.includes(type))
+    { conditions.type = type;}
+   
   }
 
   // TODO geo
   
 
-  // TODO title
-
   
-
   // TODO tag
 
   return Venue.find(conditions, projection);
