@@ -86,4 +86,4 @@ venueSchema.virtual('staticMapUrl').get(function () {
 /** venue model */
 const Venue = mongoose.model('Venue', venueSchema);
 
-module.exports = Venue; 
+module.exports = Venue;
