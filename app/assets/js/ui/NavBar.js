@@ -53,8 +53,7 @@ class NavBarSignin extends React.Component {
           onClick={() => window.location = '/html/sign_up.html'}>
           Join
         </button>
-        <a className="nav-link" href="/html/sign_in.html"
-          style={{ color: 'rgba(0,0,0,.5)', display: 'inline-block' }}>
+        <a className="nav-link" href="/html/sign_in.html">
           or sign in
         </a>
       </div>

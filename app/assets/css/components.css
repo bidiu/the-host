@@ -27,6 +27,18 @@
   box-shadow: none !important;
 }
 
+/* signin link in navbar */
+.NavBarSignin a {
+  opacity: .6;
+  transition: .3s;
+  color: #747474;
+  display: inline-block;
+}
+.NavBarSignin a:hover {
+  opacity: 1;
+}
+
+
 /*
  * Avatar compoent
  */
