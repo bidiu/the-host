@@ -39,6 +39,15 @@ async function index(filters, projection = fields) {
   // TODO tag
 
   return Venue.find(conditions, projection);
+
+   //var keyword = "Starbucks - The popular Cafe you love"
+
+   //var find = {$text:{$search:keyword}};
+  // var findScore = {'score':{'$meta':'textScore'}};
+  // var sort = {'score': {'$meta':'textScore'} }
+
+
+   //return Venue.find({$text:{$search:keyword}}).skip(20).limit(10).exec(function(err,docs){});
 }
 
 async function retrieve(venueId, projection = fields) {
