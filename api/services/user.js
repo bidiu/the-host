@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const ApiError = require('../common/models/api-errors');
 
-const fields = `username name age sex avatarUrl`;
+const fields = `email username name age sex avatarUrl`;
 
 async function retrieve(userId, projection = fields) {
   let user = await User.findById(userId, projection);

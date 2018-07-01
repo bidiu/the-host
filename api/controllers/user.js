@@ -22,8 +22,8 @@ async function retrieve(req, res) {
  * Create a user (sign up).
  */
 async function create(req, res) {
-  let { username, name, age, sex, password } = req.body;
-  let doc = compressDoc({ username, name, age, sex, password });
+  let { email, username, name, age, sex, password } = req.body;
+  let doc = compressDoc({ email, username, name, age, sex, password });
   let payload = null;
 
   if (req.session.user) {

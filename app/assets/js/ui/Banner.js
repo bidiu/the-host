@@ -63,7 +63,6 @@ class AbstractBanner extends React.Component {
   }
 }
 
-// TODO removeNotification
 const Banner = withNotifications(
   class extends AbstractBanner {
     render() {
@@ -91,7 +90,6 @@ const Banner = withNotifications(
   }
 );
 
-// TODO entries
 const BannerList = withNotifications(
   ({ entries, displayLimit = 2 }) => {
     // if (viewportType === VIEWPORT_MOBILE) { displayLimit = 1; }
@@ -114,3 +112,46 @@ const BannerList = withNotifications(
     );
   }
 );
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.addNotification = this.addNotification.bind(this);
+    this.removeNotification = this.removeNotification.bind(this);
+
+    this.state = {
+      entries: [],
+      addNotification: this.addNotification,
+      removeNotification: this.removeNotification
+    }
+  }
+
+  addNotification(entry) {
+    this.setState(({ entries, ...others }) => ({
+      entries: [...entries, entry],
+      ...others
+    }));
+  }
+
+  removeNotification(entryId) {
+    this.setState(({ entries, ...others }) => {
+      let i = entries.map(e => e.id).indexOf(entryId);
+      if (i === -1) { return { entries, ...others }; }
+      
+      // return the next state
+      return {
+        entries: [...entries.slice(0, i), ...entries.slice(i + 1)],
+        ...others
+      };
+    });
+  }
+
+  render() {
+    return (
+      <NotificationContext.Provider value={this.state}>
+        <BannerList />
+        {this.props.children}
+      </NotificationContext.Provider>
+    );
+  }
+}

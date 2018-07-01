@@ -61,54 +61,10 @@
       window.location = '/html/home.html';
     }
 
-    class App extends React.Component {
-      constructor(props) {
-        super(props);
-        this.addNotification = this.addNotification.bind(this);
-        this.removeNotification = this.removeNotification.bind(this);
-
-        this.state = {
-          entries: [],
-          addNotification: this.addNotification,
-          removeNotification: this.removeNotification
-        }
-      }
-
-      addNotification(entry) {
-        this.setState(({ entries, ...others }) => ({
-          entries: [...entries, entry],
-          ...others
-        }));
-      }
-
-      removeNotification(entryId) {
-        this.setState(({ entries, ...others }) => {
-          let i = entries.map(e => e.id).indexOf(entryId);
-          if (i === -1) { return { entries, ...others }; }
-          
-          // return the next state
-          return {
-            entries: [...entries.slice(0, i), ...entries.slice(i + 1)],
-            ...others
-          };
-        });
-      }
-
-      render() {
-        return (
-          <NotificationContext.Provider value={this.state}>
-            <BannerList />
-
-            {/* put your react component tree root here */}
-            {/* inside it, you can use the notification utility via `withNotifications` */}
-            <LoginForm />
-          </NotificationContext.Provider>
-        );
-      }
-    }
-
-    ReactDOM.render(
-      <App />, 
+    ReactDOM.render((
+      <App>
+        <LoginForm />
+      </App>),
       document.getElementById('signin-form-container')
     );
 

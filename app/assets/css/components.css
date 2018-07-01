@@ -9,6 +9,24 @@
   z-index: 500;
 }
 
+/* the join button in the navbar */
+.NavBarSignin button {
+   color: #ff6161;
+   border-color: #ff6161;
+}
+.NavBarSignin button:hover {
+  color: #ffffff;
+  background-color: #ff6161;
+  border-color: #ff6161;
+}
+.NavBarSignin button:active,.NavBarSignin button:focus {
+  color: #eeeeee !important;
+  background-color: #c04646 !important;
+  border-color: #c04646 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /*
  * Avatar compoent
  */
@@ -32,7 +50,7 @@
  * SignupForm component
  */
  .SingupForm {
-   margin: 10% auto 5% auto;
+   margin: 80px auto 20px auto;
    max-width: 300px;
  }
 
@@ -41,8 +59,17 @@
  }
 
  .SingupForm .form-control {
-   margin-bottom: 12px;
+   margin-bottom: 14px;
  }
+
+ .SingupForm label {
+  margin-bottom: 0 !important;
+}
+
+.SingupForm-err-msg {
+  color: #d65353;
+  font-size: 12px;
+}
 
 
 /*
