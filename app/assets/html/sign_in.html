@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap core CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
   <link href="/css/the-host.css" rel="stylesheet">
@@ -40,7 +41,9 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-transition-group@2.3.1/dist/react-transition-group.min.js"></script>
   <script type="text/babel" src="/js/common.js"></script>
+  <script type="text/babel" src="/js/ui/Banner.js"></script>
   <script type="text/babel" src="/js/ui/Avatar.js"></script>
   <script type="text/babel" src="/js/ui/NavBar.js"></script>
   <script type="text/babel" src="/js/ui/LoginForm.js"></script>
@@ -58,7 +61,56 @@
       window.location = '/html/home.html';
     }
 
-    ReactDOM.render(<LoginForm />, document.getElementById('signin-form-container'));
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.addNotification = this.addNotification.bind(this);
+        this.removeNotification = this.removeNotification.bind(this);
+
+        this.state = {
+          entries: [],
+          addNotification: this.addNotification,
+          removeNotification: this.removeNotification
+        }
+      }
+
+      addNotification(entry) {
+        this.setState(({ entries, ...others }) => ({
+          entries: [...entries, entry],
+          ...others
+        }));
+      }
+
+      removeNotification(entryId) {
+        this.setState(({ entries, ...others }) => {
+          let i = entries.map(e => e.id).indexOf(entryId);
+          if (i === -1) { return { entries, ...others }; }
+          
+          // return the next state
+          return {
+            entries: [...entries.slice(0, i), ...entries.slice(i + 1)],
+            ...others
+          };
+        });
+      }
+
+      render() {
+        return (
+          <NotificationContext.Provider value={this.state}>
+            <BannerList />
+
+            {/* put your react component tree root here */}
+            {/* inside it, you can use the notification utility via `withNotifications` */}
+            <LoginForm />
+          </NotificationContext.Provider>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <App />, 
+      document.getElementById('signin-form-container')
+    );
 
   </script>
 </body>

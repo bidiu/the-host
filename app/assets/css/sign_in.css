@@ -1,13 +1,5 @@
-html,
 body {
-  height: 100%;
-}
-
-body {
-  
-  -ms-flex-align: center;
-  align-items: center;
-  
+  /* align-items: center; */
   background-color: #f5f5f5;
 }
 

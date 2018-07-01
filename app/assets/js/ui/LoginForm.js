@@ -1,7 +1,7 @@
 /**
  * Login form
  */
-class LoginForm extends React.Component {
+class _LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
@@ -19,12 +19,24 @@ class LoginForm extends React.Component {
     event.preventDefault();
     
     let { username, password } = this.state;
+    let { addNotification } = this.props;
 
     axios.get(`/auth/signin?username=${username}&password=${password}`)
       .then(() => {
         window.location = '/html/home.html';
       })
-      .catch(console.error);
+      .catch(err => {
+        let payload = err.response.data;
+        let message = null;
+
+        if (payload.status === 404) {
+          message = 'The account you tried to sign in doesn\'t exist.';
+        } else {
+          message = payload.details || payload.message;
+        }
+
+        addNotification(new NotificationEntry({ message, timeout: 3000 }));
+      });
   }
 
   render() {
@@ -54,3 +66,5 @@ class LoginForm extends React.Component {
     );
   } // end of render
 }
+
+const LoginForm = withNotifications(_LoginForm);

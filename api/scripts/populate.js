@@ -8,10 +8,10 @@ const venueService = require('../services/venue');
  * Populate `venues` collection in database.
  */
 async function populateVenues() {
-  //let venues = await venueService.index();
+  let venues = await venueService.index();
 
   // if already have data, don't populate more
-  //if (venues.length > 0) { return; }
+  if (venues.length > 0) { return; }
   console.log('No document in `venues` collection, start populating.');
 
   await venueService.create({

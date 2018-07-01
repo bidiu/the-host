@@ -7,7 +7,7 @@ const fields = `name type imgUrl about phone email minCustomers maxCustomers zip
 const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
 const venueTitles = ['Starbucks - The popular Cafe you love', 'Sugar Marmalade - Delicious food and deserts', 'Walmart','Oz Kafe, ByWard Market - Intimate space for dinner','Metro','KTV','Concert'];
 
-async function index(filters, projection = fields) {
+async function index(filters = {}, projection = fields) {
   let conditions = {};
   let { type } = filters;
   
