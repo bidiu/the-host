@@ -29,9 +29,9 @@
 
 /* signin link in navbar */
 .NavBarSignin a {
-  opacity: .6;
+  opacity: .8;
   transition: .3s;
-  color: #747474;
+  color: #616161;
   display: inline-block;
 }
 .NavBarSignin a:hover {
