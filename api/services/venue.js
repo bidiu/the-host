@@ -7,47 +7,66 @@ const fields = `name type imgUrl about phone email minCustomers maxCustomers zip
 const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
 const venueTitles = ['Starbucks - The popular Cafe you love', 'Sugar Marmalade - Delicious food and deserts', 'Walmart','Oz Kafe, ByWard Market - Intimate space for dinner','Metro','KTV','Concert'];
 
+
+/**
+ * Mongoose paging
+ */
+// async function index(projection = fields) {
+
+//   var query = Venue.find({});
+//   query.count(function(err, count){});
+//   //query.skip(3).limit(3).exec();
+//   console.log(query);
+// }
+
+
+/**
+ * Index list and filter
+ */
 async function index(filters, projection = fields) {
   let conditions = {};
   let { type } = filters;
   
-
   // type and title(name) filter
   if (type) {
 
-    if (!venueTypes.includes(type)) {
-      
-      if(!venueTitles.includes(type)){
+    if(isNaN(type)){
 
-        throw new ApiError.BadReq({ details: 'Invalid venue type and title.' });
+      if (!venueTypes.includes(type)) {
       
-      }else{
+        if(!venueTitles.includes(type)){
+
+          throw new ApiError.BadReq({ details: 'Invalid venue type and title.' });
+      
+        }else{
         
-        conditions.name = type;
-
+          conditions.name = type;
+          var query = Venue.find(conditions, projection);
+        }
       }
+      else if (venueTypes.includes(type))
+        { conditions.type = type;
+          var query = Venue.find(conditions, projection);
+        }
+    
+    }else if(!isNaN(type)) {
+
+      var num = (parseInt(type)-1)*3;
+      var query = Venue.find(conditions, projection).skip(num).limit(3).exec();
+
     }
-    else if (venueTypes.includes(type))
-    { conditions.type = type;}
    
+  }else{
+
+    var query = Venue.find(conditions, projection);
   }
 
   // TODO geo
   
-
-  
   // TODO tag
-
-  return Venue.find(conditions, projection);
-
-   //var keyword = "Starbucks - The popular Cafe you love"
-
-   //var find = {$text:{$search:keyword}};
-  // var findScore = {'score':{'$meta':'textScore'}};
-  // var sort = {'score': {'$meta':'textScore'} }
-
-
-   //return Venue.find({$text:{$search:keyword}}).skip(20).limit(10).exec(function(err,docs){});
+  
+  return query;
+  
 }
 
 async function retrieve(venueId, projection = fields) {
@@ -76,3 +95,4 @@ exports.index = index;
 exports.retrieve = retrieve;
 exports.create = create;
 exports.update = update;
+

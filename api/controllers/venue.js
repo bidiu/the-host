@@ -8,14 +8,16 @@ const { compressDoc } = require('../utils/common');
  * Index venues.
  */
 async function index(req, res) {
+  
   let { type } = req.query;
   let filters = { type };
-  //let filters = { title };
-
+  
   let data = await venueService.index(filters);
+  
   let payload = new Res.Ok({ data });
   res.status(payload.status).json(payload);
 }
+
 
 /**
  * GET /api/v1/venues/:venuesId
@@ -23,6 +25,8 @@ async function index(req, res) {
  * Retrieve a venue.
  */
 async function retrieve(req, res) {
+  
+
   let venueId = req.params.venueId;
 
   let data = await venueService.retrieve(venueId);
@@ -77,3 +81,4 @@ exports.index = index;
 exports.retrieve = retrieve;
 exports.create = create;
 exports.update = update;
+
