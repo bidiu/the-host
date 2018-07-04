@@ -21,7 +21,8 @@ async function retrieveByUsername(username, projection = fields) {
 }
 
 async function create(doc) {
-  return User.create(doc);
+  let user = await User.create(doc);
+  return retrieve(user._id);
 }
 
 async function update(doc) {
