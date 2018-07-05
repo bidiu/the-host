@@ -1,6 +1,21 @@
 const venueService = require('../services/venue');
 const Res = require('../common/models/responses');
+const ApiError = require('../common/models/api-errors');
 const { compressDoc } = require('../utils/common');
+
+// parse sort query param
+function _parseSort(paramVal) {
+  let entries = paramVal.split('|');
+  let sort = {};
+
+  for (let entry of entries) {
+    let matches = entry.match(/^(\w+):(-?1)$/);
+    if (!matches) { throw new ApiError.BadReq({ details: 'Invalid `sort` param.' }); }
+
+    sort[matches[1]] = parseInt(matches[2]);
+  }
+  return sort;
+}
 
 /**
  * GET /api/v1/venues
@@ -8,10 +23,13 @@ const { compressDoc } = require('../utils/common');
  * Index venues.
  */
 async function index(req, res) {
-  let { type, name } = req.query;
+  let { type, name, sort, limit } = req.query;
   let filters = { type, name };
 
-  let data = await venueService.index(filters);
+  if (sort) { sort = _parseSort(sort); }
+  if (limit) { limit = parseInt(limit); }
+
+  let data = await venueService.index(filters, { sort, limit });
   let payload = new Res.Ok({ data });
   res.status(payload.status).json(payload);
 }

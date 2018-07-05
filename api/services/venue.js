@@ -6,10 +6,14 @@ const fields = `name type imgUrl about phone email minCustomers maxCustomers zip
 
 const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
 
+const defaultSort = { _id: 1 };
+
+const defaultLimit = 20;
+
 /**
  * TODO index based on tag, geo
  */
-async function index(filters = {}, projection = fields) {
+async function index(filters = {}, { sort = defaultSort, limit = defaultLimit, projection = fields } = {}) {
   let conditions = {};
   let { type, name } = filters;
   
@@ -27,7 +31,7 @@ async function index(filters = {}, projection = fields) {
     conditions.$text = { $search: name }
   }
 
-  return Venue.find(conditions, projection);
+  return Venue.find(conditions, projection, { sort, limit });
 }
 
 async function retrieve(venueId, projection = fields) {
