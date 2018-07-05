@@ -92,9 +92,44 @@
 /*
  *
  */
-/* .SimpleSearchBox .childClass {
-  
-} */
+.SimpleSearchBox {
+  display: flex;
+  align-items: center;
+}
+
+.SimpleSearchBox-input {
+  height: 50px;
+  box-sizing: border-box;
+  border-width: 0;
+  width: 100%;
+  max-width: 320px;
+  padding: 0 16px;
+  border-radius: 4px 0 0 4px;
+  font-weight: 100;
+  font-size: 22px;
+}
+
+.SimpleSearchBox-input:focus {
+  outline: none;
+}
+
+.SimpleSearchBox-btn {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 32px;
+  background-color: #ffffff;
+  border-radius: 0 4px 4px 0;
+  color: #ff6161;
+  flex-shrink: 0;
+}
+
+.SimpleSearchBox-btn:hover {
+  color: #ffffff;
+  background-color: #ff6161;
+  cursor: pointer;
+}
 
 /*
  * Fade
@@ -127,6 +162,7 @@
   align-items: center;
   padding: 0 8px;
   background-color: #ffffff;
+  color: #333333 !important;
 }
 
 .Banner-icon {

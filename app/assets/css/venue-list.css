@@ -7,7 +7,9 @@
   padding-bottom: var(--jumbotron-padding-y);
   margin-bottom: 0;
   background-color: #fff;
+  border-radius: 0 !important;
 }
+
 @media (min-width: 768px) {
   .jumbotron {
     padding-top: calc(var(--jumbotron-padding-y) * 2);
@@ -61,61 +63,46 @@ footer p {
 }
 
 .navbar_sign {
-
   list-style-type: none;
   position: relative;
   left: 30%;
-  
 }
+
 .search_form {
-     
   position: relative;
   left: 22%;  
   margin-top: 12%;
-           
 }
 
 .search_button {
-
    border-color:rgb(255, 255, 255);
-  
-   
 }
-.font_color{
 
+.font_color{
   color: rgb(94, 139, 223);
 }
 
 .email_item {
-
   right: 50%;
-
 }
 
 .bg_pic1 {
-
-
   background-image: url("/img/event6.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-
 }
 
 .bg_pic2 {
-
   background-image: url("/img/event55.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-
 }
 
 .bg_pic3 {
-
   background-image: url("/img/event7.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-
 }
