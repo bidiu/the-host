@@ -8,12 +8,10 @@ const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
 
 const defaultSort = { _id: 1 };
 
-const defaultLimit = 20;
-
 /**
  * TODO index based on tag, geo
  */
-async function index(filters = {}, { sort = defaultSort, limit = defaultLimit, projection = fields } = {}) {
+async function index(filters = {}, { sort = defaultSort, limit = 20, projection = fields } = {}) {
   let conditions = {};
   let { type, name } = filters;
   

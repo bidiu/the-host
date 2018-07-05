@@ -18,7 +18,6 @@ const venueSchema = new Schema({
     required: true,
     minlength: 1,
     maxlength: 32,
-    
   },
   // main thumbnal's url
   imgUrl: {
