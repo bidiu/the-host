@@ -10,7 +10,6 @@ const { compressDoc } = require('../utils/common');
 async function index(req, res) {
   let { type } = req.query;
   let filters = { type };
-  //let filters = { title };
 
   let data = await venueService.index(filters);
   let payload = new Res.Ok({ data });
