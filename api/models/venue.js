@@ -10,8 +10,7 @@ const venueSchema = new Schema({
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 64,
-    
+    maxlength: 64
   },
   // venue's type
   type: {
@@ -81,15 +80,11 @@ const venueSchema = new Schema({
   toObject: { virtuals: true }
 });
 
-//Schema.path('name').index({text : true});
-
-//venueSchema.index({type: 'text'});
-//Schema.path('type').index({text : true});
-//venueSchema.index({type: 'text'});
-
 venueSchema.virtual('staticMapUrl').get(function () {
   return genStaticMapUrl(this.address || this.zip);
 });
+
+venueSchema.index({ name: 'text' });
 
 /** venue model */
 const Venue = mongoose.model('Venue', venueSchema);

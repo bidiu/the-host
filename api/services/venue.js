@@ -7,11 +7,11 @@ const fields = `name type imgUrl about phone email minCustomers maxCustomers zip
 const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
 
 /**
- * TODO index based on tag
+ * TODO index based on tag, geo
  */
 async function index(filters = {}, projection = fields) {
   let conditions = {};
-  let { type } = filters;
+  let { type, name } = filters;
   
   // type filter
   if (type) {
@@ -22,9 +22,10 @@ async function index(filters = {}, projection = fields) {
     conditions.type = type;
   }
 
-  // TODO geo
-  
-  // TODO name (full-text index)
+  // name (full text search)
+  if (name) {
+    conditions.$text = { $search: name }
+  }
 
   return Venue.find(conditions, projection);
 }

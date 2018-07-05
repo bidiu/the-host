@@ -8,8 +8,8 @@ const { compressDoc } = require('../utils/common');
  * Index venues.
  */
 async function index(req, res) {
-  let { type } = req.query;
-  let filters = { type };
+  let { type, name } = req.query;
+  let filters = { type, name };
 
   let data = await venueService.index(filters);
   let payload = new Res.Ok({ data });
