@@ -4,32 +4,13 @@ const { geocodeAddress } = require('../utils/geo');
 
 const fields = `name type imgUrl about phone email minCustomers maxCustomers zip address lat lng`;
 
-const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
-
 const defaultSort = { _id: 1 };
 
 /**
  * TODO index based on tag, geo
  */
 async function index(filters = {}, { sort = defaultSort, limit = 20, projection = fields } = {}) {
-  let conditions = {};
-  let { type, name } = filters;
-  
-  // type filter
-  if (type) {
-    if (!venueTypes.includes(type)) {
-      throw new ApiError.BadReq({ details: 'Invalid venue type.' });
-    }
-
-    conditions.type = type;
-  }
-
-  // name (full text search)
-  if (name) {
-    conditions.$text = { $search: name }
-  }
-
-  return Venue.find(conditions, projection, { sort, limit });
+  return Venue.find(filters, projection, { sort, limit });
 }
 
 async function retrieve(venueId, projection = fields) {

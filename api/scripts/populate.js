@@ -28,7 +28,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     phone: 1234567890,
     email: 'emailaddress@example.com',
     minCustomers: 1,
-    maxCumsomers: 10,
+    maxCustomers: 10,
     zip: 'K1G 3S2',
     address: '100 Trainyards Dr Unit 14A, Ottawa, ON',
     imgUrl: 'https://si.wsj.net/public/resources/images/P1-CE453_STARBU_M_20180521233141.jpg'
@@ -48,7 +48,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     phone: 1234567890,
     email: 'emailaddress@example.com',
     minCustomers: 1,
-    maxCumsomers: 10,
+    maxCustomers: 10,
     zip: 'K1N 5X6',
     address: '180 Rideau St, Ottawa, ON',
     imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipNVyIdmXZBg1ymUDjyx66_I0hBZm8j6Ih6yHY1D=s0'
@@ -68,7 +68,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     phone: 1234567890,
     email: 'emailaddress@example.com',
     minCustomers: 1,
-    maxCumsomers: 8,
+    maxCustomers: 8,
     zip: 'K1N 5S6',
     address: '10 York St, Ottawa, ON',
     imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipM9T5hznpQgpBP-1TCI2CCDn7SjMAyHfNHyy1kM=s0'
@@ -89,7 +89,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     phone: 1234567890,
     email: 'emailaddress@example.com',
     minCustomers: 1,
-    maxCumsomers: 8,
+    maxCustomers: 8,
     zip: 'K1N 5S6',
     address: '10 York St, Ottawa, ON',
     imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipPXe6R0Xgjvvzost6HADNKr2CfSFc-O5J3smKGx=s0'
@@ -109,7 +109,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     phone: 1234567890,
     email: 'emailaddress@example.com',
     minCustomers: 1,
-    maxCumsomers: 8,
+    maxCustomers: 8,
     zip: 'K1N 5S6',
     address: '10 York St, Ottawa, ON',
     imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipMmP6EIfVYW7zI42Z1ti2O5Y4vAqJFiSm0cjvWD=s0'
@@ -129,7 +129,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     phone: 1234567890,
     email: 'emailaddress@example.com',
     minCustomers: 1,
-    maxCumsomers: 8,
+    maxCustomers: 8,
     zip: 'K1N 5S6',
     address: '10 York St, Ottawa, ON',
     imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipOrcLYGJiwnJTouMcxWYSxgheqxu1VY4B6bG7j9=s0'
@@ -149,7 +149,7 @@ feugiat fringilla vitae non nunc. Mauris sit amet pulvinar dui. Nullam ac nisl l
     phone: 1234567890,
     email: 'emailaddress@example.com',
     minCustomers: 1,
-    maxCumsomers: 8,
+    maxCustomers: 30,
     zip: 'K1N 5S6',
     address: '10 York St, Ottawa, ON',
     imgUrl: 'https://lh3.googleusercontent.com/p/AF1QipOP2LPQGycU2QUc9vh04ZWlT7fdmm-MpTQJ67br=s0'
