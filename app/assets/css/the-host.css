@@ -41,3 +41,9 @@
 .ink-link-var1:hover {
   color: #ef5353;
 }
+
+.thost-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

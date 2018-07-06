@@ -61,21 +61,21 @@
 /*
  * SignupForm component
  */
- .SingupForm {
-   margin: 80px auto 20px auto;
-   max-width: 300px;
- }
+.SingupForm {
+  margin: 80px auto 20px auto;
+  max-width: 300px;
+}
 
- .SingupForm .h1_form {
-   text-align: center;
- }
+.SingupForm .h1_form {
+  text-align: center;
+}
 
- .SingupForm .form-control {
-   margin-bottom: 14px;
- }
+.SingupForm .form-control {
+  margin-bottom: 14px;
+}
 
- .SingupForm label {
-  margin-bottom: 0 !important;
+.SingupForm label {
+margin-bottom: 0 !important;
 }
 
 .SingupForm-err-msg {
@@ -83,14 +83,8 @@
   font-size: 12px;
 }
 
-
 /*
-* VenueBasicInfoCard component
-*/
-
-
-/*
- *
+ * the searb box displayed in the home page
  */
 .SimpleSearchBox {
   display: flex;
@@ -230,4 +224,47 @@
   max-width: 960px;
   margin: 0 auto;
   z-index: 5000;
+}
+
+/*
+ * VenueSearchBox a form control
+ */
+.VenueSearchBox {
+  display: flex;
+  align-items: center;
+}
+
+.VenueSearchBox-input {
+  height: 50px;
+  box-sizing: border-box;
+  border-width: 0;
+  width: 100%;
+  /* max-width: 320px; */
+  padding: 0 16px;
+  border-radius: 4px 0 0 4px;
+  font-weight: 100;
+  font-size: 22px;
+}
+
+.VenueSearchBox-input:focus {
+  outline: none;
+}
+
+.VenueSearchBox-btn {
+  transition: .1s;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 32px;
+  background-color: #ffffff;
+  border-radius: 0 4px 4px 0;
+  color: #ff6161;
+  flex-shrink: 0;
+}
+
+.VenueSearchBox-btn:hover {
+  color: #ffffff;
+  background-color: #ff6161;
+  cursor: pointer;
 }

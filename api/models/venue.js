@@ -83,7 +83,7 @@ venueSchema.virtual('staticMapUrl').get(function () {
   return genStaticMapUrl(this.address || this.zip);
 });
 
-venueSchema.index({ name: 'text' });
+venueSchema.index({ name: 'text', about: 'text' });
 
 /** venue model */
 const Venue = mongoose.model('Venue', venueSchema);

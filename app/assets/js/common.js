@@ -53,6 +53,18 @@ function getQueryParamVal(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function mapObjToQueryStr(obj) {
+  let query = '';
+
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key) && obj[key]) {
+      if (query) { query += '&' }
+      query += (key + '=' + obj[key]);
+    }
+  }
+  return query ? '?' + query : '';
+}
+
 
 /******************** banner related ********************/
 const TYPE_BANNER = 'TYPE_BANNER';

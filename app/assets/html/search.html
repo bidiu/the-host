@@ -12,14 +12,16 @@
     <link href="/css/components.css" rel="stylesheet">
 
     <!-- extra css links go here -->
+    <link href="/css/search.css" rel="stylesheet">
 
-    <title>Hello, world!</title>
+    <title>The Host</title>
   </head>
   <body>
     <!-- navigation bar -->
     <div id="nav-bar-container"></div>
-    <h1>Hello, world!</h1>
+
     <!-- html template goes here -->
+    <div id="root"></div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -29,12 +31,16 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.0.2/ResizeSensor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.0.2/ElementQueries.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-transition-group@2.3.1/dist/react-transition-group.min.js"></script>
     <script type="text/babel" src="/js/common.js"></script>
+    <script type="text/babel" src="/js/ui/Banner.js"></script>
     <script type="text/babel" src="/js/ui/Avatar.js"></script>
     <script type="text/babel" src="/js/ui/NavBar.js"></script>
+    <script type="text/babel" src="/js/ui/form-controls.js"></script>
     <script>
       "use strict";
       // js goes here
@@ -49,6 +55,186 @@
       
       // babel (js for React) goes here
 
+      // 12 results per page
+      const pageLimit = 12;
+
+      class VenueFilter extends React.Component {
+        constructor(props) {
+          super(props);
+          this.nameChangeHandler = this.nameChangeHandler.bind(this);
+        }
+
+        nameChangeHandler(name) {
+          this.props.onFiltersChange({ name });
+        }
+
+        render() {
+          let { filters, onSearchBtnClick } = this.props;
+          let { name } = filters;
+
+          return (
+            <div className="VenueFilter">
+              {/* name */}
+              <div className="VenueFilter-search-box">
+                <VenueSearchBox name={name}
+                  onNameChange={this.nameChangeHandler}
+                  onBtnClick={onSearchBtnClick} />
+              </div>
+            </div>
+          );
+        }
+      }
+
+      const VenueResult = ({ venue }) => {
+        let { _id, name, imgUrl, about } = venue;
+        about = about.slice(0, 360);
+
+        let href = `/html/venue.html?venueId=${_id}`;
+
+        let imgStyle = {
+          // height: 360,
+          backgroundImage: `url("${imgUrl}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        };
+
+        let titleStyle = {
+          fontSize: 20,
+          fontWeigth: 'bold',
+          paddingBottom: 6,
+        };
+
+        let aboutStyle = {
+          fontSize: 14,
+          fontWeight: 'lighter',
+          opacity: .5
+        };
+
+        return (
+          <a className="VenueResult thost-card" href={href}>
+            <div className="VenueResult-img" style={imgStyle}></div>
+            <div className="VenueResult-text">
+              <div>
+                <div style={titleStyle}>{name}</div>
+              </div>
+              <div style={aboutStyle}>{about}</div>
+            </div>
+          </a>
+        );
+      }
+
+      class VenueResultList extends React.Component {
+        render() {
+          let { venues } = this.props;
+          console.log(venues);
+
+          return (
+            <div className="VenueResultList">
+              {venues.map(venue => <VenueResult venue={venue} key={venue._id} />)}
+            </div>
+          );
+        }
+      }
+
+      const SearchPage = withNotifications(
+        class extends React.Component {
+          constructor(props) {
+            super(props);
+            this.filtersChangeHandler = this.filtersChangeHandler.bind(this);
+            this.searchBtnClickHandler = this.searchBtnClickHandler.bind(this);
+
+            this.state = {
+              filters: { name: '' },
+              resultList: [],
+              pageNo: 1
+            };
+          }
+
+          writeFiltersToUrl() {
+            let query = '?';
+            let { name } = this.state.filters;
+
+            if (name) { query += `name=${name}`; }
+
+            window.history.replaceState({}, '', query);
+          }
+
+          readFiltersFromUrl() {
+            let filters = {};
+
+            let name = getQueryParamVal('name');
+            if (name) { filters.name = name; }
+
+            this.setState({ filters });
+          }
+
+          triggerSearch() {
+            let { name } = this.state.filters;
+            let queryObj = { name, limit: pageLimit };
+            let queryStr = mapObjToQueryStr(queryObj);
+
+            axios.get('/venues' + queryStr)
+              .then(resp => {
+                this.setState({ resultList: resp.data.data });
+              })
+              .catch(console.error);
+          }
+
+          filtersChangeHandler(filters) {
+            this.setState(prevState => {
+              return {
+                filters: { ...prevState.filters, ...filters }
+              };
+            });
+          }
+
+          searchBtnClickHandler() {
+            if (!this.state.filters.name) {
+              let message = 'Please input something before searching.';
+              this.props.addNotification(new NotificationEntry({ message, timeout: 3000 }));
+            }
+
+            this.writeFiltersToUrl();
+            this.triggerSearch();
+          }
+
+          componentDidMount() {
+            // read filters from url
+            let filters = {};
+
+            let name = getQueryParamVal('name');
+            if (name) { filters.name = name; }
+
+            // initialize filters and search
+            this.setState({ filters }, () => this.triggerSearch());
+          }
+
+          render() {
+            let { filters, resultList } = this.state;
+
+            return (
+              <div className="SearchPage">
+                <div className="venue-filters-container">
+                  <VenueFilter filters={filters}
+                    onFiltersChange={this.filtersChangeHandler}
+                    onSearchBtnClick={this.searchBtnClickHandler} />
+                </div>
+                <div className="venue-list-container">
+                  <VenueResultList venues={resultList} />
+                </div>
+              </div>
+            );
+          }
+        }
+      );
+
+      ReactDOM.render((
+          <App>
+            <SearchPage />  
+          </App>
+        ),
+        document.getElementById('root')
+      );
     </script>
   </body>
 </html>
