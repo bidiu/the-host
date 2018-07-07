@@ -1,0 +1,135 @@
+[
+  {
+    "name": "Starbucks - The popular Cafe you love",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1G 3S2",
+    "address": "100 Trainyards Dr Unit 14A, Ottawa, ON",
+    "imgUrl": "https://si.wsj.net/public/resources/images/P1-CE453_STARBU_M_20180521233141.jpg"
+  }, {
+    "name": "Sugar Marmalade - Delicious food and deserts",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1N 5X6",
+    "address": "180 Rideau St, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipNVyIdmXZBg1ymUDjyx66_I0hBZm8j6Ih6yHY1D=s0"
+  }, {
+    "name": "Oz Kafe, ByWard Market - Intimate space for dinner",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1N 5S6",
+    "address": "10 York St, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipM9T5hznpQgpBP-1TCI2CCDn7SjMAyHfNHyy1kM=s0"
+  }, {
+    "name": "Riviera Ottawa",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1P 5A5",
+    "address": "62 Sparks St, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipP_9RqdVQBEl2pKxbv5fRvmtvsaGMqlE_wAw87x=s0"
+  }, {
+    "name": "Le Moulin de Provence K•D - Contemporary cafe & eatery offering coffee drinks",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1P 5L4",
+    "address": "30 Metcalfe St, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipNxCdli1wZDMtOWoPGzf2o-3JFbem_Z0YEk-mEA=s0"
+  }, {
+    "name": "Edoko Japanese Steak House",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1P 5B4",
+    "address": "64 Queen St, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipPNEvf4qu0Iue36MrSIPTzOANIbjxOCrCtM5nV7=s0"
+  }, {
+    "name": "Milestones Grill and Bar",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1N 1K4",
+    "address": "700 Sussex Dr, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipPGRc5qtvK7jToXVxk5p0GWzXsDD1w-hzrA0wLg=s0"
+  }, {
+    "name": "The Fish Market Restaurant",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1N 5T1",
+    "address": "54 York St, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipN97dx5wqjbkyIu67TBslsFLku2FyQmQdSpL9rN=s0"
+  }, {
+    "name": "Orchid Sushi - Cosy and casual",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1R 0A2",
+    "address": "445 Laurier Ave W, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipOKXTbHgi_v90PVele5uvvF_WrT2sdIrF6GQvi1=s0"
+  }, {
+    "name": "Sutherland Restaurant, Bar and Coffee House",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1L 8A7",
+    "address": "224, Beechwood Avenue, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipOM4HlGVj8mfN2LWJRdobeAeaTJXWa-L7fNNJAC=s0"
+  }, {
+    "name": "The Works - late-night food & fast food",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1K 2Z7",
+    "address": "363 St Laurent Blvd, Ottawa, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipOUeV5QS0X18Ei3Bk_MGaACWNQo4UR5PfPrtjKF=s0"
+  }, {
+    "name": "Eclipse Asian Cuisine - Asian cuisine",
+    "type": "restaurant",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "phone": 1234567890,
+    "email": "emailaddress@example.com",
+    "minCustomers": 1,
+    "maxCustomers": 10,
+    "zip": "K1B 3K5",
+    "address": "1930 Innes Rd, Gloucester, ON",
+    "imgUrl": "https://lh3.googleusercontent.com/p/AF1QipMaWgO8fi-vjL6AbbeXkfIjUT5TcSgs_CWXC7_J=s0"
+  }
+]
