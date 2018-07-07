@@ -65,6 +65,36 @@ function mapObjToQueryStr(obj) {
   return query ? '?' + query : '';
 }
 
+function _parseSort(paramVal) {
+  let entries = paramVal.split('|');
+  let sort = {};
+
+  for (let entry of entries) {
+    let matches = entry.match(/^(\w+):(-?1)$/);
+    if (!matches) { throw new Error('Invalid `sort` param.'); }
+
+    sort[matches[1]] = parseInt(matches[2]);
+  }
+  return sort;
+}
+
+/**
+ * Note that you MUST define "_id" at the end.
+ * And at most 2 sort fields are supported, "_id"
+ * is after the other sort field.
+ */
+function _encodeSort(sortObj) {
+  let sort = '';
+
+  for (let key in sortObj) {
+    if (sortObj.hasOwnProperty(key) && Math.abs(sortObj[key]) === 1) {
+      if (sort) { sort += '|'; }
+      sort += `${key}:${sortObj[key]}`;
+    }
+  }
+  return sort;
+}
+
 
 /******************** banner related ********************/
 const TYPE_BANNER = 'TYPE_BANNER';

@@ -31,6 +31,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clone/2.1.2/clone.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.0.2/ResizeSensor.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.0.2/ElementQueries.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
@@ -56,7 +57,7 @@
       // babel (js for React) goes here
 
       // 12 results per page
-      const pageLimit = 12;
+      const pageLimit = 2;
 
       class VenueFilter extends React.Component {
         constructor(props) {
@@ -80,6 +81,80 @@
                   onNameChange={this.nameChangeHandler}
                   onBtnClick={onSearchBtnClick} />
               </div>
+            </div>
+          );
+        }
+      }
+
+      class PageNoBar extends React.Component {
+        constructor(props) {
+          super(props);
+          this.clickHandler = this.clickHandler.bind(this);
+        }
+
+        genPageNos(curPageNo, lastPageNo) {
+          if (typeof lastPageNo !== 'number') {
+            lastPageNo = Number.MAX_SAFE_INTEGER;
+          }
+
+          let pageNos = ['<'];
+          if (curPageNo <= 2) {
+            for (let p = 1; p <= 4 && p <= lastPageNo; p++) {
+              pageNos.push(p);
+            }
+          } else {
+            for (let p = curPageNo - 2; p <= curPageNo + 1 && p <= lastPageNo; p++) {
+              pageNos.push(p);
+            }
+          }
+          if (pageNos[pageNos.length - 1] < lastPageNo) {
+            pageNos.push('...');
+          }
+          pageNos.push('>');
+          return pageNos;
+        }
+
+        clickHandler(no) {
+          let { curPageNo, onPageNoChange, lastPageNo } = this.props;
+          if (typeof lastPageNo !== 'number') {
+            lastPageNo = Number.MAX_SAFE_INTEGER;
+          }
+
+          let newPageNo = null;
+
+          if (!isNaN(no) && no != curPageNo) {
+            newPageNo = parseInt(no);
+          } else if (no === '<' && curPageNo > 1) {
+            newPageNo = curPageNo - 1;
+          } else if (no === '>' && curPageNo < lastPageNo) {
+            newPageNo = curPageNo + 1;
+          }
+          if (newPageNo) { onPageNoChange(newPageNo); }
+        }
+
+        render() {
+          let { curPageNo, lastPageNo } = this.props;
+          if (typeof lastPageNo !== 'number') {
+            lastPageNo = Number.MAX_SAFE_INTEGER;
+          }
+
+          // just be cautious
+          if (typeof lastPageNo === 'number' && curPageNo > lastPageNo) {
+            throw new Error('curPageNo > lastPageNo');
+          }
+
+          let pageNos = this.genPageNos(curPageNo, lastPageNo);
+          let disablePrev = curPageNo === 1;
+          let disableNext = curPageNo === lastPageNo;
+
+          return (
+            <div className={`PageNoBar ${disablePrev ? 'disable-prev' : ''} ${disableNext ? 'disable-next' : ''}`}>
+              {pageNos.map(no => (
+                <span key={no} onClick={this.clickHandler.bind(this, no)}
+                  className={`page-no ${no === curPageNo ? 'cur-page' : ''} ${no === '...' ? 'dots' : ''}`}>
+                  {no}
+                </span>
+              ))}
             </div>
           );
         }
@@ -125,12 +200,15 @@
 
       class VenueResultList extends React.Component {
         render() {
-          let { venues } = this.props;
-          console.log(venues);
+          let { venues, curPageNo, lastPageNo, onPageNoChange } = this.props;
+          let from = (curPageNo - 1) * pageLimit;
+          venues = venues.slice(from, from + pageLimit);
 
           return (
             <div className="VenueResultList">
               {venues.map(venue => <VenueResult venue={venue} key={venue._id} />)}
+              <PageNoBar curPageNo={curPageNo} lastPageNo={lastPageNo}
+                onPageNoChange={onPageNoChange} />
             </div>
           );
         }
@@ -142,21 +220,31 @@
             super(props);
             this.filtersChangeHandler = this.filtersChangeHandler.bind(this);
             this.searchBtnClickHandler = this.searchBtnClickHandler.bind(this);
+            this.pageNoChangeHandler = this.pageNoChangeHandler.bind(this);
 
-            this.state = {
+            this.state = this.getDefaultState();
+          }
+
+          getDefaultState() {
+            return {
               filters: { name: '' },
               resultList: [],
-              pageNo: 1
+              pageNo: 1,
+              lastPageNo: undefined,
+              sort: { _id: 1 }
             };
           }
 
+          // NOTE: not just filters, ALSO pageNo, sort...
           writeFiltersToUrl() {
-            let query = '?';
+            let { pageNo, sort } = this.state;
             let { name } = this.state.filters;
+            let queryObj = { pageNo, name, sort: _encodeSort(sort) };
+            let queryStr = mapObjToQueryStr(queryObj);
 
-            if (name) { query += `name=${name}`; }
-
-            window.history.replaceState({}, '', query);
+            if (queryStr) {
+              window.history.replaceState({}, '', queryStr);
+            }
           }
 
           readFiltersFromUrl() {
@@ -168,16 +256,44 @@
             this.setState({ filters });
           }
 
-          triggerSearch() {
-            let { name } = this.state.filters;
-            let queryObj = { name, limit: pageLimit };
-            let queryStr = mapObjToQueryStr(queryObj);
+          triggerSearch(initial = true) {
+            // don't alter `curState`
+            let curState = initial ? clone(this.state) :
+              { ...this.getDefaultState(), filters: clone(this.state.filters) };
 
+            let { pageNo, sort } = curState;
+            sort = _encodeSort(sort);
+            let { name } = curState.filters;
+            // by default, retrieve first 4 pages all in once
+            // (in case no pageNo on the url)
+            // if `pageNo` is greater than 2, retrieve first
+            // ${pageNo + 2} pages
+            let limit = pageNo > 2 ? (pageNo + 2) * pageLimit : 4 * pageLimit;
+            let queryObj = { name, limit, sort };
+            let queryStr = mapObjToQueryStr(queryObj);
+            
             axios.get('/venues' + queryStr)
               .then(resp => {
-                this.setState({ resultList: resp.data.data });
+                let resultList = resp.data.data;
+                let nextState = { ...curState, resultList };
+
+                if (resultList.length < limit) {
+                  nextState.lastPageNo = Math.ceil(resultList.length / pageLimit);
+                  pageNo = Math.min(pageNo, nextState.lastPageNo);
+                  nextState.pageNo = pageNo;
+                }
+                this.setState(nextState, () => this.writeFiltersToUrl());
               })
-              .catch(console.error);
+              .catch(err => {
+                let payload = err.response.data;
+                let message = message = payload.details || payload.message;
+
+                addNotification(new NotificationEntry({ message }));
+              });
+          }
+
+          retrieveMoreVenues() {
+
           }
 
           filtersChangeHandler(filters) {
@@ -194,23 +310,51 @@
               this.props.addNotification(new NotificationEntry({ message, timeout: 3000 }));
             }
 
-            this.writeFiltersToUrl();
-            this.triggerSearch();
+            // this.writeFiltersToUrl();
+            this.triggerSearch(false);
+          }
+
+          pageNoChangeHandler(newPageNo) {
+            // user clicked the page-no bar
+            console.log(newPageNo);
           }
 
           componentDidMount() {
-            // read filters from url
+            // constrcut next state from url
+            let nextState = {};
+            // read filters from url (part of `nextState` above)
             let filters = {};
 
+            /* init name from url */
             let name = getQueryParamVal('name');
             if (name) { filters.name = name; }
+            /* init pageNo from url */
+            let pageNo = getQueryParamVal('pageNo');
+            if (!isNaN(pageNo) && parseInt(pageNo) > 0) {
+              pageNo = parseInt(pageNo);
+            } else {
+              pageNo = undefined;
+            }
+            /* init sort from url */ 
+            let sort = getQueryParamVal('sort');
+            if (sort) {
+              sort = _parseSort(sort);
+            }
 
-            // initialize filters and search
-            this.setState({ filters }, () => this.triggerSearch());
+            // push fields into next state
+            if (filters) { nextState.filters = filters; }
+            if (pageNo) { nextState.pageNo = pageNo; }
+            if (sort) { nextState.sort = sort; }
+
+            // initialize filters, search and more to state
+            this.setState(nextState, () => {
+              this.writeFiltersToUrl();
+              this.triggerSearch();
+            });
           }
 
           render() {
-            let { filters, resultList } = this.state;
+            let { filters, resultList, pageNo, lastPageNo } = this.state;
 
             return (
               <div className="SearchPage">
@@ -220,7 +364,9 @@
                     onSearchBtnClick={this.searchBtnClickHandler} />
                 </div>
                 <div className="venue-list-container">
-                  <VenueResultList venues={resultList} />
+                  <VenueResultList venues={resultList}
+                    curPageNo={pageNo} lastPageNo={lastPageNo}
+                    onPageNoChange={this.pageNoChangeHandler} />
                 </div>
               </div>
             );
