@@ -256,6 +256,11 @@
             this.setState({ filters });
           }
 
+          /**
+           * set `initial` to true when the page is first loaded.
+           * When user clicks on the search button on this page, or
+           * set new filters, set `initial` to false.
+           */
           triggerSearch(initial = true) {
             // don't alter `curState`
             let curState = initial ? clone(this.state) :
@@ -292,8 +297,50 @@
               });
           }
 
+          /**
+           * Note that calling this function might now load more venues, because
+           * we fetch 4 pages when the page is first loaded. At least, we cache two
+           * more pages for user.
+           */
           retrieveMoreVenues() {
+            let { pageNo, lastPageNo, filters, sort, resultList } = this.state;
+            // a cautious checking
+            if (lastPageNo) { return; }
 
+            let limit = pageLimit * (pageNo + 2) - resultList.length;
+            if (limit < 1) { return; }
+
+            let { name } = filters;
+            let lastResult = resultList[resultList.length - 1];
+            let lastId = lastResult._id;
+            sort = _encodeSort(sort);
+
+            let queryObj = { name, limit, sort, lastId };
+            let queryStr = mapObjToQueryStr(queryObj);
+
+            axios.get('/venues' + queryStr)
+              .then(resp => {
+                // returned data
+                let indexedList = resp.data.data;
+                // next state going to set
+                let nextState = {
+                  ...clone(this.state), 
+                  resultList: [...resultList, ...indexedList]
+                };
+
+                if (indexedList.length < limit) {
+                  nextState.lastPageNo = Math.ceil(nextState.resultList.length / pageLimit);
+                  pageNo = Math.min(pageNo, nextState.lastPageNo);
+                  nextState.pageNo = pageNo;
+                }
+                this.setState(nextState, () => this.writeFiltersToUrl());
+              })
+              .catch(err => {
+                let payload = err.response.data;
+                let message = message = payload.details || payload.message;
+
+                addNotification(new NotificationEntry({ message }));
+              });
           }
 
           filtersChangeHandler(filters) {
@@ -314,9 +361,21 @@
             this.triggerSearch(false);
           }
 
-          pageNoChangeHandler(newPageNo) {
             // user clicked the page-no bar
-            console.log(newPageNo);
+          pageNoChangeHandler(pageNo) {
+            let { pageNo: prevPageNo, lastPageNo } = this.state;
+
+            this.setState({ pageNo }, () => {
+              this.writeFiltersToUrl();
+
+              if (pageNo > prevPageNo && !lastPageNo) {
+                // user clicked a page no. greater than previous page
+                // and we haven't loaded all pages yet (`lastPageNo` is undefined)
+                // we might need to fetch more venues (cache them before user switching)
+                // (or might not because we fetch 4 pages when page first loaded)
+                this.retrieveMoreVenues();
+              }
+            });
           }
 
           componentDidMount() {
