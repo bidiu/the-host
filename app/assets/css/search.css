@@ -91,6 +91,14 @@
 
 @media (max-width: 640px) {
   .PageNoBar .page-no {
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 320px) {
+  .PageNoBar .page-no {
     min-width: 36px;
     height: 36px;
     line-height: 36px;

@@ -368,6 +368,7 @@
             this.setState({ pageNo }, () => {
               this.writeFiltersToUrl();
               document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
 
               if (pageNo > prevPageNo && !lastPageNo) {
                 // user clicked a page no. greater than previous page
