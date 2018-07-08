@@ -57,7 +57,7 @@
       // babel (js for React) goes here
 
       // 12 results per page
-      const pageLimit = 2;
+      const pageLimit = 4;
 
       class VenueFilter extends React.Component {
         constructor(props) {
@@ -367,6 +367,7 @@
 
             this.setState({ pageNo }, () => {
               this.writeFiltersToUrl();
+              document.documentElement.scrollTop = 0;
 
               if (pageNo > prevPageNo && !lastPageNo) {
                 // user clicked a page no. greater than previous page

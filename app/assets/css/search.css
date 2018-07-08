@@ -75,10 +75,10 @@
 }
 
 .PageNoBar .page-no {
-  min-width: 50px;
-  height: 50px;
+  min-width: 46px;
+  height: 46px;
   text-align: center;
-  line-height: 50px;
+  line-height: 46px;
   display: inline-block;
   box-sizing: border-box;
   color: #ff6161;
@@ -86,6 +86,15 @@
   border-right: 0;
   cursor: pointer;
   flex-shrink: 0;
+  font-weight: lighter;
+}
+
+@media (max-width: 640px) {
+  .PageNoBar .page-no {
+    min-width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
 }
 
 .PageNoBar .page-no:not(.cur-page):not(.dots):hover {

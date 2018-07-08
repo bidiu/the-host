@@ -14,7 +14,7 @@
   {
     "name": "Sugar Marmalade - Delicious food and deserts",
     "type": "restaurant",
-    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas restaurant.",
     "phone": "16132341173",
     "email": "emailaddress@example.com",
     "minCustomers": 1,
@@ -98,7 +98,7 @@
   {
     "name": "Orchid Sushi - Cosy and casual",
     "type": "restaurant",
-    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas restaurant.",
     "phone": "16132341173",
     "email": "emailaddress@example.com",
     "minCustomers": 1,
@@ -122,7 +122,7 @@
   {
     "name": "The Works - late-night food & fast food",
     "type": "restaurant",
-    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel neque dapibus, volutpat leo ac, imperdiet nibh. Quisque sodales, ligula et condimentum dictum, lectus sem vestibulum metus, non pellentesque nisi ipsum in mauris. Pellentesque lacinia mi eget fermentum ornare. Donec molestie diam enim, sit amet blandit mi sagittis a. Sed non est gravida, fermentum nisl in, sagittis orci. Vivamus rhoncus purus at nisi ornare dictum. Donec dignissim erat et est imperdiet posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas restaurant fast food.",
     "phone": "16132341173",
     "email": "emailaddress@example.com",
     "minCustomers": 1,
