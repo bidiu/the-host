@@ -9,7 +9,7 @@ const defaultSort = { _id: 1 };
 /**
  * TODO index based on tag, geo
  */
-async function index(filters = {}, { sort = defaultSort, limit = 20, projection = fields } = {}) {
+async function index(filters = {}, { sort = defaultSort, limit = 12, projection = fields } = {}) {
   return Venue.find(filters, projection, { sort, limit });
 }
 

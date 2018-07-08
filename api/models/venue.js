@@ -65,7 +65,7 @@ const venueSchema = new Schema({
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 48
+    maxlength: 64
   },
   lat: {
     type: Number
