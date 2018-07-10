@@ -43,4 +43,6 @@ router.post('/venues', asyncWrapper(venueController.create));
 
 router.patch('/venues/:venueId', asyncWrapper(venueController.update));
 
+router.get('/venue/types', asyncWrapper(venueController.indexTypes));
+
 module.exports = router;

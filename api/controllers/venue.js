@@ -148,7 +148,14 @@ async function update(req, res) {
   res.status(payload.status).json(payload);
 }
 
+async function indexTypes(req, res) {
+  let data = venueTypes;
+  let payload = new Res.Ok({ data });
+  res.status(payload.status).json(payload);
+}
+
 exports.index = index;
 exports.retrieve = retrieve;
 exports.create = create;
 exports.update = update;
+exports.indexTypes = indexTypes;
