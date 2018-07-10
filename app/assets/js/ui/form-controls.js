@@ -25,3 +25,18 @@ class VenueSearchBox extends React.Component {
     );
   }
 }
+
+// TODO use stylable elements
+class CustomSelect extends React.Component {
+  render() {
+    let { value, onChange, options } = this.props;
+
+    return (
+      <div>
+        <select value={value} onChange={e => onChange(e.target.value)}>
+          {options.map(op => <option value={op} key={op}>{op}</option>)}
+        </select>
+      </div>
+    );
+  }
+}

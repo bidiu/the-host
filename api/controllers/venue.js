@@ -4,7 +4,7 @@ const ApiError = require('../common/models/api-errors');
 const { compressDoc } = require('../utils/common');
 
 // TODO hardcoded here
-const venueTypes = ['restaurant', 'supermarket', 'entertainment'];
+const venueTypes = ['restaurant', 'supermarket', 'entertainment', 'bar'];
 
 // parse sort query param
 function _parseSort(paramVal) {
@@ -63,6 +63,7 @@ function mapSortToFilters(sort, lastId, lastVal) {
  */
 async function index(req, res) {
   let { type, name, sort, limit, lastVal, lastId } = req.query;
+  if (type === 'all') { type = undefined; }
   let filters = {};
 
   // type

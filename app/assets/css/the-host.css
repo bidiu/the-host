@@ -47,3 +47,31 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* buttons with the-host's styles */
+.thost-light-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 1px 0 rgba(20, 23, 28, .1);
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #ff6161;
+  transition: .1s;
+}
+
+.thost-light-btn:active, .thost-light-btn:focus {
+  outline: none !important;
+}
+
+.thost-light-btn:active {
+  background-color: #c7c7c7 !important;
+  color: #c04646;
+}
+
+.thost-light-btn:hover {
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 2px 1px rgba(20, 23, 28, .1);
+}

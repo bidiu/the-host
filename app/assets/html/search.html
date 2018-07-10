@@ -63,23 +63,72 @@
         constructor(props) {
           super(props);
           this.nameChangeHandler = this.nameChangeHandler.bind(this);
+          this.typeChangeHandler = this.typeChangeHandler.bind(this);
+          this.toggleExpand = this.toggleExpand.bind(this);
+
+          this.state = { expand: false, venueTypes: [] };
         }
 
         nameChangeHandler(name) {
           this.props.onFiltersChange({ name });
         }
 
+        typeChangeHandler(type) {
+          this.props.onFiltersChange({ type });
+        }
+
+        toggleExpand() {
+          this.setState(prevState => ({
+            expand: !prevState.expand
+          }));
+        }
+
+        collapse() {
+          this.setState({ expand: false });
+        }
+
+        componentDidMount() {
+          axios.get('/venue/types')
+            .then(resp => {
+              let venueTypes = resp.data.data;
+              venueTypes.unshift('all');
+
+              this.setState({ venueTypes });
+            })
+            .catch(err => {
+              let payload = err.response.data;
+              let message = message = payload.details || payload.message;
+
+              addNotification(new NotificationEntry({ message, timeout: 3000 }));
+            });
+        }
+
         render() {
+          let { expand, venueTypes } = this.state;
           let { filters, onSearchBtnClick } = this.props;
-          let { name } = filters;
+          let { name, type = 'all' } = filters;
 
           return (
-            <div className="VenueFilter">
-              {/* name */}
-              <div className="VenueFilter-search-box">
-                <VenueSearchBox name={name}
-                  onNameChange={this.nameChangeHandler}
-                  onBtnClick={onSearchBtnClick} />
+            <div className={`VenueFilter ${expand ? 'VenueFilter-expand': ''}`}>
+              <div className="VenueFilter-up">
+                {/* name */}
+                <div className="VenueFilter-search-box">
+                  <VenueSearchBox name={name}
+                    onNameChange={this.nameChangeHandler}
+                    onBtnClick={() => {this.collapse(); onSearchBtnClick();}} />
+                </div>
+                <button className="thost-light-btn filters-btn"
+                  onClick={this.toggleExpand}>
+                  <i className="material-icons">filter_list</i>
+                  <span>FILTERS</span>
+                </button>
+              </div>
+              <div className="VenueFilter-bottom">
+                <div>
+                  <div>TYPES</div>
+                  <CustomSelect options={venueTypes}
+                    value={type} onChange={this.typeChangeHandler} />
+                </div>  
               </div>
             </div>
           );
@@ -227,7 +276,7 @@
 
           getDefaultState() {
             return {
-              filters: { name: '' },
+              filters: { name: '', type: undefined },
               resultList: [],
               pageNo: 1,
               lastPageNo: undefined,
@@ -238,22 +287,13 @@
           // NOTE: not just filters, ALSO pageNo, sort...
           writeFiltersToUrl() {
             let { pageNo, sort } = this.state;
-            let { name } = this.state.filters;
-            let queryObj = { pageNo, name, sort: _encodeSort(sort) };
+            let { name, type } = this.state.filters;
+            let queryObj = { pageNo, name, type, sort: _encodeSort(sort) };
             let queryStr = mapObjToQueryStr(queryObj);
 
             if (queryStr) {
               window.history.replaceState({}, '', queryStr);
             }
-          }
-
-          readFiltersFromUrl() {
-            let filters = {};
-
-            let name = getQueryParamVal('name');
-            if (name) { filters.name = name; }
-
-            this.setState({ filters });
           }
 
           /**
@@ -268,13 +308,13 @@
 
             let { pageNo, sort } = curState;
             sort = _encodeSort(sort);
-            let { name } = curState.filters;
+            let { name, type } = curState.filters;
             // by default, retrieve first 4 pages all in once
             // (in case no pageNo on the url)
             // if `pageNo` is greater than 2, retrieve first
             // ${pageNo + 2} pages
             let limit = pageNo > 2 ? (pageNo + 2) * pageLimit : 4 * pageLimit;
-            let queryObj = { name, limit, sort };
+            let queryObj = { name, type, limit, sort };
             let queryStr = mapObjToQueryStr(queryObj);
             
             axios.get('/venues' + queryStr)
@@ -355,13 +395,14 @@
             if (!this.state.filters.name) {
               let message = 'Please input something before searching.';
               this.props.addNotification(new NotificationEntry({ message, timeout: 3000 }));
+              return;
             }
 
             // this.writeFiltersToUrl();
             this.triggerSearch(false);
           }
 
-            // user clicked the page-no bar
+          // user clicked the page-no bar
           pageNoChangeHandler(pageNo) {
             let { pageNo: prevPageNo, lastPageNo } = this.state;
 
@@ -389,6 +430,9 @@
             /* init name from url */
             let name = getQueryParamVal('name');
             if (name) { filters.name = name; }
+            /* init type from url */
+            let type = getQueryParamVal('type');
+            if (type) { filters.type = type; }
             /* init pageNo from url */
             let pageNo = getQueryParamVal('pageNo');
             if (!isNaN(pageNo) && parseInt(pageNo) > 0) {
