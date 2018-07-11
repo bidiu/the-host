@@ -29,6 +29,32 @@ body {
   margin: 12px 0;
   box-sizing: border-box;
   line-height: 25px;
+  transition: .5s;
+}
+
+.row.sticky-bar {
+  margin-bottom: 81px;
+}
+
+.action-container.sticky-bar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 500;
+  border-radius: 0;
+  box-shadow: initial !important;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+}
+
+.action-container.sticky-bar:hover {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+}
+
+.action-bar {
+  max-width: 980px;
+  margin: 0 auto;
 }
 
 .InfoSideContainer {

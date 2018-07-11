@@ -42,7 +42,9 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-transition-group@2.3.1/dist/react-transition-group.min.js"></script>
   <script type="text/babel" src="/js/common.js"></script>
+  <script type="text/babel" src="/js/ui/Banner.js"></script>
   <script type="text/babel" src="/js/ui/Avatar.js"></script>
   <script type="text/babel" src="/js/ui/NavBar.js"></script>
   <script>
@@ -92,7 +94,7 @@
             </div>
 
             {/* the basic info */}
-            <div className="col-md-4">
+            <div className="col-md-4" id="for-sticky-bar">
               <div className="thost-card basic-info-container" style={basicInfoStyle}>
                 <div className="h3">
                   {name}
@@ -188,39 +190,67 @@
     class VenuePage extends React.Component {
       constructor(props) {
         super(props);
-        this.state = { venue: undefined };
+        this.handleScroll = this.handleScroll.bind(this);
+
+        this.state = {
+          venue: undefined,
+          stickyBar: false
+        };
+      }
+
+      handleScroll() {
+        let { stickyBar } = this.state;
+        let barEl = document.querySelector('#for-sticky-bar');
+        let offset = calcOffsetToDoc(barEl).top + barEl.scrollHeight;
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        let sticky = (scrollTop - offset) >= 0;
+        
+        if (sticky !== stickyBar) {
+          this.setState({ stickyBar: sticky });
+        }
       }
 
       componentDidMount() {
         let venueId = getQueryParamVal('venueId');
-        // if (!venueId) {
-        //   window.location = '/html/home.html';
-        // }
+        if (!venueId) {
+          window.location = '/html/home.html';
+        }
+
+        window.addEventListener('scroll', this.handleScroll);
 
         axios.get(`/venues/${venueId}`)
           .then(resp => {
             this.setState({ venue: resp.data.data });
           })
-          .catch(console.error);
+          .catch(err => {
+            let payload = err.response.data;
+            let message = message = payload.details || payload.message;
+
+            addNotification(new NotificationEntry({ message, timeout: 3000 }));
+          });
+      }
+
+      componentWillUnmount() {
+        // TODO unregister listener
       }
 
       render() {
-        let { venue } = this.state;
+        let { venue, stickyBar } = this.state;
         // later might render a spinner instead
         if (!venue) { return null; }
 
         return (
           <div className="container-fluid venue-container">
             {/* first row: the basic info card */}
-            <div className="row">
+            <div className={`row ${stickyBar ? 'sticky-bar' : ''}`}>
               <VenueBasicInfoCard venue={venue} />
             </div>
 
             {/* second row: actions */}
             <div className="row">
               <div className="col-md-12">
-                <div className="thost-card action-container">
-                  TODO: User actions here in future
+                <div className={`thost-card action-container ${stickyBar ? 'sticky-bar' : ''}`}>
+                  <div className="action-bar">TODO: User actions here in future</div>
                 </div>
               </div>
             </div>
@@ -239,25 +269,11 @@
       }
     }
 
-    // let venue = {
-    //   name: 'Starbucks - the popular Café you love',
-    //   imgUrl: '/img/event2.png',
-    //   about: 'This is a very popular place where people love to relax, chat, and work.',
-    //   staticMapUrl: 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyA3amnumsd9ECTmyPgkYRlkfc6F2C9xLwA&markers=k1g0g1&size=800x400&zoom=17',
-    //   address: '1525 Alta Vista Dr, Ottawa, ON',
-    //   zip: 'k1g0g1'
-    // };
-
-    // ReactDOM.render(<VenueBasicInfoCard venue={venue} />, 
-    //   document.getElementById('venue-basic-info-card'));
-    
-    // ReactDOM.render(<MainInfoContainer venue={venue} />,
-    //   document.getElementById('main-info-container'));
-
-    // ReactDOM.render(<InfoSideContainer venue={venue} />,
-    //   document.getElementById('main-info-side'));
-
-    ReactDOM.render(<VenuePage />,
+    ReactDOM.render((
+        <App>
+          <VenuePage />  
+        </App>
+      ),
       document.getElementById('root'));
   </script>
 </body>
