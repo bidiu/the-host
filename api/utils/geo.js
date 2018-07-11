@@ -35,6 +35,26 @@ async function geocodeAddress(address, zip) {
 }
 
 /**
+ * Resovled value format:
+ * 
+ *    { lat: 65.4117967302915, lng: -95.6546153197085 }
+ */
+function parseCoordinateStr(str, delimiter = ',') {
+  let values = str.split(delimiter).map(v => v.trim());
+  let coordinate = {};
+
+  if (values.length !== 2 
+    || values[0] === ''
+    || isNaN(values[0])
+    || values[1] === ''
+    || isNaN(values[1])) {
+    throw Error('Invalid coordinate string.');
+  }
+
+  return { lat: Number(values[0]), lng: Number(values[1]) };
+}
+
+/**
  * Return an image url which can be put in the `src` attribute
  * of an image.
  * 
@@ -77,3 +97,4 @@ function combineAddresses(address, zipcode) {
 exports.geocodeAddress = geocodeAddress;
 exports.genStaticMapUrl = genStaticMapUrl;
 exports.combineAddresses = combineAddresses;
+exports.parseCoordinateStr = parseCoordinateStr;

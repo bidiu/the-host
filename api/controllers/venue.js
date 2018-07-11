@@ -2,6 +2,7 @@ const venueService = require('../services/venue');
 const Res = require('../common/models/responses');
 const ApiError = require('../common/models/api-errors');
 const { compressDoc } = require('../utils/common');
+const { parseCoordinateStr } = require('../utils/geo');
 
 // TODO hardcoded here
 const venueTypes = ['restaurant', 'supermarket', 'entertainment', 'bar'];
@@ -62,7 +63,9 @@ function mapSortToFilters(sort, lastId, lastVal) {
  * Index venues.
  */
 async function index(req, res) {
-  let { type, name, sort, limit, lastVal, lastId } = req.query;
+  let {
+    type, name, center, distance, sort, limit, lastVal, lastId
+  } = req.query;
   if (type === 'all') { type = undefined; }
   let filters = {};
 
@@ -76,6 +79,16 @@ async function index(req, res) {
   // name
   if (name) {
     filters.$text = { $search: name }
+  }
+  // distance
+  if (center && distance && !isNaN(distance)) {
+    try {
+      center = parseCoordinateStr(center);
+    } catch (err) { throw new ApiError.BadReq(); }
+
+    filters.coordinate = {
+      $geoWithin: { $centerSphere: [[center.lng, center.lat], distance / 6378.1] }
+    }
   }
 
   // sort
