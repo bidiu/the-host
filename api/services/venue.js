@@ -2,7 +2,7 @@ const Venue = require('../models/venue');
 const ApiError = require('../common/models/api-errors');
 const { geocodeAddress } = require('../utils/geo');
 
-const fields = `name type imgUrl about phone email minCustomers maxCustomers zip address lat lng`;
+const fields = `name type imgUrl about phone email minCustomers maxCustomers zip address coordinate`;
 
 const defaultSort = { _id: 1 };
 
@@ -21,7 +21,10 @@ async function retrieve(venueId, projection = fields) {
 }
 
 async function create(doc) {
-  doc = { ...doc, ...(await geocodeAddress(doc.address, doc.zip)) };
+  // coordinate
+  let coded = await geocodeAddress(doc.address, doc.zip);
+  doc = { ...doc, coordinate: [coded.lng, coded.lat] };
+
   return Venue.create(doc);
 }
 

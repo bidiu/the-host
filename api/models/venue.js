@@ -67,11 +67,10 @@ const venueSchema = new Schema({
     minlength: 4,
     maxlength: 64
   },
-  lat: {
-    type: Number
-  },
-  lng: {
-    type: Number
+  coordinate: {
+    type: [Number],
+    required: true,
+    index: '2dsphere'
   }
 }, {
   timestamps: true,
