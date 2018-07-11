@@ -92,3 +92,77 @@ class NavBar extends React.Component {
 }
 
 /** all common components are in this file, since almost all pages will need import this file */
+
+class ThostFooter extends React.Component {
+  render() {
+    return (
+      <div className="ThostFooter">
+        <div>
+          <div className="ThostFooter-block">
+            <div className="ThostFooter-block-title">
+              The Host
+            </div>
+            <div>
+              <a href="#">About Us</a>
+            </div>
+            <div>
+              <a href="#">Careers</a>
+            </div>
+            <div>
+              <a href="#">Diversity & Belonging</a>
+            </div>
+          </div>
+          <div className="ThostFooter-block">
+            <div className="ThostFooter-block-title">
+              Hosting
+            </div>
+            <div>
+              <a href="#">Become a Host</a>
+            </div>
+            <div>
+              <a href="#">Why Host</a>
+            </div>
+            <div>
+              <a href="#">Hospitality</a>
+            </div>
+            <div>
+              <a href="#">Responsible Hosting</a>
+            </div>
+          </div>
+          <div className="ThostFooter-block">
+            <div className="ThostFooter-block-title">
+              Discover
+            </div>
+            <div>
+              <a href="#">Trust & Safety</a>
+            </div>
+            <div>
+              <a href="#">Local Experience</a>
+            </div>
+            <div>
+              <a href="#">Thost Citizen</a>
+            </div>
+            <div>
+              <a href="#">Events</a>
+            </div>
+          </div>
+          <div className="ThostFooter-block">
+            <div className="ThostFooter-block-title">
+              Legal
+            </div>
+            <div>
+              <a href="#">Terms of Use</a>
+            </div>
+            <div>
+              <a href="#">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+
+        <div className="ThostFooter-copy">
+          &copy; The Host, 2018
+        </div>
+      </div>
+    );
+  }
+}
