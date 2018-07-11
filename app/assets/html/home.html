@@ -98,16 +98,8 @@
 
   </main>
 
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="email_item float-right">
-        <a href="/html/faqs.html">FAQs&nbsp;|&nbsp;</a>
-      </p>
-      <p>&copy; Event Planning Inc, 2018</p>
-  </footer>
+  <!-- footer -->
+  <footer id="footer"></footer>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -133,6 +125,12 @@
     ReactDOM.render(
       <NavBar curPath="/html/home.html" />,
       document.getElementById('nav-bar-container')
+    );
+
+    // render the footer
+    ReactDOM.render(
+      <ThostFooter />,
+      document.getElementById('footer')
     );
 
     /**

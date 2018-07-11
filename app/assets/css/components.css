@@ -273,7 +273,7 @@ margin-bottom: 0 !important;
  * ThostFooter component
  */
 .ThostFooter {
-  margin-top: 30px;
+  /* margin-top: 30px; */
   background-color: #ffffff;
   box-shadow: 0 0 2px 1px rgba(74, 77, 82, 0.1);
   padding: 0 20px 20px 20px;
@@ -329,6 +329,7 @@ margin-bottom: 0 !important;
 .ThostFooter-block-title {
   font-weight: 500;
   margin-bottom: 12px;
+  font-size: 14px;
 }
 
 .ThostFooter-copy {
