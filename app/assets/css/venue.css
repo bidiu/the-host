@@ -23,7 +23,8 @@ body {
 }
 
 .action-container {
-  background-color: #f04944;
+  background-color: #ff6161;
+  padding: 0;
   height: 57px;
   color: #fcfcfc;
   margin: 12px 0;
@@ -55,6 +56,20 @@ body {
 .action-bar {
   max-width: 980px;
   margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.bar-content {
+  flex-grow: 1;
+}
+
+.action-bar .book-btn {
+  height: 42px;
+  flex-shrink: 0;
+  color: rgb(0, 132, 137) !important;
 }
 
 .InfoSideContainer {
@@ -67,4 +82,71 @@ body {
 
 .StaticMapCard.thost-card {
   padding: 0;
+}
+
+.BookForm {
+  background-color: #ffffff;
+  padding: 24px;
+  position: relative;
+}
+
+.BookForm-title {
+  font-weight: 800;
+}
+
+.BookForm-section {
+  padding: 8px 0;
+}
+
+.BookForm-section:last-of-type {
+  padding: 16px 0 0 0;
+}
+
+.BookForm .react-datepicker__day--selected, 
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
+  background-color: rgb(0, 132, 137) !important;
+}
+
+.BookForm .react-datepicker__day--selected, .react-datepicker__day:hover {
+  border-radius: 0 !important;
+}
+
+.BookForm .react-datepicker__time-list {
+  padding-left: 7px;
+}
+
+.BookForm .react-datepicker__navigation {
+  outline: none !important;
+}
+
+.BookForm .react-datepicker__time {
+  border-radius: 4px;
+}
+
+.BookForm-people-select {
+  max-width: 312px;
+  width: 100%;
+  height: 30px;
+}
+
+.BookForm .book-btn {
+  width: 100%;
+  height: 48px;
+  background-color: rgb(0, 132, 137) !important;
+}
+
+.BookForm .close-btn {
+  font-size: 42px;
+  opacity: .5;
+  cursor: pointer;
+  transition: .3s;
+  position: absolute;
+  top: 28px;
+  right: 16px;
+}
+
+.BookForm .close-btn:hover {
+  transform: rotateZ(90deg);
+  opacity: 1;
+  color: #ff6161;
 }

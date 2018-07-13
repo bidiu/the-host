@@ -339,3 +339,42 @@ margin-bottom: 0 !important;
   color: #838383;
   opacity: .7;
 }
+
+/* 
+ * Popup
+ */
+.Popup {
+  position: fixed;
+  z-index: 600;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Popup-show {
+  visibility: visible;
+}
+
+.Popup-fade-enter {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.Popup-fade-enter-active {
+  opacity: 1;
+}
+
+.Popup-fade-exit {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.Popup-fade-exit-active {
+  opacity: 0;
+}

@@ -2,18 +2,29 @@
  * Global css (will be loaded by every page)
  */
 
- .thost-card {
-  box-shadow: 0 1px 1px 0 rgba(10,16,34,.4)!important;
-  border-radius: 6px;
-  overflow: hidden;
-  padding: 16px;
-  box-sizing: border-box;
-  transition: .3s;
- }
+/* reset */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, a {
+  margin: 0;
+  padding: 0;
+}
 
- .thost-card:hover {
-  box-shadow: 0 10px 30px -5px rgba(10,16,34,.2)!important;
- }
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.thost-card {
+box-shadow: 0 1px 1px 0 rgba(10,16,34,.4)!important;
+border-radius: 6px;
+overflow: hidden;
+padding: 16px;
+box-sizing: border-box;
+transition: .3s;
+}
+
+.thost-card:hover {
+box-shadow: 0 10px 30px -5px rgba(10,16,34,.2)!important;
+}
 
 /* Rules for sizing the icon. */
 .material-icons.md-18 { font-size: 18px; }
@@ -73,5 +84,33 @@
 }
 
 .thost-light-btn:hover {
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 2px 1px rgba(20, 23, 28, .1);
+}
+
+/* buttons with the-host's styles */
+.thost-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff6161;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 1px 0 rgba(20, 23, 28, .1);
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: .1s;
+}
+
+.thost-primary-btn:active, .thost-primary-btn:focus {
+  outline: none !important;
+}
+
+.thost-primary-btn:active {
+  background-color: #c04646 !important;
+  color: #c7c7c7;
+}
+
+.thost-primary-btn:hover {
   box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 2px 1px rgba(20, 23, 28, .1);
 }
