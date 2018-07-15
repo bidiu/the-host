@@ -13,6 +13,15 @@ async function index(filters = {}, { sort = defaultSort, limit = 12, projection 
   return Venue.find(filters, projection, { sort, limit });
 }
 
+/**
+ * Fake implementation right now.
+ * 
+ * @param {*} userId 
+ */
+async function indexBooked(userId) {
+  return index({}, { limit: 3 });
+}
+
 async function retrieve(venueId, projection = fields) {
   let venue = await Venue.findById(venueId, projection);
   
@@ -39,6 +48,7 @@ async function update(doc) {
 }
 
 exports.index = index;
+exports.indexBooked = indexBooked;
 exports.retrieve = retrieve;
 exports.create = create;
 exports.update = update;

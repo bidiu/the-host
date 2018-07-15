@@ -168,8 +168,17 @@ async function indexTypes(req, res) {
   res.status(payload.status).json(payload);
 }
 
+async function indexBooked(req, res) {
+  let { userId } = req.query;
+
+  let data = await venueService.indexBooked(userId);
+  let payload = new Res.Ok({ data });
+  res.status(payload.status).json(payload);
+}
+
 exports.index = index;
 exports.retrieve = retrieve;
 exports.create = create;
 exports.update = update;
 exports.indexTypes = indexTypes;
+exports.indexBooked = indexBooked;

@@ -45,4 +45,6 @@ router.patch('/venues/:venueId', asyncWrapper(venueController.update));
 
 router.get('/venue/types', asyncWrapper(venueController.indexTypes));
 
+router.get('/venue/booked', asyncWrapper(venueController.indexBooked));
+
 module.exports = router;
