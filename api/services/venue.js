@@ -19,7 +19,20 @@ async function index(filters = {}, { sort = defaultSort, limit = 12, projection 
  * @param {*} userId 
  */
 async function indexBooked(userId) {
-  return index({}, { limit: 3 });
+  let venues = await index({}, { limit: 3 });
+  venues = venues.map(v => v.toObject());
+  let dates = [
+    new Date('2018-07-29T17:30:00'),
+    new Date('2018-08-02T19:00:00'),
+    new Date('2018-08-04T20:00:00')
+  ];
+
+  let i = 0;
+  for (let venue of venues) {
+    venue.bookedTime = dates[i].getTime();
+    i++;
+  }
+  return venues;
 }
 
 async function retrieve(venueId, projection = fields) {
