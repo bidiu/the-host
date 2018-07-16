@@ -81,7 +81,7 @@
      */
     class VenueBasicInfoCard extends React.Component {
       render() {
-        let { imgUrl, name } = this.props.venue;
+        let { imgUrl, name, phone, email, type, maxCustomers } = this.props.venue;
 
         let imgStyle = {
           height: 360,
@@ -108,8 +108,25 @@
                 <div className="h3">
                   {name}
                 </div>
-                <div>
-                  Some other info goes here in the future
+                <hr/>
+                <div className="venue-details-container">
+
+                  <div className="row venue-details">
+                    
+                    <div className="col-6 details-part"><i className="material-icons">event_available</i><span>&nbsp;11:30–23:00</span></div>
+                    <div className="col-6 details-part"><i className="material-icons">sort</i><span>&nbsp;{type}</span></div>
+                    <div className="w-100"></div>
+                    <div className="col-6 details-part"><i className="material-icons">local_parking</i><span>&nbsp;Free</span></div>
+                    <div className="col-6 details-part"><i className="material-icons">wifi</i><span>&nbsp;Wifi</span></div>
+                    <div className="w-100"></div>
+                    <div className="col-6 details-part"><i className="material-icons">local_bar</i><span>&nbsp;Bar</span></div>
+                    <div className="col-6 details-part"><i className="material-icons">local_dining</i><span>&nbsp;Dining</span></div>
+                    <div className="w-100"></div>
+                    <div className="col details-part"><i className="material-icons">people</i><span>&nbsp;{maxCustomers}&nbsp;max</span></div>
+                    <div className="col details-part"><i className="material-icons">phone</i><span>&nbsp;{phone}</span></div>
+                    
+                  </div>
+      
                 </div>
               </div>
             </div>
