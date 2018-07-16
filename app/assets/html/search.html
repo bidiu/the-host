@@ -12,6 +12,7 @@
     <link href="/css/components.css" rel="stylesheet">
 
     <!-- extra css links go here -->
+    <link rel="stylesheet" href="https://unpkg.com/react-select@1.2.1/dist/react-select.css">
     <link href="/css/search.css" rel="stylesheet">
 
     <title>The Host</title>
@@ -39,7 +40,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.0.2/ElementQueries.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/prop-types@15.5.10/prop-types.js"></script>
     <script crossorigin src="https://unpkg.com/react-transition-group@2.3.1/dist/react-transition-group.min.js"></script>
+    <script src="https://unpkg.com/classnames@2.2.5/index.js"></script>
+    <script src="https://unpkg.com/react-input-autosize@2.0.0/dist/react-input-autosize.js"></script>
+    <script src="https://unpkg.com/react-select@1.2.1/dist/react-select.js"></script>
     <script type="text/babel" src="/js/common.js"></script>
     <script type="text/babel" src="/js/ui/Banner.js"></script>
     <script type="text/babel" src="/js/ui/Avatar.js"></script>
@@ -83,6 +88,9 @@
         }
 
         typeChangeHandler(type) {
+          if (typeof type === 'object') {
+            type = type.value;
+          }
           this.props.onFiltersChange({ type });
         }
 
@@ -116,6 +124,7 @@
           let { expand, venueTypes } = this.state;
           let { filters, onSearchBtnClick } = this.props;
           let { name, type = 'all' } = filters;
+          let options = venueTypes.map(type => ({ value: type, label: type }));
 
           return (
             <div className={`VenueFilter ${expand ? 'VenueFilter-expand': ''}`}>
@@ -133,10 +142,14 @@
                 </button>
               </div>
               <div className="VenueFilter-bottom">
-                <div>
-                  <div>TYPES</div>
-                  <CustomSelect options={venueTypes}
-                    value={type} onChange={this.typeChangeHandler} />
+                <div className="VenueFilter-filter">
+                  <div className="VenueFilter-filter-title">TYPES</div>
+                  <Select 
+                    name="type"
+                    value={type}
+                    onChange={this.typeChangeHandler}
+                    options={options}
+                    clearable={false} />
                 </div>  
               </div>
             </div>
