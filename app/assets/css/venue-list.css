@@ -21,13 +21,13 @@
   margin-bottom: 0;
 }
 
-.jumbotron-heading {
+/* .jumbotron-heading {
   font-weight: 300;
-}
+} */
 
-.jumbotron .container {
+/* .jumbotron .container {
   max-width: 40rem;
-}
+} */
 
 /* footer {
   padding-top: 3rem;
@@ -55,7 +55,7 @@ footer p {
 }
 
 .jumbotron {
-  background-image: url("/img/event_new_6.jpeg");
+  /* background-image: url("/img/tj1.jpg"); */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -86,23 +86,30 @@ footer p {
   right: 50%;
 }
 
-.bg_pic1 {
-  background-image: url("/img/event6.jpg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+.text-above-box {
+  margin-bottom: 48px;
 }
 
-.bg_pic2 {
-  background-image: url("/img/event55.jpg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+@keyframes jumbotron-trans {
+  from {
+    background-image: url("/img/tj1.jpg");
+  }
+  45% {
+    background-image: url("/img/tj1.jpg");
+  }
+  55% {
+    background-image: url("/img/tj2.jpg");
+  }
+  to {
+    background-image: url("/img/tj2.jpg");
+  }
 }
 
-.bg_pic3 {
-  background-image: url("/img/event7.png");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+.thost-jumbotron {
+  text-shadow: 0 0 4px #00000026;
+  animation: jumbotron-trans 10s linear both infinite alternate;
+}
+
+#search-box-container {
+  text-shadow: initial;
 }
