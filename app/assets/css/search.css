@@ -42,9 +42,13 @@
 
 .VenueFilter-bottom {
   padding: 0 0 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .VenueFilter-filter {
+  flex-grow: 1;
   max-width: 300px;
   min-width: 240px;
   box-sizing: border-box;
