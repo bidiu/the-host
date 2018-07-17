@@ -180,3 +180,9 @@
   background-color: #ffffff !important;
   cursor: default !important;
 }
+
+.NoResult {
+  text-align: center;
+  padding: 120px 0;
+  opacity: .7;
+}

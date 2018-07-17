@@ -308,6 +308,13 @@
         );
       }
 
+      const NoResult = (props) => (
+        <div className="NoResult">
+          Sorry, no venue matches your search criteria.<br/>
+          Please try a different search.
+        </div>
+      );
+
       class VenueResultList extends React.Component {
         render() {
           let { venues, curPageNo, lastPageNo, onPageNoChange } = this.props;
@@ -317,8 +324,13 @@
           return (
             <div className="VenueResultList">
               {venues.map(venue => <VenueResult venue={venue} key={venue._id} />)}
-              <PageNoBar curPageNo={curPageNo} lastPageNo={lastPageNo}
-                onPageNoChange={onPageNoChange} />
+              {lastPageNo !== 0 && (
+                <PageNoBar curPageNo={curPageNo} lastPageNo={lastPageNo}
+                  onPageNoChange={onPageNoChange} />
+              )}
+              {lastPageNo === 0 && (
+                <NoResult />
+              )}
             </div>
           );
         }
