@@ -54,8 +54,14 @@ footer p {
   overflow: hidden;
 }
 
+body::after{
+  position: absolute; width:0; height:0; overflow:hidden; z-index:-1;
+  content: url("/img/tj1.jpg") url("/img/tj2.jpg") url("/img/tj3.jpg");
+}
+
 .jumbotron {
-  /* background-image: url("/img/tj1.jpg"); */
+  background: linear-gradient(80deg, #ff424e, #ff846e);
+  background-image: url("/img/tj1.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -94,20 +100,26 @@ footer p {
   from {
     background-image: url("/img/tj1.jpg");
   }
-  45% {
+  20% {
     background-image: url("/img/tj1.jpg");
   }
-  55% {
+  28% {
     background-image: url("/img/tj2.jpg");
   }
-  to {
+  72% {
     background-image: url("/img/tj2.jpg");
+  }
+  80% {
+    background-image: url("/img/tj3.jpg");
+  }
+  to {
+    background-image: url("/img/tj3.jpg");
   }
 }
 
 .thost-jumbotron {
   text-shadow: 0 0 4px #00000026;
-  animation: jumbotron-trans 10s linear both infinite alternate;
+  animation: jumbotron-trans 18s linear both infinite alternate;
 }
 
 #search-box-container {
