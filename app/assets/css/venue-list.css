@@ -96,6 +96,10 @@ body::after{
   margin-bottom: 48px;
 }
 
+.main-content {
+  padding-top: 0 !important;
+}
+
 @keyframes jumbotron-trans {
   from {
     background-image: url("/img/tj1.jpg");
@@ -124,4 +128,101 @@ body::after{
 
 #search-box-container {
   text-shadow: initial;
+}
+
+#type-carousel-container {
+  padding: 0 32px;
+}
+
+.TypeCarousel .slick-list {
+  padding: 0 12px;
+}
+
+.TypeCarousel .slick-prev,
+.TypeCarousel .slick-next {
+  width: 52px;
+  height: 52px;
+  z-index: 300;
+  opacity: 1 !important;
+}
+
+.TypeCarousel .slick-prev:before,
+.TypeCarousel .slick-next:before {
+  font-family: 'Material Icons';
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 1px 0 rgba(20, 23, 28, .1);
+  width: 52px;
+  height: 52px;
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 52px;
+  color: #ff6161;
+  background-color: #ffffff;
+  opacity: 1 !important;
+  font-size: 24px;
+}
+
+.TypeCarousel .slick-disabled:before {
+  color: #c5c5c5;
+  cursor: auto;
+}
+
+.TypeCarousel .slick-prev:before {
+  content: "keyboard_arrow_left";
+}
+
+.TypeCarousel .slick-next:before {
+  content: "keyboard_arrow_right";
+}
+
+.VenueTypeCard {
+  margin: 22px 8px;
+  width: 340px;
+  height: 180px;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+  background: linear-gradient(150deg, #ff424e, #ff846e);
+  color: #ffffff !important;
+  text-shadow: 0 0 4px #00000026;
+  position: relative;
+}
+
+.VenueTypeCard::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #000000;
+  opacity: .3;
+}
+
+.VenueTypeCard div {
+  z-index: 300;
+  position: absolute;
+  margin: 0 0 8px 16px;
+  left: 0;
+  bottom: 0;
+  text-shadow: 0 0 4px #00000056;
+  font-size: 32px;
+}
+
+@media (max-width: 576px) {
+  .TypeCarousel .slick-prev,
+  .TypeCarousel .slick-next {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+  }
+
+  #type-carousel-container {
+    padding: 0 12px;
+  }
+
+  .VenueTypeCard {
+    width: 260px;
+    height: 120px;
+  }
 }

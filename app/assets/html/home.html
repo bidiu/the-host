@@ -14,9 +14,15 @@
   <link href="/css/components.css" rel="stylesheet">
 
   <!-- home.html's own stylesheet file -->
-  <link href="/css/venue-list.css" rel="stylesheet">
-  <title>The Host</title>
   
+  <!-- Add the slick-theme.css if you want default styling -->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
+  <!-- Add the slick-theme.css if you want default styling -->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
+
+  <link href="/css/venue-list.css" rel="stylesheet">
+
+  <title>The Host</title>
 </head>
 
 <body>
@@ -25,18 +31,19 @@
   <div class="jumbotron thost-jumbotron">
       <h1 class="display-4 ">Find a venue for you</h1>
       <p class="lead text-above-box">
-        Find and book unique venues and experiences around the city you live.
+        Find and book unique venues and experiences around the city you live in.
       </p>
       <!--Search box render here -->
       <div id="search-box-container"></div>
   </div>
 
   <main role="main">
-    <div class="album py-5 bg-light">
+    <div class="py-5 bg-light main-content">
+      <div id="type-carousel-container"></div>      
+
       <div class="container">
         <div class="card-list-title">
-          <h3>Featured Venues</h3>
-          <hr/>
+          <h3 style="font-weight: 700; font-size: 36px; margin-top: 20px; margin-bottom: 12px;">Featured Venues</h3>
         </div>
 
         <!-- React renders here. -->
@@ -59,6 +66,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-transition-group@2.3.1/dist/react-transition-group.min.js"></script>
@@ -132,6 +140,61 @@
         return venueList.map(venue => <VenueCard venue={venue} key={venue._id} />)
       }
     }
+
+    const VenueTypeCard = ({text, img}) => (
+      <a className="VenueTypeCard thost-card disable-link-style" href="#"
+        style={{
+          backgroundImage: `url(${img})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
+        }}
+        href={`/html/type.html?type=${text.toLowerCase()}`}>
+        <div>{text}</div>
+      </a>
+    );
+
+    class TypeCarousel extends React.Component {
+      componentDidMount() {
+        (($) => {
+          $('.TypeCarousel').slick({
+            infinite: false,
+            variableWidth: true,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          });
+
+        })(window.$);
+      }
+
+      componentWillUnmount() {
+        // TODO destroy slick.js
+      }
+
+      render() {
+        let types = [
+          { text: 'Restaurant', img: '/img/type_restaurant.jpg' },
+          { text: 'Bar', img: '/img/type_restaurant.jpg' },
+          { text: 'Entertainment', img: '/img/type_restaurant.jpg' },
+          { text: 'Board Room', img: '/img/type_restaurant.jpg' },
+          { text: 'Board Room2', img: '/img/type_restaurant.jpg' },
+          { text: 'Board Room3', img: '/img/type_restaurant.jpg' }
+        ];
+
+        return (
+          <div className="TypeCarousel">
+            {types.map(({ text, img }) => (
+              <VenueTypeCard key={text} text={text} img={img} />
+            ))}
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <TypeCarousel />,
+      document.getElementById('type-carousel-container')
+    );
 
     ReactDOM.render(
       <VenueCardList />,
