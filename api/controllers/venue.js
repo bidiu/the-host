@@ -5,7 +5,12 @@ const { compressDoc } = require('../utils/common');
 const { parseCoordinateStr } = require('../utils/geo');
 
 // TODO hardcoded here
-const venueTypes = ['restaurant', 'supermarket', 'entertainment', 'bar'];
+const venueTypes = [
+  { text: 'restaurant', img: '/img/type_restaurant.jpg' },
+  { text: 'escape room', img: '/img/type_escape.jpg' },
+  { text: 'entertainment', img: '/img/type_entertainment.jpg' },
+  { text: 'boardroom', img: '/img/type_boardroom.jpg' }
+];
 
 // parse sort query param
 function _parseSort(paramVal) {
@@ -71,7 +76,7 @@ async function index(req, res) {
 
   // type
   if (type) {
-    if (!venueTypes.includes(type)) {
+    if (!venueTypes.map(t => t.text).includes(type)) {
       throw new ApiError.BadReq({ details: 'Invalid venue type.' });
     }
     filters.type = type;
@@ -163,7 +168,9 @@ async function update(req, res) {
 }
 
 async function indexTypes(req, res) {
-  let data = venueTypes;
+  let { complete = false } = req.query;
+
+  let data = complete ? venueTypes : venueTypes.map(t => t.text);
   let payload = new Res.Ok({ data });
   res.status(payload.status).json(payload);
 }

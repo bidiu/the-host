@@ -142,7 +142,7 @@
     }
 
     const VenueTypeCard = ({text, img}) => (
-      <a className="VenueTypeCard thost-card disable-link-style" href="#"
+      <a className="VenueTypeCard thost-card disable-link-style"
         style={{
           backgroundImage: `url(${img})`,
           backgroundSize: 'cover',
@@ -150,11 +150,15 @@
           backgroundRepeat: 'no-repeat'
         }}
         href={`/html/type.html?type=${text.toLowerCase()}`}>
-        <div>{text}</div>
+        <div>{capitalizeStr(text)}</div>
       </a>
     );
 
     class TypeCarousel extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
       componentDidMount() {
         (($) => {
           $('.TypeCarousel').slick({
@@ -165,6 +169,21 @@
           });
 
         })(window.$);
+
+        axios.get('/venue/types?complete=1')
+          .then(resp => {
+            let types = resp.data.data;
+            
+            for (let { text, img } of types) {
+              $('.TypeCarousel').slick('slickAdd', 
+                `<a class="VenueTypeCard thost-card disable-link-style" href="/html/type.html?type=${text}" ` +
+                  `style="background-image: url(${img});">` +
+                  `<div>${capitalizeStr(text)}</div>` +
+                `</a>`
+              )
+            }
+          })
+          .catch(console.error);
       }
 
       componentWillUnmount() {
@@ -172,20 +191,16 @@
       }
 
       render() {
-        let types = [
-          { text: 'Restaurant', img: '/img/type_restaurant.jpg' },
-          { text: 'Bar', img: '/img/type_restaurant.jpg' },
-          { text: 'Entertainment', img: '/img/type_restaurant.jpg' },
-          { text: 'Board Room', img: '/img/type_restaurant.jpg' },
-          { text: 'Board Room2', img: '/img/type_restaurant.jpg' },
-          { text: 'Board Room3', img: '/img/type_restaurant.jpg' }
-        ];
+        // let types = [
+        //   { text: 'restaurant', img: '/img/type_restaurant.jpg' },
+        //   { text: 'escape room', img: '/img/type_restaurant.jpg' },
+        //   { text: 'entertainment', img: '/img/type_restaurant.jpg' },
+        //   { text: 'board room', img: '/img/type_restaurant.jpg' }
+        // ];
 
         return (
           <div className="TypeCarousel">
-            {types.map(({ text, img }) => (
-              <VenueTypeCard key={text} text={text} img={img} />
-            ))}
+            
           </div>
         );
       }

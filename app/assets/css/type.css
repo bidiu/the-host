@@ -1,0 +1,149 @@
+.venue-filters-container {
+  padding: 20px 12px;
+  box-sizing: border-box;
+  background: linear-gradient(80deg, #ff424e, #ff846e);
+  color: #ffffff;
+}
+
+.venue-filters-container div:first-child {
+  font-size: 52px;
+  font-weight: 800;
+}
+
+.venue-filters-container div:last-child {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+@media (min-width: 992px) {
+  .venue-filters-container {
+    padding: 60px 50px;
+  }
+}
+
+.venue-list-container {
+  padding: 20px 12px;
+  display: flex;
+}
+
+@media (min-width: 992px) {
+  .venue-list-container {
+    padding: 20px 40px;
+  }
+}
+
+.VenueResultList {
+  /* padding: 30px 0 30px 30px; */
+  width: 720px;
+  box-sizing: border-box;
+}
+
+.VenueResult {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-decoration: inherit;
+  color: inherit;
+  padding: 0 !important;
+  margin: 0 0 30px 0;
+}
+
+.VenueResult[min-width~="480px"] {
+  flex-direction: row;
+}
+
+.VenueResult:hover {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+.VenueResult-img {
+  min-height: 200px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.VenueResult[min-width~="480px"] .VenueResult-img {
+  width: 240px;
+  min-height: 172px;
+}
+
+.VenueResult-text {
+  flex-grow: 1;
+  margin: 6px 12px;
+  overflow: hidden;
+  min-height: calc(172px - 18px);
+  max-height: calc(184px - 18px);
+}
+
+.PageNoBar {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.PageNoBar .page-no {
+  min-width: 46px;
+  height: 46px;
+  text-align: center;
+  line-height: 46px;
+  display: inline-block;
+  box-sizing: border-box;
+  color: #ff6161;
+  border: 1px solid #eeeeee;
+  border-right: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-weight: lighter;
+}
+
+@media (max-width: 640px) {
+  .PageNoBar .page-no {
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 320px) {
+  .PageNoBar .page-no {
+    min-width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+}
+
+.PageNoBar .page-no:not(.cur-page):not(.dots):hover {
+  background-color: #ebebeb;
+}
+
+.PageNoBar .dots {
+  cursor: initial;
+}
+
+.PageNoBar .page-no:last-child {
+  border-right: 1px solid #eeeeee;
+}
+
+.PageNoBar .cur-page {
+  background-color: #ff6161;
+  color: #ffffff;
+  cursor: initial;
+}
+
+.PageNoBar.disable-prev span:first-child,
+.PageNoBar.disable-next span:last-child {
+  color: #ffb5b5;
+}
+
+.PageNoBar.disable-prev span:first-child:hover,
+.PageNoBar.disable-next span:last-child:hover {
+  background-color: #ffffff !important;
+  cursor: default !important;
+}
+
+.NoResult {
+  text-align: center;
+  padding: 120px 0;
+  opacity: .7;
+}

@@ -6,19 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link href="/css/the-host.css" rel="stylesheet">
     <link href="/css/components.css" rel="stylesheet">
 
     <!-- extra css links go here -->
+    <link rel="stylesheet" href="https://unpkg.com/react-select@1.2.1/dist/react-select.css">
+    <link href="/css/type.css" rel="stylesheet">
 
-    <title>Hello, world!</title>
+    <title>Type - The Host</title>
   </head>
   <body>
     <!-- navigation bar -->
     <div id="nav-bar-container"></div>
-    <h1>Venue by types.</h1>
+
     <!-- html template goes here -->
+    <div id="root"></div>
+
+    <!-- footer -->
+    <footer id="footer"></footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -28,11 +35,21 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clone/2.1.2/clone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.0.2/ResizeSensor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.0.2/ElementQueries.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/prop-types@15.5.10/prop-types.js"></script>
+    <script crossorigin src="https://unpkg.com/react-transition-group@2.3.1/dist/react-transition-group.min.js"></script>
+    <script src="https://unpkg.com/classnames@2.2.5/index.js"></script>
+    <script src="https://unpkg.com/react-input-autosize@2.0.0/dist/react-input-autosize.js"></script>
+    <script src="https://unpkg.com/react-select@1.2.1/dist/react-select.js"></script>
     <script type="text/babel" src="/js/common.js"></script>
+    <script type="text/babel" src="/js/ui/Banner.js"></script>
     <script type="text/babel" src="/js/ui/Avatar.js"></script>
     <script type="text/babel" src="/js/ui/NavBar.js"></script>
+    <script type="text/babel" src="/js/ui/form-controls.js"></script>
     <script>
       "use strict";
       // js goes here
@@ -44,9 +61,397 @@
         <NavBar curPath="" />,
         document.getElementById('nav-bar-container')
       );
+
+      // render the footer
+      ReactDOM.render(
+        <ThostFooter />,
+        document.getElementById('footer')
+      );
       
       // babel (js for React) goes here
 
+      // 12 results per page
+      const pageLimit = 4;
+
+      class PageNoBar extends React.Component {
+        constructor(props) {
+          super(props);
+          this.clickHandler = this.clickHandler.bind(this);
+        }
+
+        genPageNos(curPageNo, lastPageNo) {
+          if (typeof lastPageNo !== 'number') {
+            lastPageNo = Number.MAX_SAFE_INTEGER;
+          }
+
+          let pageNos = ['<'];
+          if (curPageNo <= 2) {
+            for (let p = 1; p <= 4 && p <= lastPageNo; p++) {
+              pageNos.push(p);
+            }
+          } else {
+            for (let p = curPageNo - 2; p <= curPageNo + 1 && p <= lastPageNo; p++) {
+              pageNos.push(p);
+            }
+          }
+          if (pageNos[pageNos.length - 1] < lastPageNo) {
+            pageNos.push('...');
+          }
+          pageNos.push('>');
+          return pageNos;
+        }
+
+        clickHandler(no) {
+          let { curPageNo, onPageNoChange, lastPageNo } = this.props;
+          if (typeof lastPageNo !== 'number') {
+            lastPageNo = Number.MAX_SAFE_INTEGER;
+          }
+
+          let newPageNo = null;
+
+          if (!isNaN(no) && no != curPageNo) {
+            newPageNo = parseInt(no);
+          } else if (no === '<' && curPageNo > 1) {
+            newPageNo = curPageNo - 1;
+          } else if (no === '>' && curPageNo < lastPageNo) {
+            newPageNo = curPageNo + 1;
+          }
+          if (newPageNo) { onPageNoChange(newPageNo); }
+        }
+
+        render() {
+          let { curPageNo, lastPageNo } = this.props;
+          if (typeof lastPageNo !== 'number') {
+            lastPageNo = Number.MAX_SAFE_INTEGER;
+          }
+
+          // just be cautious
+          if (typeof lastPageNo === 'number' && curPageNo > lastPageNo) {
+            throw new Error('curPageNo > lastPageNo');
+          }
+
+          let pageNos = this.genPageNos(curPageNo, lastPageNo);
+          let disablePrev = curPageNo === 1;
+          let disableNext = curPageNo === lastPageNo;
+
+          return (
+            <div className={`PageNoBar ${disablePrev ? 'disable-prev' : ''} ${disableNext ? 'disable-next' : ''}`}>
+              {pageNos.map(no => (
+                <span key={no} onClick={this.clickHandler.bind(this, no)}
+                  className={`page-no ${no === curPageNo ? 'cur-page' : ''} ${no === '...' ? 'dots' : ''}`}>
+                  {no}
+                </span>
+              ))}
+            </div>
+          );
+        }
+      }
+
+      const VenueResult = ({ venue }) => {
+        let { _id, name, imgUrl, about } = venue;
+        about = about.slice(0, 360);
+
+        let href = `/html/venue.html?venueId=${_id}`;
+
+        let imgStyle = {
+          // height: 360,
+          backgroundImage: `url("${imgUrl}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        };
+
+        let titleStyle = {
+          fontSize: 20,
+          fontWeigth: 'bold',
+          paddingBottom: 6,
+        };
+
+        let aboutStyle = {
+          fontSize: 14,
+          fontWeight: 'lighter',
+          opacity: .5
+        };
+
+        return (
+          <a className="VenueResult thost-card" href={href}>
+            <div className="VenueResult-img" style={imgStyle}></div>
+            <div className="VenueResult-text">
+              <div>
+                <div style={titleStyle}>{name}</div>
+              </div>
+              <div style={aboutStyle}>{about}</div>
+            </div>
+          </a>
+        );
+      }
+
+      const NoResult = (props) => (
+        <div className="NoResult">
+          Sorry, no venue matches your search criteria.<br/>
+          Please try a different search.
+        </div>
+      );
+
+      class VenueResultList extends React.Component {
+        render() {
+          let { venues, curPageNo, lastPageNo, onPageNoChange } = this.props;
+          let from = (curPageNo - 1) * pageLimit;
+          venues = venues.slice(from, from + pageLimit);
+
+          return (
+            <div className="VenueResultList">
+              {venues.map(venue => <VenueResult venue={venue} key={venue._id} />)}
+              {lastPageNo !== 0 && (
+                <PageNoBar curPageNo={curPageNo} lastPageNo={lastPageNo}
+                  onPageNoChange={onPageNoChange} />
+              )}
+              {lastPageNo === 0 && (
+                <NoResult />
+              )}
+            </div>
+          );
+        }
+      }
+
+      const SearchPage = withNotifications(
+        class extends React.Component {
+          constructor(props) {
+            super(props);
+            this.filtersChangeHandler = this.filtersChangeHandler.bind(this);
+            this.searchBtnClickHandler = this.searchBtnClickHandler.bind(this);
+            this.pageNoChangeHandler = this.pageNoChangeHandler.bind(this);
+
+            this.state = this.getDefaultState();
+          }
+
+          getDefaultState() {
+            return {
+              filters: {
+                name: '', 
+                type: undefined, 
+                center: undefined, 
+                distance: undefined
+              },
+              resultList: [],
+              pageNo: 1,
+              lastPageNo: undefined,
+              sort: { _id: 1 }
+            };
+          }
+
+          // NOTE: not just filters, ALSO pageNo, sort...
+          writeFiltersToUrl() {
+            let { pageNo, sort } = this.state;
+            let { name, type, center, distance } = this.state.filters;
+            if (type === 'all') { type = undefined; }
+            if (!center || !distance || distance === 'all') {
+              center = undefined;
+              distance = undefined;
+            }
+            let queryObj = { pageNo, name, type, center, distance, sort: _encodeSort(sort) };
+            let queryStr = mapObjToQueryStr(queryObj);
+
+            if (queryStr) {
+              window.history.replaceState({}, '', queryStr);
+            }
+          }
+
+          /**
+           * set `initial` to true when the page is first loaded.
+           * When user clicks on the search button on this page, or
+           * set new filters, set `initial` to false.
+           */
+          triggerSearch(initial = true) {
+            // don't alter `curState`
+            let curState = initial ? clone(this.state) :
+              { ...this.getDefaultState(), filters: clone(this.state.filters) };
+
+            let { pageNo, sort } = curState;
+            sort = _encodeSort(sort);
+            let { name, type, center, distance } = curState.filters;
+            if (!center || !distance) {
+              center = undefined;
+              distance = undefined;
+            }
+            // by default, retrieve first 4 pages all in once
+            // (in case no pageNo on the url)
+            // if `pageNo` is greater than 2, retrieve first
+            // ${pageNo + 2} pages
+            let limit = pageNo > 2 ? (pageNo + 2) * pageLimit : 4 * pageLimit;
+            let queryObj = { name, type, center, distance, limit, sort };
+            let queryStr = mapObjToQueryStr(queryObj);
+            
+            axios.get('/venues' + queryStr)
+              .then(resp => {
+                let resultList = resp.data.data;
+                let nextState = { ...curState, resultList };
+
+                if (resultList.length < limit) {
+                  nextState.lastPageNo = Math.ceil(resultList.length / pageLimit);
+                  pageNo = Math.min(pageNo, nextState.lastPageNo);
+                  nextState.pageNo = pageNo;
+                }
+                this.setState(nextState, () => this.writeFiltersToUrl());
+              })
+              .catch(err => {
+                let payload = err.response.data;
+                let message = message = payload.details || payload.message;
+
+                addNotification(new NotificationEntry({ message }));
+              });
+          }
+
+          /**
+           * Note that calling this function might now load more venues, because
+           * we fetch 4 pages when the page is first loaded. At least, we cache two
+           * more pages for user.
+           */
+          retrieveMoreVenues() {
+            let { pageNo, lastPageNo, filters, sort, resultList } = this.state;
+            // a cautious checking
+            if (lastPageNo) { return; }
+
+            let limit = pageLimit * (pageNo + 2) - resultList.length;
+            if (limit < 1) { return; }
+
+            let { name, type, center, distance } = filters;
+            let lastResult = resultList[resultList.length - 1];
+            let lastId = lastResult._id;
+            sort = _encodeSort(sort);
+
+            let queryObj = { name, type, center, distance, limit, sort, lastId };
+            let queryStr = mapObjToQueryStr(queryObj);
+
+            axios.get('/venues' + queryStr)
+              .then(resp => {
+                // returned data
+                let indexedList = resp.data.data;
+                // next state going to set
+                let nextState = {
+                  ...clone(this.state), 
+                  resultList: [...resultList, ...indexedList]
+                };
+
+                if (indexedList.length < limit) {
+                  nextState.lastPageNo = Math.ceil(nextState.resultList.length / pageLimit);
+                  pageNo = Math.min(pageNo, nextState.lastPageNo);
+                  nextState.pageNo = pageNo;
+                }
+                this.setState(nextState, () => this.writeFiltersToUrl());
+              })
+              .catch(err => {
+                let payload = err.response.data;
+                let message = message = payload.details || payload.message;
+
+                addNotification(new NotificationEntry({ message }));
+              });
+          }
+
+          filtersChangeHandler(filters) {
+            this.setState(prevState => {
+              return {
+                filters: { ...prevState.filters, ...filters }
+              };
+            });
+          }
+
+          searchBtnClickHandler() {
+            if (!this.state.filters.name) {
+              let message = 'Please input something before searching.';
+              this.props.addNotification(new NotificationEntry({ message, timeout: 3000 }));
+              return;
+            }
+
+            // this.writeFiltersToUrl();
+            this.triggerSearch(false);
+          }
+
+          // user clicked the page-no bar
+          pageNoChangeHandler(pageNo) {
+            let { pageNo: prevPageNo, lastPageNo } = this.state;
+
+            this.setState({ pageNo }, () => {
+              this.writeFiltersToUrl();
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+
+              if (pageNo > prevPageNo && !lastPageNo) {
+                // user clicked a page no. greater than previous page
+                // and we haven't loaded all pages yet (`lastPageNo` is undefined)
+                // we might need to fetch more venues (cache them before user switching)
+                // (or might not because we fetch 4 pages when page first loaded)
+                this.retrieveMoreVenues();
+              }
+            });
+          }
+
+          componentDidMount() {
+            // constrcut next state from url
+            let nextState = {};
+            // read filters from url (part of `nextState` above)
+            let filters = {};
+
+            /* init name from url */
+            let name = getQueryParamVal('name');
+            if (name) { filters.name = name; }
+            /* init type from url */
+            let type = getQueryParamVal('type');
+            if (type) { filters.type = type; }
+            /* init pageNo from url */
+            let pageNo = getQueryParamVal('pageNo');
+            if (!isNaN(pageNo) && parseInt(pageNo) > 0) {
+              pageNo = parseInt(pageNo);
+            } else {
+              pageNo = undefined;
+            }
+            /* init sort from url */ 
+            let sort = getQueryParamVal('sort');
+            if (sort) {
+              sort = _parseSort(sort);
+            }
+
+            // push fields into next state
+            if (filters) { nextState.filters = filters; }
+            if (pageNo) { nextState.pageNo = pageNo; }
+            if (sort) { nextState.sort = sort; }
+
+            let typeToDisplay = capitalizeStr(getQueryParamVal('type'));
+            nextState.typeToDisplay = typeToDisplay;
+
+            // initialize filters, search and more to state
+            this.setState(nextState, () => {
+              this.writeFiltersToUrl();
+              this.triggerSearch();
+            });
+          }
+
+          render() {
+            let { filters, resultList, pageNo, lastPageNo, typeToDisplay } = this.state;
+
+            return (
+              <div className="SearchPage">
+                <div className="venue-filters-container">
+                  <div>{typeToDisplay}</div>
+                  <div>Over 1,000 venues for you to choose.</div>
+                </div>
+                <div className="venue-list-container">
+                  <VenueResultList venues={resultList}
+                    curPageNo={pageNo} lastPageNo={lastPageNo}
+                    onPageNoChange={this.pageNoChangeHandler} />
+                </div>
+              </div>
+            );
+          }
+        }
+      );
+
+      ReactDOM.render((
+          <App>
+            <SearchPage />  
+          </App>
+        ),
+        document.getElementById('root')
+      );
     </script>
   </body>
 </html>

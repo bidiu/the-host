@@ -186,6 +186,9 @@ body::after{
   color: #ffffff !important;
   text-shadow: 0 0 4px #00000026;
   position: relative;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .VenueTypeCard::before {
