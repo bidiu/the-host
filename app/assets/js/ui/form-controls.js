@@ -5,7 +5,7 @@ class VenueSearchBox extends React.Component {
   }
 
   inputChangeHandler(e) {
-    this.props.onNameChange(e.target.value.trim());
+    this.props.onNameChange(e.target.value);
   }
 
   render() {

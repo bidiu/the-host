@@ -479,14 +479,17 @@
           }
 
           searchBtnClickHandler() {
-            if (!this.state.filters.name) {
+            let { name } = this.state.filters
+            if (name) { name = name.trim(); }
+            if (!name) {
               let message = 'Please input something before searching.';
               this.props.addNotification(new NotificationEntry({ message, timeout: 3000 }));
               return;
             }
 
-            // this.writeFiltersToUrl();
-            this.triggerSearch(false);
+            this.setState(prevState => ({
+              filters: { ...prevState.filters, name }
+            }), () => this.triggerSearch(false));
           }
 
           // user clicked the page-no bar
@@ -516,7 +519,7 @@
 
             /* init name from url */
             let name = getQueryParamVal('name');
-            if (name) { filters.name = name; }
+            if (name) { filters.name = name.trim(); }
             /* init type from url */
             let type = getQueryParamVal('type');
             if (type) { filters.type = type; }

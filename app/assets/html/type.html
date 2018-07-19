@@ -73,6 +73,129 @@
       // 12 results per page
       const pageLimit = 4;
 
+      class VenueFilter extends React.Component {
+        constructor(props) {
+          super(props);
+          this.nameChangeHandler = this.nameChangeHandler.bind(this);
+          this.typeChangeHandler = this.typeChangeHandler.bind(this);
+          this.distChangeHandler = this.distChangeHandler.bind(this);
+          this.distOpenHandler = this.distOpenHandler.bind(this);
+          this.toggleExpand = this.toggleExpand.bind(this);
+
+          this.state = { expand: false, venueTypes: [] };
+        }
+
+        nameChangeHandler(name) {
+          this.props.onFiltersChange({ name });
+        }
+
+        typeChangeHandler(type) {
+          if (typeof type === 'object') {
+            type = type.value;
+          }
+          this.props.onFiltersChange({ type });
+        }
+
+        distChangeHandler({ value: distance }) {
+          this.props.onFiltersChange({
+            center: this.center || '45.411518699999995,-75.6559137',
+            distance
+          });
+        }
+
+        distOpenHandler() {
+          getPosition()
+            .then(({ latitude, longitude }) => {
+              this.center = `${latitude},${longitude}`;
+            })
+            .catch(() => {});
+        }
+
+        toggleExpand() {
+          this.setState(prevState => ({
+            expand: !prevState.expand
+          }));
+        }
+
+        collapse() {
+          this.setState({ expand: false });
+        }
+
+        componentDidMount() {
+          axios.get('/venue/types')
+            .then(resp => {
+              let venueTypes = resp.data.data;
+              venueTypes.unshift('all');
+
+              this.setState({ venueTypes });
+            })
+            .catch(err => {
+              let payload = err.response.data;
+              let message = message = payload.details || payload.message;
+
+              addNotification(new NotificationEntry({ message, timeout: 3000 }));
+            });
+        }
+
+        render() {
+          let { expand, venueTypes } = this.state;
+          let { filters, onSearchBtnClick } = this.props;
+          let { name = '', type = 'all', distance = 'all' } = filters;
+          let typeOptions = venueTypes.map(type => ({ value: type, label: type }));
+          let distOptions = [
+            { value: 'all', label: 'all' },
+            { value: '1', label: 'within 1 km' },
+            { value: '2', label: 'within 2 km' },
+            { value: '5', label: 'within 5 km' },
+            { value: '10', label: 'within 10 km' },
+            { value: '20', label: 'within 20 km' },
+            { value: '50', label: 'within 50 km' },
+          ];
+
+          return (
+            <div className={`VenueFilter ${expand ? 'VenueFilter-expand': ''}`}>
+              <div className="VenueFilter-up">
+                {/* name */}
+                <div className="VenueFilter-search-box">
+                  <VenueSearchBox name={name}
+                    onNameChange={this.nameChangeHandler}
+                    onBtnClick={() => {this.collapse(); onSearchBtnClick();}} />
+                </div>
+                <button className="thost-light-btn filters-btn"
+                  onClick={this.toggleExpand}>
+                  <i className="material-icons">filter_list</i>
+                  <span>FILTERS</span>
+                </button>
+              </div>
+              <div className="VenueFilter-bottom">
+                {/* type filter */}
+                <div className="VenueFilter-filter">
+                  <div className="VenueFilter-filter-title">Type</div>
+                  <Select 
+                    name="type"
+                    value={type}
+                    onChange={this.typeChangeHandler}
+                    options={typeOptions}
+                    clearable={false} />
+                </div>
+
+                {/* distance filter */}
+                <div className="VenueFilter-filter">
+                  <div className="VenueFilter-filter-title">Distance</div>
+                  <Select 
+                    name="distance"
+                    value={distance}
+                    onChange={this.distChangeHandler}
+                    onOpen={this.distOpenHandler}
+                    options={distOptions}
+                    clearable={false} />
+                </div>
+              </div>
+            </div>
+          );
+        }
+      }
+
       class PageNoBar extends React.Component {
         constructor(props) {
           super(props);
@@ -356,14 +479,15 @@
           }
 
           searchBtnClickHandler() {
-            if (!this.state.filters.name) {
-              let message = 'Please input something before searching.';
-              this.props.addNotification(new NotificationEntry({ message, timeout: 3000 }));
-              return;
+            let { name } = this.state.filters
+            if (name) { name = name.trim(); }
+            if (!name) {
+              name = undefined;
             }
 
-            // this.writeFiltersToUrl();
-            this.triggerSearch(false);
+            this.setState(prevState => ({
+              filters: { ...prevState.filters, name }
+            }), () => this.triggerSearch(false));
           }
 
           // user clicked the page-no bar
@@ -393,7 +517,7 @@
 
             /* init name from url */
             let name = getQueryParamVal('name');
-            if (name) { filters.name = name; }
+            if (name) { filters.name = name.trim(); }
             /* init type from url */
             let type = getQueryParamVal('type');
             if (type) { filters.type = type; }
@@ -430,9 +554,14 @@
 
             return (
               <div className="SearchPage">
-                <div className="venue-filters-container">
+                <div className="jumbotron-container">
                   <div>{typeToDisplay}</div>
                   <div>Over 1,000 venues for you to choose.</div>
+                </div>
+                <div className="venue-filters-container">
+                  <VenueFilter filters={filters}
+                    onFiltersChange={this.filtersChangeHandler}
+                    onSearchBtnClick={this.searchBtnClickHandler} />
                 </div>
                 <div className="venue-list-container">
                   <VenueResultList venues={resultList}
