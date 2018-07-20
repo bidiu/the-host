@@ -32,7 +32,7 @@ class _SimpleSearchBox extends React.Component {
 
     return (
       <div className="SimpleSearchBox" onSubmit={this.submitHandler}>
-        <input type="text" placeholder="Search a venue here!"
+        <input type="text" placeholder="Try &quot;cosy restaurant in Ottawa&quot;"
           value={venueName} onChange={this.inputChangeHandler}
           className="SimpleSearchBox-input"/>
         <i className="material-icons SimpleSearchBox-btn"

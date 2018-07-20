@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/react-select@1.2.1/dist/react-select.css">
     <link href="/css/search.css" rel="stylesheet">
 
-    <title>The Host</title>
+    <title>Searching - The Host</title>
   </head>
   <body>
     <!-- navigation bar -->
@@ -78,6 +78,8 @@
           super(props);
           this.nameChangeHandler = this.nameChangeHandler.bind(this);
           this.typeChangeHandler = this.typeChangeHandler.bind(this);
+          this.distChangeHandler = this.distChangeHandler.bind(this);
+          this.distOpenHandler = this.distOpenHandler.bind(this);
           this.toggleExpand = this.toggleExpand.bind(this);
 
           this.state = { expand: false, venueTypes: [] };
@@ -92,6 +94,21 @@
             type = type.value;
           }
           this.props.onFiltersChange({ type });
+        }
+
+        distChangeHandler({ value: distance }) {
+          this.props.onFiltersChange({
+            center: this.center || '45.411518699999995,-75.6559137',
+            distance
+          });
+        }
+
+        distOpenHandler() {
+          getPosition()
+            .then(({ latitude, longitude }) => {
+              this.center = `${latitude},${longitude}`;
+            })
+            .catch(() => {});
         }
 
         toggleExpand() {
@@ -123,8 +140,17 @@
         render() {
           let { expand, venueTypes } = this.state;
           let { filters, onSearchBtnClick } = this.props;
-          let { name, type = 'all' } = filters;
-          let options = venueTypes.map(type => ({ value: type, label: type }));
+          let { name = '', type = 'all', distance = 'all' } = filters;
+          let typeOptions = venueTypes.map(type => ({ value: type, label: type }));
+          let distOptions = [
+            { value: 'all', label: 'all' },
+            { value: '1', label: 'within 1 km' },
+            { value: '2', label: 'within 2 km' },
+            { value: '5', label: 'within 5 km' },
+            { value: '10', label: 'within 10 km' },
+            { value: '20', label: 'within 20 km' },
+            { value: '50', label: 'within 50 km' },
+          ];
 
           return (
             <div className={`VenueFilter ${expand ? 'VenueFilter-expand': ''}`}>
@@ -142,15 +168,28 @@
                 </button>
               </div>
               <div className="VenueFilter-bottom">
+                {/* type filter */}
                 <div className="VenueFilter-filter">
-                  <div className="VenueFilter-filter-title">TYPES</div>
+                  <div className="VenueFilter-filter-title">Type</div>
                   <Select 
                     name="type"
                     value={type}
                     onChange={this.typeChangeHandler}
-                    options={options}
+                    options={typeOptions}
                     clearable={false} />
-                </div>  
+                </div>
+
+                {/* distance filter */}
+                <div className="VenueFilter-filter">
+                  <div className="VenueFilter-filter-title">Distance</div>
+                  <Select 
+                    name="distance"
+                    value={distance}
+                    onChange={this.distChangeHandler}
+                    onOpen={this.distOpenHandler}
+                    options={distOptions}
+                    clearable={false} />
+                </div>
               </div>
             </div>
           );
@@ -269,6 +308,13 @@
         );
       }
 
+      const NoResult = (props) => (
+        <div className="NoResult">
+          Sorry, no venue matches your search criteria.<br/>
+          Please try a different search.
+        </div>
+      );
+
       class VenueResultList extends React.Component {
         render() {
           let { venues, curPageNo, lastPageNo, onPageNoChange } = this.props;
@@ -278,8 +324,13 @@
           return (
             <div className="VenueResultList">
               {venues.map(venue => <VenueResult venue={venue} key={venue._id} />)}
-              <PageNoBar curPageNo={curPageNo} lastPageNo={lastPageNo}
-                onPageNoChange={onPageNoChange} />
+              {lastPageNo !== 0 && (
+                <PageNoBar curPageNo={curPageNo} lastPageNo={lastPageNo}
+                  onPageNoChange={onPageNoChange} />
+              )}
+              {lastPageNo === 0 && (
+                <NoResult />
+              )}
             </div>
           );
         }
@@ -298,7 +349,12 @@
 
           getDefaultState() {
             return {
-              filters: { name: '', type: undefined },
+              filters: {
+                name: '', 
+                type: undefined, 
+                center: undefined, 
+                distance: undefined
+              },
               resultList: [],
               pageNo: 1,
               lastPageNo: undefined,
@@ -309,8 +365,13 @@
           // NOTE: not just filters, ALSO pageNo, sort...
           writeFiltersToUrl() {
             let { pageNo, sort } = this.state;
-            let { name, type } = this.state.filters;
-            let queryObj = { pageNo, name, type, sort: _encodeSort(sort) };
+            let { name, type, center, distance } = this.state.filters;
+            if (type === 'all') { type = undefined; }
+            if (!center || !distance || distance === 'all') {
+              center = undefined;
+              distance = undefined;
+            }
+            let queryObj = { pageNo, name, type, center, distance, sort: _encodeSort(sort) };
             let queryStr = mapObjToQueryStr(queryObj);
 
             if (queryStr) {
@@ -330,13 +391,17 @@
 
             let { pageNo, sort } = curState;
             sort = _encodeSort(sort);
-            let { name, type } = curState.filters;
+            let { name, type, center, distance } = curState.filters;
+            if (!center || !distance) {
+              center = undefined;
+              distance = undefined;
+            }
             // by default, retrieve first 4 pages all in once
             // (in case no pageNo on the url)
             // if `pageNo` is greater than 2, retrieve first
             // ${pageNo + 2} pages
             let limit = pageNo > 2 ? (pageNo + 2) * pageLimit : 4 * pageLimit;
-            let queryObj = { name, type, limit, sort };
+            let queryObj = { name, type, center, distance, limit, sort };
             let queryStr = mapObjToQueryStr(queryObj);
             
             axios.get('/venues' + queryStr)
@@ -372,12 +437,12 @@
             let limit = pageLimit * (pageNo + 2) - resultList.length;
             if (limit < 1) { return; }
 
-            let { name } = filters;
+            let { name, type, center, distance } = filters;
             let lastResult = resultList[resultList.length - 1];
             let lastId = lastResult._id;
             sort = _encodeSort(sort);
 
-            let queryObj = { name, limit, sort, lastId };
+            let queryObj = { name, type, center, distance, limit, sort, lastId };
             let queryStr = mapObjToQueryStr(queryObj);
 
             axios.get('/venues' + queryStr)
@@ -414,14 +479,17 @@
           }
 
           searchBtnClickHandler() {
-            if (!this.state.filters.name) {
+            let { name } = this.state.filters
+            if (name) { name = name.trim(); }
+            if (!name) {
               let message = 'Please input something before searching.';
               this.props.addNotification(new NotificationEntry({ message, timeout: 3000 }));
               return;
             }
 
-            // this.writeFiltersToUrl();
-            this.triggerSearch(false);
+            this.setState(prevState => ({
+              filters: { ...prevState.filters, name }
+            }), () => this.triggerSearch(false));
           }
 
           // user clicked the page-no bar
@@ -451,7 +519,7 @@
 
             /* init name from url */
             let name = getQueryParamVal('name');
-            if (name) { filters.name = name; }
+            if (name) { filters.name = name.trim(); }
             /* init type from url */
             let type = getQueryParamVal('type');
             if (type) { filters.type = type; }

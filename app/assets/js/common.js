@@ -104,9 +104,25 @@ function getCurrentPos(onSuccess, onFailure) {
     onSuccess(position.coords);
   }, function(code) {
     onFailure(code);
-    alert("To show the weather of your location, please allow this app :P");
+    alert("To use distance filter, please allow this app to access your location :P");
   });
 };
+
+/**
+ * Promise based - either resolve with the coordinate,
+ * or reject with a error code.
+ */
+function getPosition() {
+  return new Promise((resolve, reject) => {
+    getCurrentPos(resolve, reject);
+  });
+}
+
+function capitalizeStr(str) {
+  return str.replace(/\w\S*/g, function(txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
 
 const calcOffsetToDoc = (el) => {
   var rect = el.getBoundingClientRect(),

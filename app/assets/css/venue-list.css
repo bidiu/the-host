@@ -21,13 +21,13 @@
   margin-bottom: 0;
 }
 
-.jumbotron-heading {
+/* .jumbotron-heading {
   font-weight: 300;
-}
+} */
 
-.jumbotron .container {
+/* .jumbotron .container {
   max-width: 40rem;
-}
+} */
 
 /* footer {
   padding-top: 3rem;
@@ -44,6 +44,7 @@ footer p {
 /* below is what is added by us */
 
 .venue-thumb-img {
+  display: block;
   height: 220px;
   width: 100%;
 }
@@ -54,8 +55,14 @@ footer p {
   overflow: hidden;
 }
 
+body::after{
+  position: absolute; width:0; height:0; overflow:hidden; z-index:-1;
+  content: url("/img/tj1.jpg") url("/img/tj2.jpg") url("/img/tj3.jpg");
+}
+
 .jumbotron {
-  background-image: url("/img/event_new_6.jpeg");
+  background: linear-gradient(80deg, #ff424e, #ff846e);
+  background-image: url("/img/tj1.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -86,23 +93,140 @@ footer p {
   right: 50%;
 }
 
-.bg_pic1 {
-  background-image: url("/img/event6.jpg");
+.text-above-box {
+  margin-bottom: 48px;
+}
+
+.main-content {
+  padding-top: 0 !important;
+}
+
+@keyframes jumbotron-trans {
+  from {
+    background-image: url("/img/tj1.jpg");
+  }
+  20% {
+    background-image: url("/img/tj1.jpg");
+  }
+  28% {
+    background-image: url("/img/tj2.jpg");
+  }
+  72% {
+    background-image: url("/img/tj2.jpg");
+  }
+  80% {
+    background-image: url("/img/tj3.jpg");
+  }
+  to {
+    background-image: url("/img/tj3.jpg");
+  }
+}
+
+.thost-jumbotron {
+  text-shadow: 0 0 4px #00000026;
+  animation: jumbotron-trans 18s linear both infinite alternate;
+}
+
+#search-box-container {
+  text-shadow: initial;
+}
+
+#type-carousel-container {
+  padding: 0 32px;
+}
+
+.TypeCarousel .slick-list {
+  padding: 0 12px;
+}
+
+.TypeCarousel .slick-prev,
+.TypeCarousel .slick-next {
+  width: 52px;
+  height: 52px;
+  z-index: 300;
+  opacity: 1 !important;
+}
+
+.TypeCarousel .slick-prev:before,
+.TypeCarousel .slick-next:before {
+  font-family: 'Material Icons';
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 1px 0 rgba(20, 23, 28, .1);
+  width: 52px;
+  height: 52px;
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 52px;
+  color: #ff6161;
+  background-color: #ffffff;
+  opacity: 1 !important;
+  font-size: 24px;
+}
+
+.TypeCarousel .slick-disabled:before {
+  color: #c5c5c5;
+  cursor: auto;
+}
+
+.TypeCarousel .slick-prev:before {
+  content: "keyboard_arrow_left";
+}
+
+.TypeCarousel .slick-next:before {
+  content: "keyboard_arrow_right";
+}
+
+.VenueTypeCard {
+  margin: 22px 8px;
+  width: 340px;
+  height: 180px;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+  background: linear-gradient(150deg, #ff424e, #ff846e);
+  color: #ffffff !important;
+  text-shadow: 0 0 4px #00000026;
+  position: relative;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
 
-.bg_pic2 {
-  background-image: url("/img/event55.jpg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+.VenueTypeCard::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #000000;
+  opacity: .3;
 }
 
-.bg_pic3 {
-  background-image: url("/img/event7.png");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+.VenueTypeCard div {
+  z-index: 300;
+  position: absolute;
+  margin: 0 0 8px 16px;
+  left: 0;
+  bottom: 0;
+  text-shadow: 0 0 4px #00000056;
+  font-size: 32px;
+}
+
+@media (max-width: 576px) {
+  .TypeCarousel .slick-prev,
+  .TypeCarousel .slick-next {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+  }
+
+  #type-carousel-container {
+    padding: 0 12px;
+  }
+
+  .VenueTypeCard {
+    width: 260px;
+    height: 120px;
+  }
 }

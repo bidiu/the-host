@@ -14,16 +14,16 @@ a {
 }
 
 .thost-card {
-box-shadow: 0 1px 1px 0 rgba(10,16,34,.4)!important;
-border-radius: 6px;
-overflow: hidden;
-padding: 16px;
-box-sizing: border-box;
-transition: .3s;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 1px 1px 0 rgba(107, 107, 107, 0.4)!important;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+  transition: .3s;
 }
 
 .thost-card:hover {
-box-shadow: 0 10px 30px -5px rgba(10,16,34,.2)!important;
+  box-shadow: 0 0 1px 1px rgba(177, 177, 177, 0.1), 0 8px 24px 0 rgba(78, 78, 78, 0.2)!important;
 }
 
 /* Rules for sizing the icon. */
@@ -113,4 +113,13 @@ box-shadow: 0 10px 30px -5px rgba(10,16,34,.2)!important;
 
 .thost-primary-btn:hover {
   box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 2px 2px 2px 1px rgba(20, 23, 28, .1);
+}
+
+a.disable-link-style,
+a.disable-link-style:hover,
+a.disable-link-style:link,
+a.disable-link-style:visited {
+  color: inherit;
+  text-decoration: inherit;
+  outline: none;
 }
