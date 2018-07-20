@@ -444,3 +444,55 @@ margin-bottom: 0 !important;
   align-items: center;
  }
 
+
+/* 
+ * card-list body and responsive setting
+ */ 
+.card-layout {
+  
+  max-width:320px;
+  margin: 0 16px 16px 0;
+}
+
+.list-body {
+  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  width:auto;
+  margin: 0 32px;
+}
+
+.body-part {
+
+  left: 2px;
+  margin: 20px;
+}
+
+.list-title {
+
+  margin: 0 32px;
+}
+
+@media (max-width: 574px) {
+  
+  .list-body {
+    margin: 0 16px;
+    justify-content: center;
+  }
+  .card-layout {
+    max-width: none; 
+  }
+}
+
+@media (max-width: 574px) {
+  
+  .list-body {
+    margin: 0 16px;
+    justify-content: center;
+  }
+  .card-layout {
+    max-width: none; 
+  }
+}

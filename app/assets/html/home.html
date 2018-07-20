@@ -90,13 +90,14 @@
     </div> -->
    
     
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <div class="card-list-title">
+    
+    <div>
+      <div>
+        <div class="list-title">
           <h3>Featured Venues</h3>
           <hr/>
         </div>
-        <div class="row" id="venue-cards-container">
+        <div class="list-body" id="venue-cards-container">
             
           <!-- React renders here. -->
         </div>
@@ -145,7 +146,7 @@
      */
     const VenueCard = ({ venue }) => {
       return (
-        <div className="col-md-4">
+        <div className="card-layout">
           
           <div className="card mb-4 box-shadow">
             <div className="spanImg">
