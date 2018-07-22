@@ -150,3 +150,11 @@ body {
   opacity: 1;
   color: #ff6161;
 }
+
+.cancellation-policy-content p {
+  padding: 6px 0 12px 0;
+}
+
+.cancellation-policy-content ul {
+  padding-left: 42px;
+}

@@ -114,7 +114,7 @@
                   <div className="row venue-details">
                     
                     <div className="col-6 details-part"><i className="material-icons">event_available</i><span>&nbsp;11:30–23:00</span></div>
-                    <div className="col-6 details-part"><i className="material-icons">sort</i><span>&nbsp;{type}</span></div>
+                    <div className="col-6 details-part"><i className="material-icons">sort</i><span>&nbsp;{capitalizeStr(type)}</span></div>
                     <div className="w-100"></div>
                     <div className="col-6 details-part"><i className="material-icons">local_parking</i><span>&nbsp;Free</span></div>
                     <div className="col-6 details-part"><i className="material-icons">wifi</i><span>&nbsp;Wifi</span></div>
@@ -149,8 +149,36 @@
 
             {/* faqs */}
             <div className="thost-card">
-              <div className="h3">FAQ</div>
-              <div>TODO</div>
+              <div className="h3">Cancellation Policy</div>
+              <div className="cancellation-policy-content">
+                <p>
+                  Outdoorsy allows owners to choose from three standardized cancellation policies (Flexible, Moderate and Strict) that we enforce to protect both owners and renters.
+                  An owner’s cancellation policy determines the amount of the renter’s reservation deposit. The reservation total is charged to all bookings made 14 or more days in advance.
+                  If a booking is less than 14 days away, the reservation is charged in full. If a booking is more than 14 days away, renters have the option to pay the reservation deposit
+                  in two installments - the first being a partial reservation deposit, the second a reservation remainder to be paid 14 days before the booking start date.
+                  A 48-hour grace period after booking is granted for renter cancellations made more than 14 days in advance. If canceled during this grace period, a full refund including all
+                  fees will be issued to the renter and the owner won’t receive payment.
+                </p>
+                <p>
+                  All cancellation policy refund amounts are calculated from the total rental amount before fees, and not from the reservation deposit.
+                </p>
+                <p>Flexible:</p>
+                <ul>
+                  <li>Reservation deposit (25% of full trip cost) is refundable if canceled more than five days prior to booking start date</li>
+                  <li>If the renter has paid in full and the booking is canceled more than five days prior to booking start date, a full refund (minus fees) is issued</li>
+                  <li>If canceled less than five days prior to booking start date, a partial refund of 75 percent of the full rental amount (minus fees) is issued, but the reservation deposit is non-refundable.</li>
+                </ul>
+                <p>Moderate:</p>
+                <ul>
+                  <li>Reservation deposit (25% of full trip cost) is non-refundable</li>
+                  <li>If canceled and the renter has only paid the reservation deposit, no refund is issued</li>
+                  <li>If canceled less than 14 days prior to booking start date, no refund is issued</li>
+                </ul>
+                <p>
+                  All cancellations must be submitted via the Outdoorsy booking dashboard, which can be found by going to “Dashboard” > “Booking Details” > “Cancel”, or by contacting
+                  Outdoorsy directly. Any attempt to cancel a trip without involving Outdoorsy won’t be treated as a cancellation.
+                </p>
+              </div>
             </div>
           </div>
         );
