@@ -96,10 +96,27 @@ body {
 
 .BookForm-section {
   padding: 8px 0;
+  box-sizing: border-box;
 }
 
 .BookForm-section:last-of-type {
   padding: 16px 0 0 0;
+}
+
+.policy-checkbox-container {
+  max-width: 312px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.policy-checkbox-container input {
+  margin-right: 10px;
+}
+
+.policy-checkbox-container a {
+  opacity: .5;
+  text-decoration: underline;
 }
 
 .BookForm .react-datepicker__day--selected, 

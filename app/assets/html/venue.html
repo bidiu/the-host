@@ -149,7 +149,7 @@
 
             {/* faqs */}
             <div className="thost-card">
-              <div className="h3">Cancellation Policy</div>
+              <div className="h3" id="cancel-policy">Cancellation Policy</div>
               <div className="cancellation-policy-content">
                 <p>
                   Outdoorsy allows owners to choose from three standardized cancellation policies (Flexible, Moderate and Strict) that we enforce to protect both owners and renters.
@@ -315,6 +315,13 @@
                     <option value={i} key={i}>{i}</option>
                   ))}
                 </select>
+              </div>
+              <div className="BookForm-section policy-checkbox-container">
+                <input type="checkbox" defaultChecked={true} />
+                <span>
+                  By booking, you agree with our <a href="#" target="_blank">terms of use</a>&nbsp;and
+                  the venue's <a href="#cancel-policy" target="_blank">cancellation policy</a>.
+                </span>
               </div>
               <div className="BookForm-section">
                 <button type="submit" className="thost-primary-btn book-btn">
