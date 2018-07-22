@@ -9,7 +9,11 @@ const venueTypes = [
   { text: 'restaurant', img: '/img/type_restaurant.jpg' },
   { text: 'escape room', img: '/img/type_escape.jpg' },
   { text: 'entertainment', img: '/img/type_entertainment.jpg' },
-  { text: 'boardroom', img: '/img/type_boardroom.jpg' }
+  { text: 'boardroom', img: '/img/type_boardroom.jpg' },
+  { text: 'family', img: '/img/type_family.jpg' },
+  { text: 'experience', img: '/img/type_experience.png' },
+  { text: 'nature', img: '/img/type_nature.jpg' },
+  { text: 'learning', img: '/img/type_learning.jpg' }
 ];
 
 // parse sort query param

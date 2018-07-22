@@ -178,8 +178,8 @@ body::after{
 
 .VenueTypeCard {
   margin: 22px 8px;
-  width: 340px;
-  height: 180px;
+  width: 256px;
+  height: 144px;
   padding: 0;
   box-sizing: border-box;
   display: block;
