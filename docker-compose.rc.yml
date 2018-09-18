@@ -7,6 +7,8 @@ services:
     restart: always
     ports:
       - '27017:27017'
+    networks:
+      - inkbook
     volumes:
       - 'the_host_mongo_volume:/data/db'
 
@@ -16,6 +18,8 @@ services:
       context: ./api
       dockerfile: rc.Dockerfile
     image: the-host-api:rc
+    networks:
+      - inkbook
     depends_on:
       - the_host_mongo
   
@@ -25,6 +29,8 @@ services:
       context: ./app
       dockerfile: rc.Dockerfile
     image: the-host-app:rc
+    networks:
+      - inkbook
     depends_on:
       - the_host_api
 
@@ -40,6 +46,8 @@ services:
     volumes:
       - '/etc/ssl/private/inkbook.io.key:/etc/ssl/private/inkbook.io.key:ro'
       - '/etc/ssl/certs/inkbook.io-ssl-bundle.crt:/etc/ssl/certs/inkbook.io-ssl-bundle.crt:ro'
+    networks:
+      - inkbook
     depends_on:
       - the_host_api
       - the_host_app
@@ -47,3 +55,7 @@ services:
 volumes:
   # used by mongodb
   the_host_mongo_volume:
+
+networks:
+  inkbook:
+    external: true
